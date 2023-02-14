@@ -1,4 +1,4 @@
-from vbaProjectCompiler.FileIO.sectorChain import SectorChain
+from ms_cfb.Models.Filesystems.sectorChain import SectorChain
 
 
 class FatChain(SectorChain):

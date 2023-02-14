@@ -1,4 +1,4 @@
-from ms_cfb.fat_filesystem import FatChain
+from ms_cfb.Models.Filesystems.fat_filesystem import FatChain
 from ms_cfb.Models.Entities.Streams.streamBase import StreamBase
 
 

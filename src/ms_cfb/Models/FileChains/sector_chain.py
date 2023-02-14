@@ -1,24 +1,12 @@
 class SectorChain:
 
-    def __init__(self, size):
-        # The number of bytes in each sector
-        self._sectorSize = size
+    def __init__(self):
 
         # The next available sector on the chain
         self._nextFreeSector = 0
 
-        # Each stream begins at the start of a sector and is padded to fill
-        # the end of a sector.
-        self._streams = []
-
     def __len__(self):
         return self._nextFreeSector
-
-    def getSectorSize(self):
-        """
-        Get the number of bytes in each sector
-        """
-        return self._sectorSize
 
     def getChain(self):
         chain = []

@@ -1,7 +1,7 @@
-from ms_cfb.Models.Filesystems.sectorChain import SectorChain
+from ms_cfb.Models.Filesystems.filesystem_base import FilesystemBase
 
 
-class FatFilesystem(SectorChain):
+class FatFilesystem(FilesystemBase):
 
     def __init__(self, size):
         super().__init__(size)

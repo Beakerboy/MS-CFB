@@ -1,4 +1,4 @@
-from vbaProjectCompiler.Directories.directory import Directory
+from ms_cfb.Models.Directories.directory import Directory
 
 
 class StreamDirectory(Directory):

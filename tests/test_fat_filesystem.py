@@ -1,5 +1,5 @@
-from vbaProjectCompiler.FileIO.fatChain import FatChain
-from vbaProjectCompiler.Models.Entities.Streams.streamBase import StreamBase
+from ms_cfb.fat_filesystem import FatChain
+from ms_cfb.Models.Entities.Streams.streamBase import StreamBase
 
 
 def test_initialProperties():

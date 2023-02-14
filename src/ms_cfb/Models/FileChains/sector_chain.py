@@ -25,7 +25,7 @@ class SectorChain:
 
         return chain
 
-    def _reserveNextFreeSector(self):
+    def reserve_next_free_sector(self):
         sector = self._nextFreeSector
         self._nextFreeSector += 1
         return sector

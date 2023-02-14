@@ -1,4 +1,4 @@
-from vbaProjectCompiler.Directories.storageDirectory import StorageDirectory
+from ms_cfb.Models.Directories.storage_directory import StorageDirectory
 
 
 class RootDirectory(StorageDirectory):

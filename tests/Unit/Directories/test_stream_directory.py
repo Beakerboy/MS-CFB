@@ -12,7 +12,7 @@ def test_StreamDirectory():
 
 
 class FieldStub:
-    value = stub
+    value = 'stub'
     
 class ModuleStub():
     

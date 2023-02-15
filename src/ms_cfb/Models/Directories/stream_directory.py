@@ -14,6 +14,12 @@ class StreamDirectory(Directory):
         self.bytesUsed = 0
         self.module = ""
 
+    def set_created(self, datetime):
+        raise Exception("File Directory must have created date of zero.")
+
+    def set_modified(self, datetime):
+        raise Exception("File Directory must have modified date of zero.")
+
     def getData(self):
         return self.module.getData()
 

@@ -1,7 +1,4 @@
 from ms_cfb.Models.Directories.stream_directory import StreamDirectory
-from ms_cfb.Models.Fields.doubleEncodedString import (
-    DoubleEncodedString
-)
 
 
 def test_StreamDirectory():
@@ -13,7 +10,8 @@ def test_StreamDirectory():
 
 class FieldStub:
     value = 'stub'
-    
+
+
 class ModuleStub():
     
     def __init__(self):

@@ -1,4 +1,4 @@
-from vbaProjectCompiler.FileIO.miniChain import MiniChain
+from ms_cfb.FileIO.miniChain import MiniChain
 from vbaProjectCompiler.FileIO.sectorChain import SectorChain
 from vbaProjectCompiler.Models.Entities.Streams.streamBase import StreamBase
 

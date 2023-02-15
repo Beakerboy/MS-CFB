@@ -7,7 +7,8 @@ class Directory:
     def __init__(self):
         self.name = ""
 
-        self.color = 0
+        # red = 0, black = 1
+        self.color = 1
 
         self.previousDirectoryId = 0xFFFFFFFF
         self.nextDirectoryId = 0xFFFFFFFF
@@ -18,7 +19,7 @@ class Directory:
         self.userFlags = 0
 
         self._created = 0
-        self.modified = 0
+        self._modified = 0
 
         # The sector where this stream begins
         # This can either be a minifat sector number or a Fat sector
@@ -26,11 +27,17 @@ class Directory:
         self._startSector = 0
         self.type = 0
 
-    def set_created(self, created):
-        self._created = created
+    def set_created(self, value):
+        self._created = value
 
     def get_created(self):
         return self._created
+
+    def set_modified(self, value):
+        self._modified = value
+
+    def get_modified(self):
+        return self._modified
 
     def setStartSector(self, value):
         self._startSector = value
@@ -48,8 +55,8 @@ class Directory:
     def fileSize(self):
         return 0
 
-    def writeDirectory(self, codePageName, endien):
-        endienSymbol = '<' if endien == 'little' else '>'
+    def to_bytes(self, codePageName, endian):
+        endienSymbol = '<' if endian == 'little' else '>'
         format = endienSymbol + "64shbb3I"
 
         dir = struct.pack(
@@ -62,12 +69,12 @@ class Directory:
             self.nextDirectoryId,
             self.subDirectoryId
         )
-        dir += bytearray(self.classId, "utf8").ljust(16, b'\x00')
+        dir += bytearray(self.classId, codePageName).ljust(16, b'\x00')
         dir += struct.pack(
             endienSymbol + "IQQIII",
             self.userFlags,
             self._created,
-            self.modified,
+            self._modified,
             self._startSector,
             self.fileSize(),
             0

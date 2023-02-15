@@ -1,8 +1,8 @@
 import struct
-from vbaProjectCompiler.Directories.rootDirectory import RootDirectory
-from vbaProjectCompiler.FileIO.fatChain import FatChain
-from vbaProjectCompiler.FileIO.miniChain import MiniChain
-from vbaProjectCompiler.Models.Entities.Streams.directoryStream import (
+from ms_cfb.Models.Directories.rootDirectory import RootDirectory
+from ms_cfb.Models.Filesystems.fat_filesystem import FatFilesystem
+from ms_cfb.Models.Filesystems.minifat_filesystem import MinifatFilesystem
+from ms_cfb.Models.Entities.Streams.directoryStream import (
     DirectoryStream
 )
 

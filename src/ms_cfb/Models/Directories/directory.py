@@ -26,10 +26,10 @@ class Directory:
         self._startSector = 0
         self.type = 0
 
-    set_created(self, created):
+    def set_created(self, created):
         self._created = created
 
-    get_created(self):
+    def get_created(self):
         return self._created
 
     def setStartSector(self, value):

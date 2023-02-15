@@ -11,17 +11,19 @@ class OleFile:
 
     # class default constructor
     def __init__(self, project):
-        self.HEADER_BYTES = 512
-        self.project = project
 
         # Instance Attributes
-        self.uMinorVersion = 62
-        self.uDllVersion = 3
-        self.uSectorShift = 9
-        self.uMiniSectorShift = 6
+        self._minor_version = 62
+        self._major_version = 3
+        self._sector_shift = 9
+        self._mini_sector_shift = 6
         self.firstDirectoryListSector = 1
-        self.firstMiniChainSector = 2
-        self.ulMiniSectorCutoff = 4096
+
+        # if there is no data small enough
+        # to be on the minifat chain the root directory
+        # and this value have to be set to something special.
+        self.firstMiniChainSector = 0
+        self._mini_sector_cutoff = 4096
 
         # the FAT chain holds large files, the minifat chain, the minifat data,
         # and the directory tree.
@@ -32,6 +34,18 @@ class OleFile:
 
         # A list of directories
         self.directory = RootDirectory()
+
+    def set_version(self, version):
+        if version > 4 or version < 3:
+            raise Exception("Version must be 3 or 4")
+        self._major_version = version
+        if self._major_version == 3:
+            self._sector_shift = 9
+        else:
+            self._sector_shift = 12
+
+    def get_version(self):
+        return self._major_version
 
     def getFirstDirectoryListSector(self):
         return self.firstDirectoryListSector
@@ -55,18 +69,18 @@ class OleFile:
             format,
             absig,
             LONG_LONG_ZERO + LONG_LONG_ZERO,  # clsid
-            self.uMinorVersion,
-            self.uDllVersion,
+            self._minor_version,
+            self._major_version,
             65534,   # BOM
-            self.uSectorShift,
-            self.uMiniSectorShift,
+            self._sector_shift,
+            self._mini_sector_shift,
             0,    # usReserved
             0,    # ulReserved1
             0,    # csectDir
             self._fatChain.count_fat_chain_sectors(),
             self.firstDirectoryListSector,
             0,    # signature
-            self.ulMiniSectorCutoff,
+            self._mini_sector_cutoff,
             self.getFirstMiniChainSector(),
             max([len(self._minifatChain.getSectors()), 1]),
             self.getDifStartSector(),

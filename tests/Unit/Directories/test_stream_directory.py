@@ -13,7 +13,7 @@ class FieldStub:
 
 
 class ModuleStub():
-    
+
     def __init__(self):
         self.modName = FieldStub()
 

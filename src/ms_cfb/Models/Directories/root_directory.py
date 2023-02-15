@@ -11,6 +11,9 @@ class RootDirectory(StorageDirectory):
         VBADirectory.name = "VBA"
         self.directories.append(VBADirectory)
 
+    def set_created(self, created):
+        raise Exception("Root Directory must have created date of zero.")
+
     def fileSize(self):
         """
         Need to see how to handle streams that are mixed

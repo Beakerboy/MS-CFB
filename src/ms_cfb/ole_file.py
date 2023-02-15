@@ -27,10 +27,10 @@ class OleFile:
 
         # the FAT chain holds large files, the minifat chain, the minifat data,
         # and the directory tree.
-        self._fatChain = FatChain(2 ** self.uSectorShift)
+        self._fatChain = FatFilesystem(2 ** self._sector_shift)
 
         # The list of pointers to the address of the next file piece
-        self._minifatChain = MiniChain(2 ** self.uMiniSectorShift)
+        self._minifatChain = MinifatFilesystem(2 ** self._mini_sector_shift)
 
         # A list of directories
         self._directory = RootDirectory()

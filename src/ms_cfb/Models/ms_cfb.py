@@ -10,7 +10,7 @@ from vbaProjectCompiler.Models.Entities.Streams.directoryStream import (
 class OleFile:
 
     # class default constructor
-    def __init__(self, project):
+    def __init__(self):
 
         # Instance Attributes
         self._minor_version = 62
@@ -33,7 +33,7 @@ class OleFile:
         self._minifatChain = MiniChain(2 ** self.uMiniSectorShift)
 
         # A list of directories
-        self.directory = RootDirectory()
+        self._directory = RootDirectory()
 
     def set_version(self, version):
         if version > 4 or version < 3:
@@ -47,15 +47,12 @@ class OleFile:
     def get_version(self):
         return self._major_version
 
-    def getFirstDirectoryListSector(self):
-        return self.firstDirectoryListSector
-
-    def setFirstDirectoryListSector(self, i):
-        # need to ensure sector is not already reserved
-        self.firstDirectoryListSector = i
-
-    def getFirstMiniChainSector(self):
-        return self.firstMiniChainSector
+    def add_directory_entry(self, object):
+        """
+        Add a storage or stream object to root
+        """
+        # verify type of object
+        self._directory.add_stream(object)
 
     def header(self):
         """Create a 512 byte header sector for a OLE object."""
@@ -143,7 +140,6 @@ class OleFile:
         """
         Build the OLE file data structures from the project data.
         """
-        # packSymbol = '<' if self.project.endien == 'little' else '>'
 
         directoryStream = DirectoryStream()
         directoryStream.setStorageChain(self._fatChain)

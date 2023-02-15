@@ -17,7 +17,7 @@ class Directory:
 
         self.userFlags = 0
 
-        self.created = 0
+        self._created = 0
         self.modified = 0
 
         # The sector where this stream begins
@@ -25,6 +25,12 @@ class Directory:
         # depending on the stream size.
         self._startSector = 0
         self.type = 0
+
+    set_created(self, created):
+        self._created = created
+
+    get_created(self):
+        return self._created
 
     def setStartSector(self, value):
         self._startSector = value
@@ -60,7 +66,7 @@ class Directory:
         dir += struct.pack(
             endienSymbol + "IQQIII",
             self.userFlags,
-            self.created,
+            self._created,
             self.modified,
             self._startSector,
             self.fileSize(),

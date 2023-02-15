@@ -55,9 +55,8 @@ class Directory:
     def fileSize(self):
         return 0
 
-    def to_bytes(self, codePageName, endian):
-        endienSymbol = '<' if endian == 'little' else '>'
-        format = endienSymbol + "64shbb3I"
+    def to_bytes(self, codePageName):
+        format = "<64shbb3I"
 
         dir = struct.pack(
             format,
@@ -71,7 +70,7 @@ class Directory:
         )
         dir += bytearray(self.classId, codePageName).ljust(16, b'\x00')
         dir += struct.pack(
-            endienSymbol + "IQQIII",
+            "<IQQIII",
             self.userFlags,
             self._created,
             self._modified,

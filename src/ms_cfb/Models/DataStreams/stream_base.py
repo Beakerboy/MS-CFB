@@ -19,14 +19,14 @@ class StreamBase:
     def setStorageChain(self, chain):
         self._storageChain = chain
 
-    def setStartSector(self, sector):
+    def set_start_sector(self, sector):
         """
         Set the location of the first sector of the file
         Must be run first
         """
         self._sectors = [sector]
 
-    def getStartSector(self):
+    def get_start_sector(self):
         return self._sectors[0]
 
     def setAdditionalSectors(self, sectors):

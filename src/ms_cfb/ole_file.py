@@ -1,5 +1,5 @@
 import struct
-from ms_cfb.Models.Directories.root_drectory import RootDirectory
+from ms_cfb.Models.Directories.root_directory import RootDirectory
 from ms_cfb.Models.Filesystems.fat_filesystem import FatFilesystem
 from ms_cfb.Models.Filesystems.minifat_filesystem import MinifatFilesystem
 from ms_cfb.Models.Entities.Streams.directoryStream import (

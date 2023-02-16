@@ -6,7 +6,7 @@ from ms_cfb.Models.Entities.Streams.streamBase import StreamBase
 class MinifatFilesystem(FilesystemBase, StreamBase):
 
     def __init__(self, size):
-        SectorChain.__init__(self, size)
+        FilesystemBase.__init__(self, size)
         StreamBase.__init__(self)
 
     def addStream(self, stream):

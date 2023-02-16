@@ -3,14 +3,14 @@ from ms_cfb.Models.Entities.Streams.streamBase import StreamBase
 
 
 def test_initialProperties():
-    chain = FatChain(512)
+    chain = FatFilesystem(512)
     assert chain.getSectorSize() == 512
     assert len(chain) == 1
     assert chain.getChain() == [0xfffffffd]
 
 
 def test_addingChain():
-    chain = FatChain(512)
+    chain = FatFilesystem(512)
     stream = StreamStub()
     chain.addStream(stream)
     assert len(chain) == 2
@@ -23,7 +23,7 @@ def test_addingChain():
 
 
 def test_extendChain():
-    chain = FatChain(512)
+    chain = FatFilesystem(512)
     stream1 = StreamStub()
     chain.addStream(stream1)
     stream2 = StreamStub()
@@ -34,7 +34,7 @@ def test_extendChain():
 
 
 def test_newFatTableSector():
-    chain = FatChain(512)
+    chain = FatFilesystem(512)
     stream1 = StreamStub()
     chain.addStream(stream1)
     chain.extendChain(stream1, 126)
@@ -45,7 +45,7 @@ def test_newFatTableSector():
 
 
 def test_extendThroughFatSector():
-    chain = FatChain(512)
+    chain = FatFilesystem(512)
     stream1 = StreamStub()
     chain.addStream(stream1)
     chain.extendChain(stream1, 126)
@@ -57,7 +57,7 @@ def test_extendThroughFatSector():
 
 
 def test_lastSectorOnFatSector():
-    chain = FatChain(512)
+    chain = FatFilesystem(512)
     stream1 = StreamStub()
     chain.addStream(stream1)
     chain.extendChain(stream1, 125)
@@ -68,7 +68,7 @@ def test_lastSectorOnFatSector():
 
 
 def test_extendThroughFatSector2():
-    chain = FatChain(512)
+    chain = FatFilesystem(512)
     stream1 = StreamStub()
     chain.addStream(stream1)
     chain.extendChain(stream1, 125)

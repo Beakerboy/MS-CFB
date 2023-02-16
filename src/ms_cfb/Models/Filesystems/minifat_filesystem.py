@@ -1,9 +1,9 @@
-from ms_cfb.Models.Filesystems.sector_chain import SectorChain
-from vbaProjectCompiler.Models.Entities.Streams.array_stream import ArrayStream
-from vbaProjectCompiler.Models.Entities.Streams.streamBase import StreamBase
+from ms_cfb.Models.Filesystems.filesystem_base import FilesystemBase
+from ms_cfb.Models.Entities.Streams.array_stream import ArrayStream
+from ms_cfb.Models.Entities.Streams.streamBase import StreamBase
 
 
-class MiniChain(SectorChain, StreamBase):
+class MinifatFilesystem(FilesystemBase, StreamBase):
 
     def __init__(self, size):
         SectorChain.__init__(self, size)

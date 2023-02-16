@@ -22,7 +22,7 @@ class OleFile:
         # if there is no data small enough
         # to be on the minifat chain the root directory
         # and this value have to be set to something special.
-        self.firstMiniChainSector = 0
+        self._first_minichain_sector = 0
         self._mini_sector_cutoff = 4096
 
         # the FAT chain holds large files, the minifat chain, the minifat data,
@@ -78,7 +78,7 @@ class OleFile:
             self.firstDirectoryListSector,
             0,    # signature
             self._mini_sector_cutoff,
-            self.getFirstMiniChainSector(),
+            self._first_minichain_sector,
             max([len(self._minifatChain.getSectors()), 1]),
             self.getDifStartSector(),
             self.countDifSectors()
@@ -141,28 +141,23 @@ class OleFile:
         Build the OLE file data structures from the project data.
         """
 
-        directoryStream = DirectoryStream()
+        directoryStream = self._directory.flatten()
         directoryStream.setStorageChain(self._fatChain)
         self._fatChain.addStream(directoryStream)
 
         self._minifatChain.setStorageChain(self._fatChain)
         self._fatChain.addStream(self._minifatChain)
 
-        # pull data from self.project
-        for module in self.project.modules:
-            self.directory.addModule(module)
-        # add _VBA_Project
-        # add dir
-        # add projectWm
-        # add project
-        # Flatten directory tree
-        self.streams = self.directory.flatten()
         for stream in self.streams:
             directoryStream.append(stream)
             if stream.type == 2:
                 if stream.fileSize() > self.ulMiniSectorCutoff:
                     self._fatChain.addStream(stream)
                 else:
+                    if self._first_minichain_sector == 0:
+                        self._minifatChain.setStorageChain(self._fatChain)
+                        self._fatChain.addStream(self._minifatChain)
+                        self._first_minichain_sector = self._minifatChain.get_start_sector()
                     self._minifatChain.addStream(stream)
 
     def write_file(self, path):

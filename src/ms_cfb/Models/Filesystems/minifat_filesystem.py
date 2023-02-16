@@ -22,7 +22,7 @@ class MinifatFilesystem(FilesystemBase, StreamBase):
             self._streams = ArrayStream()
             self._streams.setStorageChain(self._storageChain)
             self._storageChain.addStream(self._streams)
-        SectorChain.addStream(self, stream)
+        FilesystemBase.addStream(self, stream)
 
     def extendChain(self, stream, number):
         """

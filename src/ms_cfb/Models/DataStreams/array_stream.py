@@ -1,4 +1,4 @@
-from ms_cfb.Models.Entities.Streams.stream_base import StreamBase
+from ms_cfb.Models.DataStreams.stream_base import StreamBase
 
 
 class ArrayStream(StreamBase):

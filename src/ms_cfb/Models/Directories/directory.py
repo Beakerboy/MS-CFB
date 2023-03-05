@@ -25,7 +25,7 @@ class Directory:
         # This can either be a minifat sector number or a Fat sector
         # depending on the stream size.
         self._startSector = 0
-        self.type = 0
+        self._type = 0
 
     def set_created(self, value):
         self._created = value
@@ -38,6 +38,9 @@ class Directory:
 
     def get_modified(self):
         return self._modified
+
+    dev get_type(self) -> int:
+        return self._type
 
     def setStartSector(self, value):
         self._startSector = value

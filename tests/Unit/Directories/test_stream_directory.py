@@ -8,6 +8,20 @@ def test_StreamDirectory():
     assert dir.getData() == "foo"
 
 
+def test_add_created():
+    dir = StreamDirectory()
+    with pytest.raises(Exception):
+        date = 0x12345
+        dir.set_created(date)
+
+
+def test_add_created():
+    dir = StreamDirectory()
+    with pytest.raises(Exception):
+        date = 0x12345
+        dir.set_modified(date)
+
+
 class FieldStub:
     value = 'stub'
 

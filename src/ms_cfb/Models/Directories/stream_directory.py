@@ -6,7 +6,7 @@ class StreamDirectory(Directory):
 
     def __init__(self, name, path):
         super(StreamDirectory, self).__init__()
-        self.type = 2
+        self._type = 2
         self.name = name
         # How many bytes does this item reserve in the file.
         # This includes padding to fill a sector or ministream.

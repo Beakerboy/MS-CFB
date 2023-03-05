@@ -40,6 +40,7 @@ def test_RootDirectory():
     dir.addFile(mock)
     assert dir.fileSize() == 256
 
+
 def test_add_created():
     dir = RootDirectory()
     with pytest.raises(Exception):

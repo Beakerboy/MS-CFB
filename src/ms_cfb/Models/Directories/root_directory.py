@@ -4,9 +4,8 @@ from ms_cfb.Models.Directories.storage_directory import StorageDirectory
 class RootDirectory(StorageDirectory):
 
     def __init__(self):
-        super(RootDirectory, self).__init__()
-        self.name = "Root Entry"
-        self.type = 5
+        super(RootDirectory, self).__init__("Root Entry")
+        self._type = 5
 
     def set_created(self, created):
         raise Exception("Root Directory must have created date of zero.")

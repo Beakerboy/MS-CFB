@@ -4,7 +4,7 @@ from ms_cfb.Models.Directories.stream_directory import StreamDirectory
 
 def test_constructor():
     dir = StreamDirectory("name", "/path")
-    assert type(dir) == "StreamDirectory"
+    assert isinstance(dir, StreamDirectory)
 
 
 def test_add_created():

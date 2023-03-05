@@ -6,6 +6,7 @@ def test_constructor():
     dir = StreamDirectory("name", "/path")
     assert type(dir) == "StreamDirectory"
 
+
 def test_add_created():
     dir = StreamDirectory("name", "/path")
     with pytest.raises(Exception):

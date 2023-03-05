@@ -19,7 +19,7 @@ class StreamDirectory(Directory):
     def set_modified(self, datetime):
         raise Exception("File Directory must have modified date of zero.")
 
-    def set_file(path):
+    def set_file(self, path):
         self.file_path = path
 
     def setBytesReserved(self, quantity):

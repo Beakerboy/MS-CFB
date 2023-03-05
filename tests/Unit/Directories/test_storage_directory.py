@@ -1,19 +1,7 @@
 from ms_cfb.Models.Directories.storage_directory import StorageDirectory
 
 
-def test_StorageDirectory():
-    dir1 = StorageDirectory()
-    assert dir1.type == 1
-    assert len(dir1.directories) == 0
-
-    class MockField:
-        value = "foo"
-
-    class MockModule():
-        type = 2
-        modName = MockField()
-
-    mock = MockModule()
-    assert len(dir1.flatten()) == 1
-    dir1.addModule(mock)
-    assert len(dir1.flatten()) == 2
+def test_constructor():
+    dir = StorageDirectory("name")
+    assert dir.get_type() == 1
+    assert type(dir) == "StorageDirectory"

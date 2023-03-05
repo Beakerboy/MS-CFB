@@ -1,3 +1,4 @@
+import pytest
 from ms_cfb.Models.Directories.stream_directory import StreamDirectory
 
 

@@ -1,3 +1,4 @@
+import pytest
 from ms_cfb.Models.Directories.root_directory import RootDirectory
 
 
@@ -38,3 +39,9 @@ def test_RootDirectory():
 
     dir.addFile(mock)
     assert dir.fileSize() == 256
+
+def test_add_created():
+    dir = RootDirectory()
+    with pytest.raises(Exception):
+        date = 0x12345
+        dir.set_created(date)

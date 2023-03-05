@@ -39,7 +39,7 @@ class Directory:
     def get_modified(self):
         return self._modified
 
-    dev get_type(self) -> int:
+    def get_type(self) -> int:
         return self._type
 
     def setStartSector(self, value):

@@ -4,7 +4,7 @@ from ms_cfb.Models.Directories.stream_directory import StreamDirectory
 
 class StorageDirectory(Directory):
 
-    def __init__(self):
+    def __init__(self, name):
         super(StorageDirectory, self).__init__()
         self.type = 1
         self.directories = []

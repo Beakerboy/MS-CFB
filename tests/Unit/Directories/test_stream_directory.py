@@ -16,7 +16,7 @@ def test_add_created():
         dir.set_created(date)
 
 
-def test_add_created():
+def test_add_modified():
     dir = StreamDirectory()
     with pytest.raises(Exception):
         date = 0x12345

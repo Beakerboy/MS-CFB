@@ -65,7 +65,7 @@ class Directory:
             format,
             self.name.encode("utf_16_le"),
             self.nameSize(),
-            self.type,
+            self._type,
             self.color,
             self.previousDirectoryId,
             self.nextDirectoryId,

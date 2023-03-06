@@ -144,7 +144,7 @@ class OleFile:
         directory_array = self._directory.flatten()
         directory_stream = FileStream("directory_stream.bin")
         directory_stream.setStorageChain(self._fatChain)
-        self._fatChain.addStream(directory_stream)
+        self._fatChain.add_stream(directory_stream)
 
         for stream in directory_array:
             directory_stream.append(stream.to_bytes())

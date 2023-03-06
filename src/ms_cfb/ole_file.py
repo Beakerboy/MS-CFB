@@ -133,7 +133,7 @@ class OleFile:
         sectorList = []
         numberOfSectors = (len(self._fatChain) - 1) // 128 + 1
         for i in range(numberOfSectors):
-            sectorList.append(i * (2 ** (self.uSectorShift - 2)))
+            sectorList.append(i * (2 ** (self._sector_shift - 2)))
         return sectorList
 
     def build_file(self):

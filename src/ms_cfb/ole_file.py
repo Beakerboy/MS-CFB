@@ -56,12 +56,11 @@ class OleFile:
 
     def header(self):
         """Create a 512 byte header sector for a OLE object."""
-        packSymbol = '<' if self.project.endien == 'little' else '>'
         LONG_LONG_ZERO = b'\x00\x00\x00\x00\x00\x00\x00\x00'
 
         absig = b"\xd0\xcf\x11\xe0\xa1\xb1\x1a\xe1"
 
-        format = packSymbol + "8s16s6H10I"
+        format = "<8s16s6H10I"
         header = struct.pack(
             format,
             absig,
@@ -115,13 +114,12 @@ class OleFile:
         Create a 436 byte stream of the first 109 FAT sectors, padded with
         \\xFF.
         """
-        packSymbol = '<' if self.project.endien == 'little' else '>'
         # if the list is longer then 109 entries, need to mange the extended
         # MSAT sectors.
         output = b''
         list = self.getFatSectors()
         for sector in list[0:109]:
-            output += struct.pack(packSymbol + "I", sector)
+            output += struct.pack("<I", sector)
         output = output.ljust(436, b'\xff')
         return output
 

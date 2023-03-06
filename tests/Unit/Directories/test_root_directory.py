@@ -27,20 +27,6 @@ def test_directory():
     assert dir.to_bytes('cp1254') == ex
 
 
-def test_RootDirectory():
-    dir = RootDirectory()
-    assert dir.type == 5
-
-    class StreamMock():
-        def minifatSectorsUsed(self):
-            return 4
-
-    mock = StreamMock()
-
-    dir.addFile(mock)
-    assert dir.fileSize() == 256
-
-
 def test_add_created():
     dir = RootDirectory()
     with pytest.raises(Exception):

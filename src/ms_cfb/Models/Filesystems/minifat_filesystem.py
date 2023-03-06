@@ -9,7 +9,7 @@ class MinifatFilesystem(FilesystemBase, StreamBase):
         FilesystemBase.__init__(self, size)
         StreamBase.__init__(self)
 
-    def addStream(self, stream):
+    def add_stream(self, stream):
         """
         Add a new stream to the minifat chain and arrange the storage resources
         We need to manage changes to the minifat chain, minifat stream, and the

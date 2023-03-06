@@ -10,7 +10,7 @@ class RootDirectory(StorageDirectory):
     def set_created(self, created):
         raise Exception("Root Directory must have created date of zero.")
 
-    def fileSize(self):
+    def file_size(self):
         """
         Need to see how to handle streams that are mixed
         between fat and minifat storage.

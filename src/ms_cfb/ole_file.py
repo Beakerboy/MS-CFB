@@ -143,11 +143,7 @@ class OleFile:
         directoryStream.setStorageChain(self._fatChain)
         self._fatChain.addStream(directoryStream)
 
-        self._minifatChain.setStorageChain(self._fatChain)
-        self._fatChain.addStream(self._minifatChain)
-
-        for stream in self.streams:
-            directoryStream.append(stream)
+        for stream in directoryStream:
             if stream.type == 2:
                 if stream.fileSize() > self.ulMiniSectorCutoff:
                     self._fatChain.addStream(stream)
@@ -177,7 +173,7 @@ class OleFile:
         # write minifat chain sectors
         f.close()
 
-    def writeFile(self, path):
+    def create_file(self, path):
         """
         Build and Write the OLE file
         """

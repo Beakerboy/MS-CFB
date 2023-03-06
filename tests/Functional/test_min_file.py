@@ -8,5 +8,5 @@ def test_min_file():
     header, fat, directory
     """
     ole_file = OleFile()
-    ole_file.write_file(".")
+    ole_file.create_file(".")
     assert os.path.exists("vbaProject.bin")

@@ -24,3 +24,8 @@ def test_add_modified():
 def test_file_size():
     dir = StreamDirectory("name", "tests/Test.txt")
     assert dir.file_size() == 5
+
+
+def test_sectors_used():
+    dir = StreamDirectory("name", "tests/Test.txt")
+    assert dir.minifat_sectors_used() == 1

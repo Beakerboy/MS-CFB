@@ -142,7 +142,7 @@ class OleFile:
         """
 
         directory_array = self._directory.flatten()
-        f = open("directory_stream.bin", 'x')
+        open("directory_stream.bin", 'x')
         directory_stream = FileStream("directory_stream.bin")
         directory_stream.setStorageChain(self._fatChain)
         self._fatChain.add_stream(directory_stream)

@@ -20,6 +20,7 @@ def test_add_modified():
         date = 0x12345
         dir.set_modified(date)
 
+
 def test_file_size():
     dir = StreamDirectory("name", "tests/Test.txt")
     assert dir.file_size() == 5

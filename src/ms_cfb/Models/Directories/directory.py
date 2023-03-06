@@ -59,7 +59,7 @@ class Directory:
     def file_size(self):
         return 0
 
-    def to_bytes(self, codePageName):
+    def to_bytes(self):
         format = "<64shbb3I"
 
         dir = struct.pack(

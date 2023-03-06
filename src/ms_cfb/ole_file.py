@@ -139,13 +139,15 @@ class OleFile:
         Build the OLE file data structures from the project data.
         """
 
-        directoryStream = self._directory.flatten()
-        directoryStream.setStorageChain(self._fatChain)
-        self._fatChain.addStream(directoryStream)
+        directory_array = self._directory.flatten()
+        directory_stream = FileStream("directory_stream.bin")
+        directory_stream.setStorageChain(self._fatChain)
+        self._fatChain.addStream(directory_stream)
 
-        for stream in directoryStream:
-            if stream.type == 2:
-                if stream.fileSize() > self.ulMiniSectorCutoff:
+        for stream in directory_array:
+            directory_stream.append(stream.to_bytes())
+            if stream.get_type() == 2:
+                if stream.file_size() > self.ulMiniSectorCutoff:
                     self._fatChain.addStream(stream)
                 else:
                     if self._first_minichain_sector == 0:

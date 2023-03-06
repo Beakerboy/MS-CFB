@@ -2,7 +2,7 @@ class FilesystemBase:
 
     def __init__(self, size):
         # The number of bytes in each sector
-        self._sectorSize = size
+        self._sector_size = size
 
         # The next available sector on the chain
         self._nextFreeSector = 0
@@ -18,7 +18,7 @@ class FilesystemBase:
         """
         Get the number of bytes in each sector
         """
-        return self._sectorSize
+        return self._sector_size
 
     def getChain(self):
         chain = []
@@ -58,14 +58,14 @@ class FilesystemBase:
         size = stream.streamSize()
         have = len(stream.getSectors())
         if (have * self._sectorSize) < size:
-            needed = (size - 1) // self._sectorSize + 1
+            needed = (size - 1) // self._sector_size + 1
             self.extendChain(stream, needed - have)
         pass
 
     def add_stream(self, stream):
         sector = self._startNewChain()
         stream.set_start_sector(sector)
-        sectorsNeeded = max((stream.streamSize() - 1) // self._sectorSize, 0)
+        sectorsNeeded = max((stream.streamSize() - 1) // self._sector_size, 0)
         if sectorsNeeded > 0:
             self.extendChain(stream, sectorsNeeded)
         self._streams.append(stream)
@@ -75,7 +75,7 @@ class FilesystemBase:
         newSector = self._reserveNextFreeSector()
         return newSector
 
-    def write_chain(self, path, endian="little"):
+    def write_chain(self, path):
         """
         write the chain list to a file.
         """
@@ -83,9 +83,9 @@ class FilesystemBase:
         f = open(path, "wb")
         # Each address is 4 bytes
         for address in chain:
-            f.write(address.to_bytes(4, endian))
+            f.write(address.to_bytes(4, "little"))
 
-    def write_streams(self, path, endian="little"):
+    def write_streams(self, path):
         sectors = len(self)
         f = open(path, "wb")
         f.write(b'\x00' * sectors * self._sectorSize)

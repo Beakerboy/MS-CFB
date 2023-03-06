@@ -7,5 +7,5 @@ class FileStream(StreamBase):
         """
         Add new data to the file
         """
-        f = open.(self._data, "ab")
+        f = open(self._data, "ab")
         f.write(data)

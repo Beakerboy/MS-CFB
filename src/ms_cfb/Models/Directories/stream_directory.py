@@ -22,7 +22,7 @@ class StreamDirectory(Directory):
     def setBytesReserved(self, quantity):
         self.bytesUsed = quantity
 
-    def fileSize(self) -> int:
+    def file_size(self) -> int:
         """
         Size in bytes of the file
         """

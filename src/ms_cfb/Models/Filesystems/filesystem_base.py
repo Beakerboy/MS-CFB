@@ -62,7 +62,7 @@ class FilesystemBase:
             self.extendChain(stream, needed - have)
         pass
 
-    def addStream(self, stream):
+    def add_stream(self, stream):
         sector = self._startNewChain()
         stream.set_start_sector(sector)
         sectorsNeeded = max((stream.streamSize() - 1) // self._sectorSize, 0)

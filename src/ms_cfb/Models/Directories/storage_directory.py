@@ -10,7 +10,7 @@ class StorageDirectory(Directory):
         self._type = 1
         self.directories = []
 
-    def fileSize(self):
+    def file_size(self):
         return 0
 
     def minifatSectorsUsed(self):

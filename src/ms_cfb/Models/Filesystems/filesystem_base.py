@@ -57,7 +57,7 @@ class FilesystemBase:
         """
         size = stream.streamSize()
         have = len(stream.getSectors())
-        if (have * self._sectorSize) < size:
+        if (have * self._sector_size) < size:
             needed = (size - 1) // self._sector_size + 1
             self.extendChain(stream, needed - have)
         pass

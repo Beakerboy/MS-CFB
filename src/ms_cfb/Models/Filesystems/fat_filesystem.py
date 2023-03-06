@@ -32,4 +32,4 @@ class FatFilesystem(FilesystemBase):
         """
         How many fat chain sectors are needed to express the chain?
         """
-        return (self._nextFreeSector - 1) // self._sectorSize + 1
+        return (self._nextFreeSector - 1) // self._sector_size + 1

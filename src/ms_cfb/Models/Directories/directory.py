@@ -56,7 +56,7 @@ class Directory:
     def setAdditionalSectors(self, sectorList):
         self._additionalSectors = sectorList
 
-    def fileSize(self):
+    def file_size(self):
         return 0
 
     def to_bytes(self, codePageName):
@@ -79,7 +79,7 @@ class Directory:
             self._created,
             self._modified,
             self._startSector,
-            self.fileSize(),
+            self.file_size(),
             0
         )
         return dir

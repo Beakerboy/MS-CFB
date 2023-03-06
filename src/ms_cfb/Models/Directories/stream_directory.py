@@ -28,5 +28,5 @@ class StreamDirectory(Directory):
         """
         return os.stat(self.file_path).st_size
 
-    def minifatSectorsUsed(self):
-        return (self.fileSize() - 1) // 64 + 1
+    def minifat_sectors_used(self):
+        return (self.file_size() - 1) // 64 + 1

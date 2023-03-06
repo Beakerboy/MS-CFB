@@ -10,3 +10,4 @@ def test_min_file():
     ole_file = OleFile()
     ole_file.create_file(".")
     assert os.path.exists("vbaProject.bin")
+    assert os.stat("vbaProject.bin").st_size == 512 * 3

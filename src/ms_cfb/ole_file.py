@@ -154,7 +154,7 @@ class OleFile:
                 else:
                     if self._first_minichain_sector == 0:
                         self._minifatChain.setStorageChain(self._fatChain)
-                        self._fatChain.addStream(self._minifatChain)
+                        self._fatChain.add_stream(self._minifatChain)
                         self._first_minichain_sector = \
                             self._minifatChain.get_start_sector()
                     self._minifatChain.addStream(stream)

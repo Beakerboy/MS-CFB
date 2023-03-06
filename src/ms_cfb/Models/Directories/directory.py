@@ -1,4 +1,5 @@
 import struct
+import uuid
 
 
 class Directory:
@@ -14,7 +15,7 @@ class Directory:
         self.nextDirectoryId = 0xFFFFFFFF
         self.subDirectoryId = 0xFFFFFFFF
 
-        self.classId = ""
+        self._class_id = uuid.UUID(int=0x00)
 
         self.userFlags = 0
 
@@ -71,7 +72,7 @@ class Directory:
             self.nextDirectoryId,
             self.subDirectoryId
         )
-        dir += bytearray(self.classId, codePageName).ljust(16, b'\x00')
+        dir += self._class_id.bytes_le
         dir += struct.pack(
             "<IQQIII",
             self.userFlags,

@@ -1,5 +1,5 @@
 import os
-from ms_cfb.Models.ole_file import OleFile
+from ms_cfb.ole_file import OleFile
 
 
 def test_min_file():

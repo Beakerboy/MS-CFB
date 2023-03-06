@@ -10,12 +10,13 @@ class FileStream(StreamBase):
 
     def streamSize(self):
         """
-        The size the stream will be when rendered
+        From StreamBase
         """
         return os.stat(self._data).st_size
 
     def _extendData(self, data):
         """
+        From StreamBase
         Add new data to the file
         """
         f = open(self._data, "ab")

@@ -16,6 +16,9 @@ class StreamBase:
         # An object of type SectorChain which will be storing this stream
         self._storageChain = 0
 
+        # bytes to pad data to fill a sector
+        self._padding = b'\x00'
+
     def setStorageChain(self, chain):
         self._storageChain = chain
 

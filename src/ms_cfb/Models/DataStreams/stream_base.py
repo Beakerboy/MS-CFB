@@ -19,6 +19,9 @@ class StreamBase:
         # bytes to pad data to fill a sector
         self._padding = b'\x00'
 
+    def set_padding(self, padding):
+        self._padding = passing
+
     def setStorageChain(self, chain):
         self._storageChain = chain
 

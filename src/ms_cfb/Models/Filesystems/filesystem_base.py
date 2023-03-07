@@ -89,10 +89,13 @@ class FilesystemBase:
         sectors = len(self)
         f = open(path, "wb")
         f.write(b'\x00' * sectors * self._sector_size)
+        i = 0
         for stream in self._streams:
             sectors = stream.getSectors()
-            s = open(stream.file, "rb")
+            stream.to_file("stream" + i + ".bin")
+            s = open("stream" + i + ".bin", "rb")
             for sector in sectors:
                 sector_data = s.read(self._sector_size)
                 f.seek(sector * self._sector_size)
                 f.write(sector_data)
+            i += 1

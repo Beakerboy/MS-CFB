@@ -8,3 +8,6 @@ class ArrayStream(StreamBase):
         for element in self._data:
             f.write(self._render_element(element))
         f.close()
+
+    def _render_element(self, element) -> bytes:
+        raise Exception("must be implemented")

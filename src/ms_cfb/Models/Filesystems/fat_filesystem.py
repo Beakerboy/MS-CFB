@@ -1,3 +1,4 @@
+import os
 from ms_cfb.Models.Filesystems.filesystem_base import FilesystemBase
 
 
@@ -38,11 +39,9 @@ class FatFilesystem(FilesystemBase):
         self.write_streams(path)
         self.write_chain("fat_chain.bin")
         f = open(path, "wb")
-        c = open("fat_chain.bin", "wb")
-        # Seek to file end.
-        c.seek(0, 2)
-        pos = c.tell()
-        fill = self._sector_size - pos % self._sector_size
+        length = os.stat("fat_chain.bin").st_size
+        c = open("fat_chain.bin", "ab")
+        fill = self._sector_size - length % self._sector_size
         c.write(b'\xff' * fill)
         c.close()
         c = open("fat_chain.bin", "rb")

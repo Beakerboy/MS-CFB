@@ -10,4 +10,4 @@ class ArrayStream(StreamBase):
         f.close()
 
     def _render_element(self, element) -> bytes:
-        raise Exception("must be implemented")
+        return element.to_bytes()

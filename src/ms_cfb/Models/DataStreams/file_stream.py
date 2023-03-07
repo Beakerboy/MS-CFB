@@ -1,4 +1,5 @@
 import os
+import shutil
 from ms_cfb.Models.DataStreams.stream_base import StreamBase
 
 
@@ -21,3 +22,7 @@ class FileStream(StreamBase):
         """
         f = open(self._data, "ab")
         f.write(data)
+
+    def to_file(self, path):
+        shutil.copy(self._data, path)
+    

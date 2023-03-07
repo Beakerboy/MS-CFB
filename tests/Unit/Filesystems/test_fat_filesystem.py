@@ -77,6 +77,13 @@ def test_extendThroughFatSector2():
     assert chain.get_chain()[126:] == [127, 129, 0xFFFFFFFD, 130, 0xFFFFFFFE]
 
 
+def test_write_chain():
+    fs = FatFilesystem(512)
+    fs.write_chain("chain.bin")
+    f = open("chain.bin", "rb")
+    assert f.read() == bytes.fromhex("FDFF FFFF")
+    
+
 class StreamStub(StreamBase):
     def streamSize(self):
         return 1

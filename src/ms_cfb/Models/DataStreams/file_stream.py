@@ -25,4 +25,3 @@ class FileStream(StreamBase):
 
     def to_file(self, path):
         shutil.copy(self._data, path)
-    

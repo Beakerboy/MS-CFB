@@ -1,5 +1,5 @@
 import struct
-
+import uuid
 from ms_cfb.Models.DataStreams.file_stream import FileStream
 from ms_cfb.Models.Directories.root_directory import RootDirectory
 from ms_cfb.Models.Filesystems.fat_filesystem import FatFilesystem
@@ -20,7 +20,7 @@ class OleFile:
         self._sector_shift = 9
         self._mini_sector_shift = 6
         self.firstDirectoryListSector = 1
-
+        self.guid = uuid.UUID(int=0x00)
         # if there is no data small enough
         # to be on the minifat chain the root directory
         # and this value have to be set to something special.
@@ -66,7 +66,7 @@ class OleFile:
         header = struct.pack(
             format,
             absig,
-            LONG_LONG_ZERO + LONG_LONG_ZERO,  # clsid
+            self.guid,bytes_le,
             self._minor_version,
             self._major_version,
             65534,   # BOM

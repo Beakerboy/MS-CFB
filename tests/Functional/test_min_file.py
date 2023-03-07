@@ -36,3 +36,4 @@ def test_min_file():
     unused = b'\x00' * (16 * 8 + 4) + b'\xff' * 12 + b'\x00' * 16 * 3
 
     sector3 = bytes.fromhex(" ".join(root)) + unused * 3
+    assert f.read(512) == sector3

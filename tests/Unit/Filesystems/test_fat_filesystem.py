@@ -12,12 +12,12 @@ def test_initialProperties():
 def test_addingChain():
     chain = FatFilesystem(512)
     stream = StreamStub()
-    chain.addStream(stream)
+    chain.add_stream(stream)
     assert len(chain) == 2
     assert chain.get_chain() == [0xfffffffd, 0xfffffffe]
 
     stream2 = StreamStub()
-    chain.addStream(stream2)
+    chain.add_stream(stream2)
     assert len(chain) == 3
     assert chain.get_chain() == [0xfffffffd, 0xfffffffe, 0xfffffffe]
 
@@ -25,9 +25,9 @@ def test_addingChain():
 def test_extendChain():
     chain = FatFilesystem(512)
     stream1 = StreamStub()
-    chain.addStream(stream1)
+    chain.add_stream(stream1)
     stream2 = StreamStub()
-    chain.addStream(stream2)
+    chain.add_stream(stream2)
     chain.extendChain(stream1, 2)
     assert len(chain) == 5
     assert chain.get_chain() == [0xfffffffd, 3, 0xfffffffe, 4, 0xfffffffe]
@@ -36,10 +36,10 @@ def test_extendChain():
 def test_newFatTableSector():
     chain = FatFilesystem(512)
     stream1 = StreamStub()
-    chain.addStream(stream1)
+    chain.add_stream(stream1)
     chain.extendChain(stream1, 126)
     stream2 = StreamStub()
-    chain.addStream(stream2)
+    chain.add_stream(stream2)
     assert chain.get_chain()[126:] == [127, 0xFFFFFFFE, 0xFFFFFFFD, 0xFFFFFFFE]
     assert len(chain) == 130
 
@@ -47,7 +47,7 @@ def test_newFatTableSector():
 def test_extendThroughFatSector():
     chain = FatFilesystem(512)
     stream1 = StreamStub()
-    chain.addStream(stream1)
+    chain.add_stream(stream1)
     chain.extendChain(stream1, 126)
     assert len(chain) == 128
 
@@ -59,7 +59,7 @@ def test_extendThroughFatSector():
 def test_lastSectorOnFatSector():
     chain = FatFilesystem(512)
     stream1 = StreamStub()
-    chain.addStream(stream1)
+    chain.add_stream(stream1)
     chain.extendChain(stream1, 125)
     assert len(chain) == 127
     chain.extendChain(stream1, 2)
@@ -70,7 +70,7 @@ def test_lastSectorOnFatSector():
 def test_extendThroughFatSector2():
     chain = FatFilesystem(512)
     stream1 = StreamStub()
-    chain.addStream(stream1)
+    chain.add_stream(stream1)
     chain.extendChain(stream1, 125)
     chain.extendChain(stream1, 3)
     assert len(chain) == 131

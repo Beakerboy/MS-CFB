@@ -170,7 +170,11 @@ class OleFile:
         sectors = len(self._fatChain)
         f.write(b'\x00' * sectors * self._fatChain.getSectorSize())
 
-        self._fatChain.write_chain("./fatChain.bin")
+        self._fatChain.write_stream("./fatChain.bin")
+        b = open("./fatChain.bin", "rb")
+        f.seek(512)
+        f.write(b.read())
+        b.close()
         # write directory sectors
         # write minifat chain
         # write minifat data

@@ -14,7 +14,7 @@ class FilesystemBase:
     def __len__(self):
         return self._nextFreeSector
 
-    def getSectorSize(self):
+    def get_sector_size(self):
         """
         Get the number of bytes in each sector
         """

@@ -92,8 +92,9 @@ class FilesystemBase:
         i = 0
         for stream in self._streams:
             sectors = stream.getSectors()
-            stream.to_file("stream" + i + ".bin")
-            s = open("stream" + i + ".bin", "rb")
+            filename = "stream" + str(i) + ".bin"
+            stream.to_file(filename)
+            s = open(filename, "rb")
             for sector in sectors:
                 sector_data = s.read(self._sector_size)
                 f.seek(sector * self._sector_size)

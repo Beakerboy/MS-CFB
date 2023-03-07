@@ -40,7 +40,7 @@ class FatFilesystem(FilesystemBase):
         f = open(path, "wb")
         c = open("fat_chain.bin", "wb")
         # Seek to file end.
-        c.seek(0,2)
+        c.seek(0, 2)
         pos = c.tell()
         fill = self._sector_size - pos % self._sector_size
         c.write(b'\xff' * fill)

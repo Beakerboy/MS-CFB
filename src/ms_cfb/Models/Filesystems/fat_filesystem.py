@@ -38,6 +38,13 @@ class FatFilesystem(FilesystemBase):
         self.write_streams(path)
         self.write_chain("fat_chain.bin")
         f = open(path, "wb")
+        c = open("fat_chain.bin", "wb")
+        # Seek to file end.
+        c.seek(0,2)
+        pos = c.tell()
+        fill = self._sector_size - pos % self._sector_size
+        c.write(b'\xff' * fill)
+        c.close()
         c = open("fat_chain.bin", "rb")
         f.write(c.read(512))
         f.close()

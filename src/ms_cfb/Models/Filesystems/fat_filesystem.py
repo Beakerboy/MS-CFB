@@ -35,9 +35,9 @@ class FatFilesystem(FilesystemBase):
         return (self._nextFreeSector - 1) // self._sector_size + 1
 
     def to_file(self, path):
-        self.write_streams("fat_streams.bin")
+        self.write_streams(path)
         self.write_chain("fat_chain.bin")
-        f = open("fat_streams.bin", "wb")
+        f = open(path, "wb")
         c = open("fat_chain.bin", "rb")
         f.write(c.read(512))
         f.close()

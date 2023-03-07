@@ -171,7 +171,7 @@ class OleFile:
         sectors = len(self._fatChain)
         f.write(b'\x00' * sectors * self._fatChain.getSectorSize())
 
-        self._fatChain.write_stream("./fatChain.bin")
+        self._fatChain.write_streams("./fatChain.bin")
         b = open("./fatChain.bin", "rb")
         f.seek(512)
         f.write(b.read())

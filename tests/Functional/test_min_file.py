@@ -19,3 +19,7 @@ def test_min_file():
                "0100 0000 FEFF FFFF 0000 0000 0000 0000")
     expected = bytes.fromhex(" ".join(sector1)) + b'\xff' * 16 * 27
     assert f.read(512) == expected
+
+    sector2 = (bytes.fromhex("FDFF FFFF FEFF FFFF FFFF FFFF FFFF FFFF")
+              + b'\xff' * 16 * 27)
+    assert f.read(512) == expected

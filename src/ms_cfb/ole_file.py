@@ -171,7 +171,7 @@ class OleFile:
         f.write(self.header())
         # extend file to full size
         sectors = len(self._fatChain)
-        f.write(b'\x00' * sectors * self._fatChain.getSectorSize())
+        f.write(b'\x00' * sectors * self._fatChain.get_sector_size())
 
         self._fatChain.to_file("./fatChain.bin")
         b = open("./fatChain.bin", "rb")

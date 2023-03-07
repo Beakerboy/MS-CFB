@@ -20,7 +20,10 @@ class FilesystemBase:
         """
         return self._sector_size
 
-    def getChain(self):
+    def get_chain(self) -> list:
+        """
+        Express the sector chain as a list of ints
+        """
         chain = []
         for stream in self._streams:
             sectors = stream.getSectors()
@@ -79,7 +82,7 @@ class FilesystemBase:
         """
         write the chain list to a file.
         """
-        chain = self.getChain()
+        chain = self.get_chain()
         f = open(path, "wb")
         # Each address is 4 bytes
         for address in chain:

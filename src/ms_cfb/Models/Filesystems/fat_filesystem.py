@@ -11,7 +11,7 @@ class FatFilesystem(FilesystemBase):
         """
         Need to add support for DIFAT
         """
-        chain = super().getChain()
+        chain = super().get_chain()
         if len(chain) == 0:
             chain = [0xFFFFFFFD]
         else:

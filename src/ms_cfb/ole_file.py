@@ -57,9 +57,10 @@ class OleFile:
         self._directory.add_stream(object)
 
     def header(self):
-        """Create a 512 byte header sector for a OLE object."""
-        LONG_LONG_ZERO = b'\x00\x00\x00\x00\x00\x00\x00\x00'
-
+        """
+        Create a 512 byte header sector for a OLE object.
+        """
+        
         absig = b"\xd0\xcf\x11\xe0\xa1\xb1\x1a\xe1"
 
         format = "<8s16s6H10I"

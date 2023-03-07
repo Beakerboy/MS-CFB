@@ -21,5 +21,5 @@ def test_min_file():
     assert f.read(512) == expected
 
     sector2 = (bytes.fromhex("FDFF FFFF FEFF FFFF FFFF FFFF FFFF FFFF")
-              + b'\xff' * 16 * 31)
+               + b'\xff' * 16 * 31)
     assert f.read(512) == expected

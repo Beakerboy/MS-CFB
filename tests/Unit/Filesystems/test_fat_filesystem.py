@@ -1,12 +1,12 @@
 from ms_cfb.Models.Filesystems.fat_filesystem import FatFilesystem
-from ms_cfb.Models.Entities.Streams.streamBase import StreamBase
+from ms_cfb.Models.DataStreams.stream_base import StreamBase
 
 
 def test_initialProperties():
     chain = FatFilesystem(512)
     assert chain.getSectorSize() == 512
     assert len(chain) == 1
-    assert chain.getChain() == [0xfffffffd]
+    assert chain.get_chain() == [0xfffffffd]
 
 
 def test_addingChain():
@@ -14,12 +14,12 @@ def test_addingChain():
     stream = StreamStub()
     chain.addStream(stream)
     assert len(chain) == 2
-    assert chain.getChain() == [0xfffffffd, 0xfffffffe]
+    assert chain.get_chain() == [0xfffffffd, 0xfffffffe]
 
     stream2 = StreamStub()
     chain.addStream(stream2)
     assert len(chain) == 3
-    assert chain.getChain() == [0xfffffffd, 0xfffffffe, 0xfffffffe]
+    assert chain.get_chain() == [0xfffffffd, 0xfffffffe, 0xfffffffe]
 
 
 def test_extendChain():
@@ -30,7 +30,7 @@ def test_extendChain():
     chain.addStream(stream2)
     chain.extendChain(stream1, 2)
     assert len(chain) == 5
-    assert chain.getChain() == [0xfffffffd, 3, 0xfffffffe, 4, 0xfffffffe]
+    assert chain.get_chain() == [0xfffffffd, 3, 0xfffffffe, 4, 0xfffffffe]
 
 
 def test_newFatTableSector():
@@ -40,7 +40,7 @@ def test_newFatTableSector():
     chain.extendChain(stream1, 126)
     stream2 = StreamStub()
     chain.addStream(stream2)
-    assert chain.getChain()[126:] == [127, 0xFFFFFFFE, 0xFFFFFFFD, 0xFFFFFFFE]
+    assert chain.get_chain()[126:] == [127, 0xFFFFFFFE, 0xFFFFFFFD, 0xFFFFFFFE]
     assert len(chain) == 130
 
 
@@ -52,7 +52,7 @@ def test_extendThroughFatSector():
     assert len(chain) == 128
 
     chain.extendChain(stream1, 1)
-    assert chain.getChain()[126:] == [127, 129, 0xFFFFFFFD, 0xFFFFFFFE]
+    assert chain.get_chain()[126:] == [127, 129, 0xFFFFFFFD, 0xFFFFFFFE]
     assert len(chain) == 130
 
 
@@ -63,7 +63,7 @@ def test_lastSectorOnFatSector():
     chain.extendChain(stream1, 125)
     assert len(chain) == 127
     chain.extendChain(stream1, 2)
-    assert chain.getChain()[126:] == [127, 129, 0xFFFFFFFD, 0xFFFFFFFE]
+    assert chain.get_chain()[126:] == [127, 129, 0xFFFFFFFD, 0xFFFFFFFE]
     assert len(chain) == 130
 
 
@@ -74,7 +74,7 @@ def test_extendThroughFatSector2():
     chain.extendChain(stream1, 125)
     chain.extendChain(stream1, 3)
     assert len(chain) == 131
-    assert chain.getChain()[126:] == [127, 129, 0xFFFFFFFD, 130, 0xFFFFFFFE]
+    assert chain.get_chain()[126:] == [127, 129, 0xFFFFFFFD, 130, 0xFFFFFFFE]
 
 
 class StreamStub(StreamBase):

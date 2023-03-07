@@ -4,7 +4,7 @@ from ms_cfb.Models.DataStreams.stream_base import StreamBase
 
 def test_initialProperties():
     chain = FatFilesystem(512)
-    assert chain.getSectorSize() == 512
+    assert chain.get_sector_size() == 512
     assert len(chain) == 1
     assert chain.get_chain() == [0xfffffffd]
 

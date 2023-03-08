@@ -59,7 +59,7 @@ class FilesystemBase:
         additional sectors needed?
         """
         size = stream.stream_size()
-        have = len(stream.getSectors())
+        have = len(stream.get_sectors())
         if (have * self._sector_size) < size:
             needed = (size - 1) // self._sector_size + 1
             self.extend_chain(stream, needed - have)

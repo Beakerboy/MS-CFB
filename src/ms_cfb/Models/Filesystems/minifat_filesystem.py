@@ -38,7 +38,7 @@ class MinifatFilesystem(FilesystemBase, StreamBase):
         self.append(1)
         return new_sector
 
-    def streamSize(self):
+    def stream_size(self):
         """
         implementation of StreamBase.streamSize()
         """

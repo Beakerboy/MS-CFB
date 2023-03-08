@@ -46,7 +46,7 @@ class StreamBase:
         Extend the data in this stream.
         Request additional chain storage if needed
         """
-        self._extendData(data)
+        self._extend_data(data)
         self._storageChain.requestNewSectors(self)
 
     def stream_size(self):

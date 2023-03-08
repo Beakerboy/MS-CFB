@@ -6,7 +6,7 @@ class FatFilesystem(FilesystemBase):
 
     def __init__(self, size):
         super().__init__(size)
-        self._nextFreeSector = 1
+        self._next_free_sector = 1
 
     def get_chain(self):
         """
@@ -22,18 +22,18 @@ class FatFilesystem(FilesystemBase):
                 chain[i * 0x80] = 0xFFFFFFFD
         return chain
 
-    def _reserveNextFreeSector(self) -> int:
-        if self._nextFreeSector % 0x80 == 0:
-            self._nextFreeSector += 1
-        sector = self._nextFreeSector
-        self._nextFreeSector += 1
+    def _reserve_next_free_sector(self) -> int:
+        if self._next_free_sector % 0x80 == 0:
+            self._next_free_sector += 1
+        sector = self._next_free_sector
+        self._next_free_sector += 1
         return sector
 
     def count_fat_chain_sectors(self) -> int:
         """
         How many fat chain sectors are needed to express the chain?
         """
-        return (self._nextFreeSector - 1) // self._sector_size + 1
+        return (self._next_free_sector - 1) // self._sector_size + 1
 
     def to_file(self, path):
         self.write_streams(path)

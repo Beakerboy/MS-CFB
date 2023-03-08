@@ -5,14 +5,14 @@ class FilesystemBase:
         self._sector_size = size
 
         # The next available sector on the chain
-        self._nextFreeSector = 0
+        self._next_free_sector = 0
 
         # Each stream begins at the start of a sector and is padded to fill
         # the end of a sector.
         self._streams = []
 
     def __len__(self):
-        return self._nextFreeSector
+        return self._next_free_sector
 
     def get_sector_size(self):
         """
@@ -26,7 +26,7 @@ class FilesystemBase:
         """
         chain = []
         for stream in self._streams:
-            sectors = stream.getSectors()
+            sectors = stream.get_sectors()
             max = sectors[-1]
             if max >= len(chain):
                 number = max - len(chain) + 1
@@ -40,20 +40,20 @@ class FilesystemBase:
 
         return chain
 
-    def _reserveNextFreeSector(self):
-        sector = self._nextFreeSector
-        self._nextFreeSector += 1
+    def _reserve_next_free_sector(self):
+        sector = self._next_free_sector
+        self._next_free_sector += 1
         return sector
 
-    def extendChain(self, stream, number):
+    def extend_chain(self, stream, number):
         """
         """
         sector_list = []
         for i in range(number):
-            sector_list.append(self._reserveNextFreeSector())
-        stream.setAdditionalSectors(sector_list)
+            sector_list.append(self._reserve_next_free_sector())
+        stream.set_additional_sectors(sector_list)
 
-    def requestNewSectors(self, stream):
+    def request_new_sectors(self, stream):
         """
         the size of the stream has changed, based on the new size, are
         additional sectors needed?
@@ -62,21 +62,21 @@ class FilesystemBase:
         have = len(stream.getSectors())
         if (have * self._sector_size) < size:
             needed = (size - 1) // self._sector_size + 1
-            self.extendChain(stream, needed - have)
+            self.extend_chain(stream, needed - have)
         pass
 
     def add_stream(self, stream):
-        sector = self._startNewChain()
+        sector = self._start_new_chain()
         stream.set_start_sector(sector)
         sectors_needed = (stream.stream_size() - 1) // self._sector_size
         sectors_needed = max(sectors_needed, 0)
         if sectors_needed > 0:
-            self.extendChain(stream, sectors_needed)
+            self.extend_chain(stream, sectors_needed)
         self._streams.append(stream)
 
-    def _startNewChain(self):
+    def _start_new_chain(self):
         # Increase the necessary chain resources by one address
-        new_sector = self._reserveNextFreeSector()
+        new_sector = self._reserve_next_free_sector()
         return new_sector
 
     def write_chain(self, path):

@@ -49,7 +49,7 @@ class StreamBase:
         self._extendData(data)
         self._storageChain.requestNewSectors(self)
 
-    def streamSize(self):
+    def stream_size(self):
         """
         The size the stream will be when rendered
         """

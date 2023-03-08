@@ -26,10 +26,10 @@ class OleFile:
 
         # the FAT chain holds large files, the minifat chain, the minifat data,
         # and the directory tree.
-        self._fatChain = FatFilesystem(2 ** self._sector_shift)
+        self._fat_chain = FatFilesystem(2 ** self._sector_shift)
 
         # The list of pointers to the address of the next file piece
-        self._minifatChain = MinifatFilesystem(2 ** self._mini_sector_shift)
+        self._minifat_chain = MinifatFilesystem(2 ** self._mini_sector_shift)
 
         # A list of directories
         self._directory = RootDirectory()
@@ -81,9 +81,9 @@ class OleFile:
             0,    # signature
             self._mini_sector_cutoff,
             self._first_minichain_sector,
-            max([len(self._minifatChain.getSectors()), 1]),
-            self.getDifStartSector(),
-            self.countDifSectors()
+            max([len(self._minifatChain.get_sectors()), 1]),
+            self.get_dif_start_sector(),
+            self.count_dif_sectors()
         )
 
         header += self.write_header_fat_sector_list()
@@ -106,10 +106,10 @@ class OleFile:
         remaining FAT sectors.
         What if sectors are not 512 bytes?
         """
-        count = self._fatChain.count_fat_chain_sectors()
+        count = self._fat_chain.count_fat_chain_sectors()
         if count <= 109:
             return 0
-        return (count - 109 - 1) // (2 ** (self.uSectorShift - 2)) + 1
+        return (count - 109 - 1) // (2 ** (self._sector_shift - 2)) + 1
 
     def write_header_fat_sector_list(self):
         """
@@ -119,7 +119,7 @@ class OleFile:
         # if the list is longer then 109 entries, need to mange the extended
         # MSAT sectors.
         output = b''
-        list = self.getFatSectors()
+        list = self.get_fat_sectors()
         for sector in list[0:109]:
             output += struct.pack("<I", sector)
         output = output.ljust(436, b'\xff')
@@ -131,7 +131,7 @@ class OleFile:
         128 sector intervals.
         """
         sector_list = []
-        number_of_sectors = (len(self._fatChain) - 1) // 128 + 1
+        number_of_sectors = (len(self._fat_chain) - 1) // 128 + 1
         for i in range(number_of_sectors):
             sector_list.append(i * (2 ** (self._sector_shift - 2)))
         return sector_list
@@ -145,7 +145,7 @@ class OleFile:
         f = open("directory_stream.bin", 'x')
         f.close()
         directory_stream = FileStream("directory_stream.bin")
-        directory_stream.set_storage_chain(self._fatChain)
+        directory_stream.set_storage_chain(self._fat_chain)
         empty_dir = b'\x00' * (16 * 4 + 4) + b'\xff' * 12 + b'\x00' * 16 * 3
         directory_stream.set_padding(empty_dir)
         self._fatChain.add_stream(directory_stream)
@@ -153,12 +153,12 @@ class OleFile:
         for stream in directory_array:
             directory_stream.append(stream.to_bytes())
             if stream.get_type() == 2:
-                if stream.file_size() > self.ulMiniSectorCutoff:
+                if stream.file_size() > self._mini_sector_cutoff:
                     self._fatChain.add_stream(stream)
                 else:
                     if self._first_minichain_sector == 0:
-                        self._minifatChain.set_storage_chain(self._fatChain)
-                        self._fatChain.add_stream(self._minifatChain)
+                        self._minifatChain.set_storage_chain(self._fat_chain)
+                        self._fatChain.add_stream(self._minifat_chain)
                         self._first_minichain_sector = \
                             self._minifatChain.get_start_sector()
                     self._minifatChain.add_stream(stream)
@@ -171,7 +171,7 @@ class OleFile:
         f.write(self.header())
         # extend file to full size
         sectors = len(self._fatChain)
-        f.write(b'\x01' * sectors * self._fatChain.get_sector_size())
+        f.write(b'\x01' * sectors * self._fat_chain.get_sector_size())
 
         self._fatChain.to_file("./fatChain.bin")
         b = open("./fatChain.bin", "rb")

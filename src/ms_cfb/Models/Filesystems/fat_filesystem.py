@@ -39,7 +39,7 @@ class FatFilesystem(FilesystemBase):
         self.write_streams(path)
         streams_length = os.stat(path).st_size
         self.write_chain("fat_chain.bin")
-        f = open(path, "wb")
+        f = open(path, "r+b")
         length = os.stat("fat_chain.bin").st_size
         c = open("fat_chain.bin", "ab")
         fill = self._sector_size - length % self._sector_size

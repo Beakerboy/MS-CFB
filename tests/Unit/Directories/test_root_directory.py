@@ -6,7 +6,7 @@ def test_directory():
 
     dir = RootDirectory()
     dir.name = "Root Entry"
-    assert dir.nameSize() == 22
+    assert dir.name_size() == 22
 
     dir.subDirectoryId = 8
     dir.set_modified(0x01D92433C2B823C0)

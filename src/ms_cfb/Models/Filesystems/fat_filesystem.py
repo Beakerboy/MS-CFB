@@ -37,7 +37,6 @@ class FatFilesystem(FilesystemBase):
 
     def to_file(self, path):
         self.write_streams(path)
-        streams_length = os.stat(path).st_size
         self.write_chain("fat_chain.bin")
         f = open(path, "r+b")
         length = os.stat("fat_chain.bin").st_size

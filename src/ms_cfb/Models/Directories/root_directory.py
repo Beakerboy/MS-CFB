@@ -14,7 +14,6 @@ class RootDirectory(StorageDirectory):
         """
         The number of bytes allocated in the minifat storage.
         """
-        # Need to use the value from the header
         minifat_sector_size = 64
         size = 0
         for dir in self.directories:

@@ -60,8 +60,8 @@ class SectorChain:
 
     def _startNewChain(self) -> int:
         # Increase the necessary chain resources by one address
-        newSector = self._reserveNextFreeSector()
-        return newSector
+        new_sector = self._reserveNextFreeSector()
+        return new_sector
 
     def write_chain(self, path: str, endian="little") -> None:
         """

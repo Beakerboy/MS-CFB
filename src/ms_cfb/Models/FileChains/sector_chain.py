@@ -53,9 +53,9 @@ class SectorChain:
     def addStream(self, stream) -> None:
         sector = self._startNewChain()
         stream.setStartSector(sector)
-        sectorsNeeded = max((stream.streamSize() - 1) // self._sectorSize, 0)
-        if sectorsNeeded > 0:
-            self.extendChain(stream, sectorsNeeded)
+        sectors_needed = max((stream.streamSize() - 1) // self._sectorSize, 0)
+        if sectors_needed > 0:
+            self.extendChain(stream, sectors_needed)
         self._streams.append(stream)
 
     def _startNewChain(self) -> int:

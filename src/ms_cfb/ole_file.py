@@ -21,7 +21,7 @@ class OleFile:
         # if there is no data small enough
         # to be on the minifat chain the root directory
         # and this value have to be set to something special.
-        self._first_minichain_sector = 0
+        self._first_minichain_sector = 0xFFFFFFFE
         self._mini_sector_cutoff = 4096
 
         # the FAT chain holds large files, the minifat chain, the minifat data,

@@ -38,10 +38,7 @@ class FatFilesystem(FilesystemBase):
     def to_file(self, path):
         self.write_streams(path)
         streams_length = os.stat(path).st_size
-        if streams_length != 1023:
-            f = open(path, "rb")
-            contents = f.read()
-            raise Exception(contents.hex())
+        
         
         self.write_chain("fat_chain.bin")
         f = open(path, "w+b")
@@ -54,3 +51,8 @@ class FatFilesystem(FilesystemBase):
         f.write(c.read(512))
         f.close()
         c.close()
+        if streams_length != 1023:
+            f = open(path, "rb")
+            contents = f.read()
+            hex = contents.hex()
+            raise Exception(hex)

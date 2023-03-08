@@ -35,7 +35,7 @@ class SectorChain:
         """
         sector_list = []
         for i in range(number):
-            sectorList.append(self._reserveNextFreeSector())
+            sector_list.append(self._reserveNextFreeSector())
         stream.setAdditionalSectors(sector_list)
 
     def requestNewSectors(self, stream):

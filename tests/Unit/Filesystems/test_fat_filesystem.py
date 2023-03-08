@@ -82,7 +82,7 @@ def test_write_chain():
     fs.write_chain("chain.bin")
     f = open("chain.bin", "rb")
     assert f.read() == bytes.fromhex("FDFF FFFF")
-    
+
 
 class StreamStub(StreamBase):
     def streamSize(self):

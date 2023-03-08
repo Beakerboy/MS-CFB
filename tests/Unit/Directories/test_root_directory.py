@@ -10,7 +10,7 @@ def test_directory():
 
     dir.subDirectoryId = 8
     dir.set_modified(0x01D92433C2B823C0)
-    dir.setStartSector(3)
+    dir.set_start_sector(3)
     dir.color = 0
 
     ex = (b''

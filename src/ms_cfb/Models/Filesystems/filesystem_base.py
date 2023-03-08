@@ -48,10 +48,10 @@ class FilesystemBase:
     def extendChain(self, stream, number):
         """
         """
-        sectorList = []
+        sector_list = []
         for i in range(number):
             sectorList.append(self._reserveNextFreeSector())
-        stream.setAdditionalSectors(sectorList)
+        stream.setAdditionalSectors(sector_list)
 
     def requestNewSectors(self, stream):
         """
@@ -68,15 +68,15 @@ class FilesystemBase:
     def add_stream(self, stream):
         sector = self._startNewChain()
         stream.set_start_sector(sector)
-        sectorsNeeded = max((stream.stream_size() - 1) // self._sector_size, 0)
-        if sectorsNeeded > 0:
-            self.extendChain(stream, sectorsNeeded)
+        sectors_needed = max((stream.stream_size() - 1) // self._sector_size, 0)
+        if sectors_needed > 0:
+            self.extendChain(stream, sectors_needed)
         self._streams.append(stream)
 
     def _startNewChain(self):
         # Increase the necessary chain resources by one address
-        newSector = self._reserveNextFreeSector()
-        return newSector
+        new_sector = self._reserveNextFreeSector()
+        return new_sector
 
     def write_chain(self, path):
         """

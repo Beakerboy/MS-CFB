@@ -85,5 +85,5 @@ def test_write_chain():
 
 
 class StreamStub(StreamBase):
-    def streamSize(self):
+    def stream_size(self):
         return 1

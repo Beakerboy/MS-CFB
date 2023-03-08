@@ -4,9 +4,6 @@ from ms_cfb.Models.DataStreams.file_stream import FileStream
 from ms_cfb.Models.Directories.root_directory import RootDirectory
 from ms_cfb.Models.Filesystems.fat_filesystem import FatFilesystem
 from ms_cfb.Models.Filesystems.minifat_filesystem import MinifatFilesystem
-# from ms_cfb.Models.Entities.Streams.directoryStream import (
-#     DirectoryStream
-# )
 
 
 class OleFile:
@@ -19,7 +16,7 @@ class OleFile:
         self._major_version = 3
         self._sector_shift = 9
         self._mini_sector_shift = 6
-        self.firstDirectoryListSector = 1
+        self.first_directory_list_sector = 1
         self._guid = uuid.UUID(int=0x00)
         # if there is no data small enough
         # to be on the minifat chain the root directory
@@ -77,7 +74,7 @@ class OleFile:
             0,    # ulReserved1
             0,    # csectDir
             self._fatChain.count_fat_chain_sectors(),
-            self.firstDirectoryListSector,
+            self.first_directory_list_sector,
             0,    # signature
             self._mini_sector_cutoff,
             self._first_minichain_sector,

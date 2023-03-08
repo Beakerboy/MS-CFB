@@ -34,5 +34,3 @@ class FileStream(StreamBase):
         fill = (sector_size - mod) // len(self._padding)
         c = open(path, "ab")
         c.write(self._padding * fill)
-
-

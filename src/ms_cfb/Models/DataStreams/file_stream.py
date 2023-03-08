@@ -9,7 +9,7 @@ class FileStream(StreamBase):
         super(FileStream, self).__init__()
         self._data = file_path
 
-    def streamSize(self):
+    def stream_size(self):
         """
         From StreamBase
         """

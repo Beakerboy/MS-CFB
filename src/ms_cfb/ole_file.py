@@ -154,14 +154,14 @@ class OleFile:
             directory_stream.append(stream.to_bytes())
             if stream.get_type() == 2:
                 if stream.file_size() > self._mini_sector_cutoff:
-                    self._fatChain.add_stream(stream)
+                    self._fat_chain.add_stream(stream)
                 else:
                     if self._first_minichain_sector == 0:
-                        self._minifatChain.set_storage_chain(self._fat_chain)
-                        self._fatChain.add_stream(self._minifat_chain)
+                        self._minifat_chain.set_storage_chain(self._fat_chain)
+                        self._fat_xhain.add_stream(self._minifat_chain)
                         self._first_minichain_sector = \
-                            self._minifatChain.get_start_sector()
-                    self._minifatChain.add_stream(stream)
+                            self._minifat_chain.get_start_sector()
+                    self._minifat_chain.add_stream(stream)
 
     def write_file(self, path: str) -> None:
         """

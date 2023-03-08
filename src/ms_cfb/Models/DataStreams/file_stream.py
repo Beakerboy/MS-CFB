@@ -26,7 +26,7 @@ class FileStream(StreamBase):
     def to_file(self, path):
         shutil.copy(self._data, path)
         length = os.stat(path).st_size
-        sector_size = self._storageChain.get_sector_size()
+        sector_size = self._storage_chain.get_sector_size()
         if length % sector_size == 0:
             mod = sector_size
         else:

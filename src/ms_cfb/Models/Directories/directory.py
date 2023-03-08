@@ -46,10 +46,10 @@ class Directory:
     def setStartSector(self, value):
         self._startSector = value
 
-    def getStartSector(self):
+    def getStartSector(self) -> int:
         return self._startSector
 
-    def nameSize(self):
+    def name_size(self) -> int:
         """The byte length of the name"""
         return (len(self.name) + 1) * 2
 
@@ -59,13 +59,13 @@ class Directory:
     def file_size(self):
         return 0
 
-    def to_bytes(self):
+    def to_bytes(self) -> bytes:
         format = "<64shbb3I"
 
         dir = struct.pack(
             format,
             self.name.encode("utf_16_le"),
-            self.nameSize(),
+            self.name_size(),
             self._type,
             self.color,
             self.previousDirectoryId,

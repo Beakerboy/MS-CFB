@@ -16,7 +16,7 @@ class OleFile:
         self._major_version = 3
         self._sector_shift = 9
         self._mini_sector_shift = 6
-        self.first_directory_list_sector = 1
+        self._first_directory_list_sector = 1
         self._guid = uuid.UUID(int=0x00)
         # if there is no data small enough
         # to be on the minifat chain the root directory
@@ -74,7 +74,7 @@ class OleFile:
             0,    # ulReserved1
             0,    # csectDir
             self._fatChain.count_fat_chain_sectors(),
-            self.first_directory_list_sector,
+            self._first_directory_list_sector,
             0,    # signature
             self._mini_sector_cutoff,
             self._first_minichain_sector,
@@ -83,8 +83,7 @@ class OleFile:
             self.countDifSectors()
         )
 
-        sectFat = self.writeHeaderFatSectorList()
-        header += sectFat
+        header += self.write_header_fat_sector_list()
         return header
 
     def getDifStartSector(self):
@@ -109,7 +108,7 @@ class OleFile:
             return 0
         return (count - 109 - 1) // (2 ** (self.uSectorShift - 2)) + 1
 
-    def writeHeaderFatSectorList(self):
+    def write_header_fat_sector_list(self):
         """
         Create a 436 byte stream of the first 109 FAT sectors, padded with
         \\xFF.
@@ -128,11 +127,11 @@ class OleFile:
         List which sectors contain FAT chain information. They should be on
         128 sector intervals.
         """
-        sectorList = []
-        numberOfSectors = (len(self._fatChain) - 1) // 128 + 1
-        for i in range(numberOfSectors):
-            sectorList.append(i * (2 ** (self._sector_shift - 2)))
-        return sectorList
+        sector_list = []
+        number_of_sectors = (len(self._fatChain) - 1) // 128 + 1
+        for i in range(number_of_sectors):
+            sector_list.append(i * (2 ** (self._sector_shift - 2)))
+        return sector_list
 
     def build_file(self):
         """

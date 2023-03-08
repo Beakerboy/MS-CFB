@@ -61,7 +61,7 @@ class StreamBase:
         """
         pass
 
-    def _extendData(self, data):
+    def _extend_data(self, data):
         """
         Add new data to the bytearray
         """

@@ -58,7 +58,7 @@ class FilesystemBase:
         the size of the stream has changed, based on the new size, are
         additional sectors needed?
         """
-        size = stream.streamSize()
+        size = stream.stream_size()
         have = len(stream.getSectors())
         if (have * self._sector_size) < size:
             needed = (size - 1) // self._sector_size + 1

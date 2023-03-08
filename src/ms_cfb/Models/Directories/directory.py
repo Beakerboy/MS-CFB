@@ -11,13 +11,13 @@ class Directory:
         # red = 0, black = 1
         self.color = 1
 
-        self.previousDirectoryId = 0xFFFFFFFF
-        self.nextDirectoryId = 0xFFFFFFFF
-        self.subDirectoryId = 0xFFFFFFFF
+        self._previous_directory_id = 0xFFFFFFFF
+        self._next_directory_id = 0xFFFFFFFF
+        self._subdirectory_id = 0xFFFFFFFF
 
         self._class_id = uuid.UUID(int=0x00)
 
-        self.userFlags = 0
+        self.user_flags = 0
 
         self._created = 0
         self._modified = 0
@@ -25,7 +25,7 @@ class Directory:
         # The sector where this stream begins
         # This can either be a minifat sector number or a Fat sector
         # depending on the stream size.
-        self._startSector = 0xFFFFFFFE
+        self._start_sector = 0xFFFFFFFE
         self._type = 0
 
     def set_created(self, value):
@@ -43,17 +43,17 @@ class Directory:
     def get_type(self) -> int:
         return self._type
 
-    def setStartSector(self, value):
-        self._startSector = value
+    def set_start_sector(self, value):
+        self._start_sector = value
 
-    def getStartSector(self) -> int:
-        return self._startSector
+    def get_start_sector(self) -> int:
+        return self._start_sector
 
     def name_size(self) -> int:
         """The byte length of the name"""
         return (len(self.name) + 1) * 2
 
-    def setAdditionalSectors(self, sector_list):
+    def set_additional_sectors(self, sector_list):
         self._additional_sectors = sector_list
 
     def file_size(self):
@@ -68,17 +68,17 @@ class Directory:
             self.name_size(),
             self._type,
             self.color,
-            self.previousDirectoryId,
-            self.nextDirectoryId,
-            self.subDirectoryId
+            self._previous_directory_id,
+            self._next_directory_id,
+            self._subdirectory_id
         )
         dir += self._class_id.bytes_le
         dir += struct.pack(
             "<IQQIII",
-            self.userFlags,
+            self.user_flags,
             self._created,
             self._modified,
-            self._startSector,
+            self._start_sector,
             self.file_size(),
             0
         )

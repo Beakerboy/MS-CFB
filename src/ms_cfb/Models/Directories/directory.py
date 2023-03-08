@@ -25,7 +25,7 @@ class Directory:
         # The sector where this stream begins
         # This can either be a minifat sector number or a Fat sector
         # depending on the stream size.
-        self._startSector = 0
+        self._startSector = 0xFFFFFFFE
         self._type = 0
 
     def set_created(self, value):

@@ -89,18 +89,18 @@ class OleFile:
         header += self.write_header_fat_sector_list()
         return header
 
-    def getDifStartSector(self):
+    def get_dif_start_sector(self):
         """
         The Fat sector lost in the header can only list the position of 109
         sectors.If more sectors are needed, the DIF sector lists these sector
         numbers.
         """
-        if len(self.getFatSectors()) <= 109:
+        if len(self.get_fat_sectors()) <= 109:
             return 0xfffffffe
         # research how Dif works
         return 0
 
-    def countDifSectors(self):
+    def count_dif_sectors(self) -> int:
         """
         How many sectors of 512 entries are needed to list the positions of the
         remaining FAT sectors.
@@ -125,7 +125,7 @@ class OleFile:
         output = output.ljust(436, b'\xff')
         return output
 
-    def getFatSectors(self):
+    def get_fat_sectors(self) -> list:
         """
         List which sectors contain FAT chain information. They should be on
         128 sector intervals.
@@ -136,7 +136,7 @@ class OleFile:
             sector_list.append(i * (2 ** (self._sector_shift - 2)))
         return sector_list
 
-    def build_file(self):
+    def build_file(self) -> None:
         """
         Build the OLE file data structures from the project data.
         """
@@ -163,7 +163,7 @@ class OleFile:
                             self._minifatChain.get_start_sector()
                     self._minifatChain.add_stream(stream)
 
-    def write_file(self, path):
+    def write_file(self, path: str) -> None:
         """
         Write the OLE file to disk
         """
@@ -185,7 +185,7 @@ class OleFile:
         # write minifat chain sectors
         f.close()
 
-    def create_file(self, path):
+    def create_file(self, path: str) -> None:
         """
         Build and Write the OLE file
         """

@@ -27,10 +27,10 @@ class MinifatFilesystem(FilesystemBase, StreamBase):
     def extendChain(self, stream, number):
         """
         """
-        sector_lst = []
+        sector_list = []
         for i in range(number):
             sector_list.append(self._reserveNextFreeSector())
-        stream.setAdditionalSectors(sectorList)
+        stream.setAdditionalSectors(sector_list)
 
     def _startNewChain(self):
         # Increase the necessary chain resources by one address

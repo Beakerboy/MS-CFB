@@ -46,6 +46,9 @@ class OleFile:
     def get_version(self):
         return self._major_version
 
+    def set_root_directory(self, dir):
+        self._directory = dir
+
     def add_directory_entry(self, object):
         """
         Add a storage or stream object to root

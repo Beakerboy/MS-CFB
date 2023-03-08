@@ -12,8 +12,7 @@ class RootDirectory(StorageDirectory):
 
     def file_size(self) -> int:
         """
-        Need to see how to handle streams that are mixed
-        between fat and minifat storage.
+        The number of bytes allocated in the minifat storage.
         """
         # Need to use the value from the header
         minifat_sector_size = 64

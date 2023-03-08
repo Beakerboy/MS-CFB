@@ -25,18 +25,18 @@ class SectorChain:
 
         return chain
 
-    def reserve_next_free_sector(self):
+    def reserve_next_free_sector(self) -> int:
         sector = self._nextFreeSector
         self._nextFreeSector += 1
         return sector
 
-    def extendChain(self, stream, number):
+    def extendChain(self, stream, number) -> None:
         """
         """
-        sectorList = []
+        sector_list = []
         for i in range(number):
             sectorList.append(self._reserveNextFreeSector())
-        stream.setAdditionalSectors(sectorList)
+        stream.setAdditionalSectors(sector_list)
 
     def requestNewSectors(self, stream):
         """
@@ -50,7 +50,7 @@ class SectorChain:
             self.extendChain(stream, needed - have)
         pass
 
-    def addStream(self, stream):
+    def addStream(self, stream) -> None:
         sector = self._startNewChain()
         stream.setStartSector(sector)
         sectorsNeeded = max((stream.streamSize() - 1) // self._sectorSize, 0)
@@ -58,12 +58,12 @@ class SectorChain:
             self.extendChain(stream, sectorsNeeded)
         self._streams.append(stream)
 
-    def _startNewChain(self):
+    def _startNewChain(self) -> int:
         # Increase the necessary chain resources by one address
         newSector = self._reserveNextFreeSector()
         return newSector
 
-    def write_chain(self, path, endian="little"):
+    def write_chain(self, path: str, endian="little") -> None:
         """
         write the chain list to a file.
         """
@@ -73,7 +73,7 @@ class SectorChain:
         for address in chain:
             f.write(address.to_bytes(4, endian))
 
-    def write_streams(self, path, endian="little"):
+    def write_streams(self, path: str, endian="little") -> None:
         sectors = len(self)
         f = open(path, "wb")
         f.write(b'\x00' * sectors * self._sectorSize)

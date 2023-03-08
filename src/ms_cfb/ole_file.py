@@ -147,7 +147,7 @@ class OleFile:
         f.close()
         directory_stream = FileStream("directory_stream.bin")
         directory_stream.setStorageChain(self._fatChain)
-        empty_dir = b'\x00' * (16 * 8 + 4) + b'\xff' * 12 + b'\x00' * 16 * 6
+        empty_dir = b'\x00' * (16 * 4 + 4) + b'\xff' * 12 + b'\x00' * 16 * 3
         directory_stream.set_padding(empty_dir)
         self._fatChain.add_stream(directory_stream)
 

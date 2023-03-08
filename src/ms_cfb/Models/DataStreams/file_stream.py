@@ -28,7 +28,7 @@ class FileStream(StreamBase):
         length = os.stat(path).st_size
         sector_size = self._storageChain.get_sector_size()
         if length % sector_size == 0:
-            mod = sector_size 
+            mod = sector_size
         else:
             mod = length % sector_size
         fill = (sector_size - mod) // len(self._padding)

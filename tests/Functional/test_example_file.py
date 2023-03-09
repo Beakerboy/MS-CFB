@@ -24,7 +24,7 @@ def test_example_file():
     guid2 = uuid.UUID("56616100-C154-11CE-5385-5BF9A100AA00")
     storage.set_clsid(guid2)
 
-    stream1_data = "Data for stream 1" * 32
+    stream1_data = bytes("Data for stream 1", "utf8") * 32
     f = open("stream1.bin", "wb")
     f.write(stream1_data)
     f.close()

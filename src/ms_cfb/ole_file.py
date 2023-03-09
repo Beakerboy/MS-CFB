@@ -81,7 +81,7 @@ class OleFile:
             0,    # signature
             self._mini_sector_cutoff,
             self._first_minichain_sector,
-            max([len(self._minifatChain.get_sectors()), 1]),
+            max([len(self._minifat_chain.get_sectors()), 1]),
             self.get_dif_start_sector(),
             self.count_dif_sectors()
         )

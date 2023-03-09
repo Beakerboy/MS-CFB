@@ -53,14 +53,14 @@ class MinifatFilesystem(FilesystemBase, StreamBase):
     def to_file(self, path):
         filename = "minifat_chain.bin"
         self.write_streams(path)
-        self.write_chain(name)
+        self.write_chain(filename)
         f = open(path, "r+b")
-        length = os.stat(name).st_size
-        c = open(name, "ab")
+        length = os.stat(filename).st_size
+        c = open(filename, "ab")
         fill = self._sector_size - length % self._sector_size
         c.write(b'\xff' * fill)
         c.close()
-        c = open(name, "rb")
+        c = open(filename, "rb")
         f.write(c.read(512))
         f.close()
         c.close()

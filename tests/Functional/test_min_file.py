@@ -10,11 +10,6 @@ def run_around_tests():
     # A test function will be run at this point
     yield
     # Code that will run after your test
-    root = "vbaProjectCompiler/blank_files/"
-    root2 = "tests/blank/"
-    names = [root + "ThisWorkbook.cls", root + "Sheet1.cls",
-             root2 + "Module1.bas"]
-    remove_module(names)
     names = ["vbaProject.bin"]
     map(os.remove, names)
 

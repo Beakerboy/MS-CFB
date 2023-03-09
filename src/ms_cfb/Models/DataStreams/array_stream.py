@@ -11,3 +11,9 @@ class ArrayStream(StreamBase):
 
     def _render_element(self, element) -> bytes:
         return element.to_bytes()
+
+    def _extend_data(self, data) -> None:
+        """
+        Add new data to the array
+        """
+        self._data.append(data)

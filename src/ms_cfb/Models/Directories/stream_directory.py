@@ -19,6 +19,9 @@ class StreamDirectory(Directory):
     def set_modified(self, datetime) -> None:
         raise Exception("File Directory must have modified date of zero.")
 
+    def set_clsid(self, uuid) -> None:
+        raise Exception("clsid must be zero.")
+
     def set_bytes_reserved(self, quantity: int) -> None:
         self.bytesUsed = quantity
 

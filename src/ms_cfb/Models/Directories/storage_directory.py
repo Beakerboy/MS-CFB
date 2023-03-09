@@ -25,13 +25,7 @@ class StorageDirectory(Directory):
             size += dir.padded_bytes_used()
         return size
 
-    def add_module(self, module):
-        stream = StreamDirectory()
-        stream.name = module.modName.value
-        stream.module = module
-        self.directories.append(stream)
-
-    def add_file(self, stream):
+    def add_directory(self, stream):
         self.directories.append(stream)
 
     def create_binary_tree(self):

@@ -1,3 +1,4 @@
+import os
 from ms_cfb.Models.Filesystems.filesystem_base import FilesystemBase
 from ms_cfb.Models.DataStreams.array_stream import ArrayStream
 from ms_cfb.Models.DataStreams.stream_base import StreamBase

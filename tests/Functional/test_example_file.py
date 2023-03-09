@@ -6,6 +6,17 @@ from ms_cfb.Models.Directories.storage_directory import StorageDirectory
 from ms_cfb.Models.Directories.stream_directory import StreamDirectory
 
 
+pytest.fixture(autouse=True)
+def run_around_tests():
+    # Code that will run before your test, for example:
+
+    # A test function will be run at this point
+    yield
+    # Code that will run after your test
+    names = ["vbaProject.bin"]
+    map(os.remove, names)
+
+
 def test_example_file():
     """
     The example file as described in MS-CFB

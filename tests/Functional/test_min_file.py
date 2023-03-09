@@ -10,7 +10,7 @@ def run_around_tests():
     # A test function will be run at this point
     yield
     # Code that will run after your test
-    names = ["vbaProject.bin"]
+    names = ["vbaProject.bin", "directory_stream.bin"]
     map(os.remove, names)
 
 def test_min_file():

@@ -8,6 +8,7 @@ def run_around_tests():
     # Code that will run before your test, for example:
     names = ["vbaProject.bin", "directory_stream.bin"]
     map(os.remove, names)
+    os.remove("directory_stream.bin")
     # A test function will be run at this point
     yield
     # Code that will run after your test

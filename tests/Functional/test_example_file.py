@@ -29,7 +29,7 @@ def test_example_file():
     f.write(stream1_data)
     f.close()
     stream1 = StreamDirectory("Stream 1", "stream1.bin")
-    storage.add_stream(stream1)
+    storage.add_file(stream1)
 
     ole_file = OleFile()
     ole_file.set_root_directory(root)

@@ -157,7 +157,7 @@ class OleFile:
                 if stream.file_size() > self._mini_sector_cutoff:
                     self._fat_chain.add_stream(stream)
                 else:
-                    if self._first_minichain_sector == 0:
+                    if self._first_minichain_sector == 0xFFFFFFFE:
                         self._minifat_chain.set_storage_chain(self._fat_chain)
                         self._fat_chain.add_stream(self._minifat_chain)
                         self._first_minichain_sector = \

@@ -49,6 +49,9 @@ class Directory:
     def get_start_sector(self) -> int:
         return self._start_sector
 
+    def set_clsid(self, uuid) -> None:
+        self._class_id = uuid
+
     def name_size(self) -> int:
         """The byte length of the name"""
         return (len(self.name) + 1) * 2

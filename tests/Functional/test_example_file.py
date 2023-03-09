@@ -9,7 +9,8 @@ def test_example_file():
     """
 
     root = RootDirectory()
-    root.set_clsid(0x11CEC15456616700 0xAA005385 0x5BF9A100)
+    guid = uuid.UUID("11CEC15456616700AA0053855BF9A100")
+    root.set_clsid(guid)
     root.set_modified(0x01BAB44B13921E80)
 
     storage = StorageDirectory("Storage 1")
@@ -17,7 +18,8 @@ def test_example_file():
     storage.set_created(0x01BAB44B12F98800)
     # 11/16/1995 5:43:45 PM
     storage.set_modified(0x01BAB44B13921E80)
-    storage.set_clsid(0x5BF9A100AA00538511CEC15456616100)
+    guid2 = uuid.UUID("56616100-C154-11CE-5385-5BF9A100AA00")
+    storage.set_clsid(guid2)
 
     stream1_data = "Data for stream 1" * 32
     f = open("stream1.bin" "wb")

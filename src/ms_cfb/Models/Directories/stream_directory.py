@@ -11,7 +11,7 @@ class StreamDirectory(Directory):
         # How many bytes does this item reserve in the file.
         # This includes padding to fill a sector or ministream.
         self.bytesUsed = 0
-        self.file_path = path
+        self._file_path = path
 
     def set_created(self, datetime) -> None:
         raise Exception("File Directory must have created date of zero.")
@@ -35,7 +35,7 @@ class StreamDirectory(Directory):
         """
         Size in bytes of the file
         """
-        return os.stat(self.file_path).st_size
+        return os.stat(self._file_path).st_size
 
     def minifat_sectors_used(self) -> int:
         return (self.file_size() - 1) // 64 + 1

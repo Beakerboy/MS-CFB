@@ -76,7 +76,7 @@ class OleFile:
             0,    # usReserved
             0,    # ulReserved1
             0,    # csectDir
-            self._fatChain.count_fat_chain_sectors(),
+            self._fat_chain.count_fat_chain_sectors(),
             self._first_directory_list_sector,
             0,    # signature
             self._mini_sector_cutoff,
@@ -170,7 +170,7 @@ class OleFile:
         f = open(path + '/vbaProject.bin', 'wb+')
         f.write(self.header())
         # extend file to full size
-        sectors = len(self._fatChain)
+        sectors = len(self._fat_chain)
         f.write(b'\x01' * sectors * self._fat_chain.get_sector_size())
 
         self._fat_chain.to_file("./fatChain.bin")

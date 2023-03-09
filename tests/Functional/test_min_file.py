@@ -6,13 +6,16 @@ from ms_cfb.ole_file import OleFile
 @pytest.fixture(autouse=True)
 def run_around_tests():
     # Code that will run before your test, for example:
-    os.remove("vbaProject.bin")
-    os.remove("directory_stream.bin")
+    names = ["vbaProject.bin", "directory_stream.bin"]
+    for name in names:
+        if is_file(name):
+            os.remove(name)
     # A test function will be run at this point
     yield
     # Code that will run after your test
-    names = ["vbaProject.bin", "directory_stream.bin"]
-    map(os.remove, names)
+    for name in names:
+        if is_file(name):
+            os.remove(name)
 
 def test_min_file():
     """

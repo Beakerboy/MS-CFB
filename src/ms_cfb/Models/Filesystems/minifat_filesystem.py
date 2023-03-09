@@ -49,3 +49,18 @@ class MinifatFilesystem(FilesystemBase, StreamBase):
         implementation of StreamBase._extend_data()
         """
         pass
+
+    def to_file(self, path):
+        filename = "minifat_chain.bin"
+        self.write_streams(path)
+        self.write_chain(name)
+        f = open(path, "r+b")
+        length = os.stat(name).st_size
+        c = open(name, "ab")
+        fill = self._sector_size - length % self._sector_size
+        c.write(b'\xff' * fill)
+        c.close()
+        c = open(name, "rb")
+        f.write(c.read(512))
+        f.close()
+        c.close()

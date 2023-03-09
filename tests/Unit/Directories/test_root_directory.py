@@ -17,10 +17,10 @@ def test_directory():
           "0000 0000 0000 0000 0000 0000 0000 0000",
           "1600 0500 FFFF FFFF FFFF FFFF ffff ffff",
           "0000 0000 0000 0000 0000 0000 0000 0000",
-          + b'\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\xC0\x23\xB8\xC2'
-          + b'\x33\x24\xD9\x01\x03\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00']
+          "0000 0000 0000 0000 0000 0000 C023 B8C2",
+          "3324 D901 0300 0000 0000 0000 0000 0000"]
 
-    assert dir.to_bytes() == ex
+    assert dir.to_bytes() == bytes.fromhex(" ".join(ex))
 
 
 def test_add_created():

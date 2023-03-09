@@ -13,28 +13,28 @@ class StorageDirectory(Directory):
     def file_size(self):
         return 0
 
-    def minifatSectorsUsed(self):
+    def minifat_sectors_used(self):
         size = 0
         for dir in self.directories:
-            size += dir.minifatSectorsUsed()
+            size += dir.minifat_sectors_used()
         return size
 
-    def paddedBytesUsed(self):
+    def padded_bytes_used(self):
         size = 0
         for dir in self.directories:
-            size += dir.paddedBytesUsed()
+            size += dir.padded_bytes_used()
         return size
 
-    def addModule(self, module):
+    def add_module(self, module):
         stream = StreamDirectory()
         stream.name = module.modName.value
         stream.module = module
         self.directories.append(stream)
 
-    def addFile(self, stream):
+    def add_file(self, stream):
         self.directories.append(stream)
 
-    def createBinaryTree(self):
+    def create_binary_tree(self):
         pass
 
     def flatten(self):

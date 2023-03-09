@@ -4,30 +4,24 @@ from ms_cfb.Models.Directories.storage_directory import StorageDirectory
 class RootDirectory(StorageDirectory):
 
     def __init__(self):
-        super(RootDirectory, self).__init__()
-        self.name = "Root Entry"
-        self.type = 5
-        VBADirectory = StorageDirectory()
-        VBADirectory.name = "VBA"
-        self.directories.append(VBADirectory)
+        super(RootDirectory, self).__init__("Root Entry")
+        self._type = 5
 
-    def set_created(self, created):
+    def set_created(self, created) -> None:
         raise Exception("Root Directory must have created date of zero.")
 
-    def fileSize(self):
+    def file_size(self) -> int:
         """
-        Need to see how to handle streams that are mixed
-        between fat and minifat storage.
+        The number of bytes allocated in the minifat storage.
         """
-        # Need to use the value from the header
-        minifatSectorSize = 64
+        minifat_sector_size = 64
         size = 0
         for dir in self.directories:
             size += dir.minifatSectorsUsed()
-        return size * minifatSectorSize
+        return size * minifat_sector_size
 
-    def addModule(self, module):
+    def add_module(self, module) -> None:
         self.directories[0].addModule(module)
 
-    def addFile(self, stream):
+    def add_file(self, stream) -> None:
         self.directories[0].addFile(stream)

@@ -14,10 +14,16 @@ class StreamBase:
         self._sectors = []
 
         # An object of type SectorChain which will be storing this stream
-        self._storageChain = 0
+        self._storage_chain = 0
 
-    def setStorageChain(self, chain):
-        self._storageChain = chain
+        # bytes to pad data to fill a sector
+        self._padding = b'\x00'
+
+    def set_padding(self, padding):
+        self._padding = padding
+
+    def set_storage_chain(self, chain):
+        self._storage_chain = chain
 
     def set_start_sector(self, sector):
         """
@@ -29,10 +35,10 @@ class StreamBase:
     def get_start_sector(self):
         return self._sectors[0]
 
-    def setAdditionalSectors(self, sectors):
+    def set_additional_sectors(self, sectors):
         self._sectors.extend(sectors)
 
-    def getSectors(self):
+    def get_sectors(self):
         return self._sectors
 
     def append(self, data):
@@ -40,10 +46,10 @@ class StreamBase:
         Extend the data in this stream.
         Request additional chain storage if needed
         """
-        self._extendData(data)
-        self._storageChain.requestNewSectors(self)
+        self._extend_data(data)
+        self._storage_chain.request_new_sectors(self)
 
-    def streamSize(self):
+    def stream_size(self):
         """
         The size the stream will be when rendered
         """
@@ -55,7 +61,7 @@ class StreamBase:
         """
         pass
 
-    def _extendData(self, data):
+    def _extend_data(self, data):
         """
         Add new data to the bytearray
         """

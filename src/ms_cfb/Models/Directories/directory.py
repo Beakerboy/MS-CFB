@@ -1,4 +1,5 @@
 import struct
+import uuid
 
 
 class Directory:
@@ -10,13 +11,13 @@ class Directory:
         # red = 0, black = 1
         self.color = 1
 
-        self.previousDirectoryId = 0xFFFFFFFF
-        self.nextDirectoryId = 0xFFFFFFFF
-        self.subDirectoryId = 0xFFFFFFFF
+        self._previous_directory_id = 0xFFFFFFFF
+        self._next_directory_id = 0xFFFFFFFF
+        self._subdirectory_id = 0xFFFFFFFF
 
-        self.classId = ""
+        self._class_id = uuid.UUID(int=0x00)
 
-        self.userFlags = 0
+        self.user_flags = 0
 
         self._created = 0
         self._modified = 0
@@ -24,8 +25,8 @@ class Directory:
         # The sector where this stream begins
         # This can either be a minifat sector number or a Fat sector
         # depending on the stream size.
-        self._startSector = 0
-        self.type = 0
+        self._start_sector = 0xFFFFFFFE
+        self._type = 0
 
     def set_created(self, value):
         self._created = value
@@ -39,43 +40,46 @@ class Directory:
     def get_modified(self):
         return self._modified
 
-    def setStartSector(self, value):
-        self._startSector = value
+    def get_type(self) -> int:
+        return self._type
 
-    def getStartSector(self):
-        return self._startSector
+    def set_start_sector(self, value):
+        self._start_sector = value
 
-    def nameSize(self):
+    def get_start_sector(self) -> int:
+        return self._start_sector
+
+    def name_size(self) -> int:
         """The byte length of the name"""
         return (len(self.name) + 1) * 2
 
-    def setAdditionalSectors(self, sectorList):
-        self._additionalSectors = sectorList
+    def set_additional_sectors(self, sector_list):
+        self._additional_sectors = sector_list
 
-    def fileSize(self):
+    def file_size(self):
         return 0
 
-    def to_bytes(self, codePageName):
+    def to_bytes(self) -> bytes:
         format = "<64shbb3I"
 
         dir = struct.pack(
             format,
             self.name.encode("utf_16_le"),
-            self.nameSize(),
-            self.type,
+            self.name_size(),
+            self._type,
             self.color,
-            self.previousDirectoryId,
-            self.nextDirectoryId,
-            self.subDirectoryId
+            self._previous_directory_id,
+            self._next_directory_id,
+            self._subdirectory_id
         )
-        dir += bytearray(self.classId, codePageName).ljust(16, b'\x00')
+        dir += self._class_id.bytes_le
         dir += struct.pack(
             "<IQQIII",
-            self.userFlags,
+            self.user_flags,
             self._created,
             self._modified,
-            self._startSector,
-            self.fileSize(),
+            self._start_sector,
+            self.file_size(),
             0
         )
         return dir

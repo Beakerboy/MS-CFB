@@ -4,36 +4,37 @@ from ms_cfb.Models.Directories.stream_directory import StreamDirectory
 
 class StorageDirectory(Directory):
 
-    def __init__(self):
+    def __init__(self, name):
         super(StorageDirectory, self).__init__()
-        self.type = 1
+        self.name = name
+        self._type = 1
         self.directories = []
 
-    def fileSize(self):
+    def file_size(self):
         return 0
 
-    def minifatSectorsUsed(self):
+    def minifat_sectors_used(self):
         size = 0
         for dir in self.directories:
-            size += dir.minifatSectorsUsed()
+            size += dir.minifat_sectors_used()
         return size
 
-    def paddedBytesUsed(self):
+    def padded_bytes_used(self):
         size = 0
         for dir in self.directories:
-            size += dir.paddedBytesUsed()
+            size += dir.padded_bytes_used()
         return size
 
-    def addModule(self, module):
+    def add_module(self, module):
         stream = StreamDirectory()
         stream.name = module.modName.value
         stream.module = module
         self.directories.append(stream)
 
-    def addFile(self, stream):
+    def add_file(self, stream):
         self.directories.append(stream)
 
-    def createBinaryTree(self):
+    def create_binary_tree(self):
         pass
 
     def flatten(self):

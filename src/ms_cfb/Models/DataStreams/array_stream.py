@@ -2,4 +2,12 @@ from ms_cfb.Models.DataStreams.stream_base import StreamBase
 
 
 class ArrayStream(StreamBase):
-    pass
+
+    def to_file(self, path):
+        f = open(path, "wb")
+        for element in self._data:
+            f.write(self._render_element(element))
+        f.close()
+
+    def _render_element(self, element) -> bytes:
+        return element.to_bytes()

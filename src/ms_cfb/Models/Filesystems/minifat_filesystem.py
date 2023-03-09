@@ -1,6 +1,6 @@
 from ms_cfb.Models.Filesystems.filesystem_base import FilesystemBase
-from ms_cfb.Models.Entities.Streams.array_stream import ArrayStream
-from ms_cfb.Models.Entities.Streams.streamBase import StreamBase
+from ms_cfb.Models.DataStreams.array_stream import ArrayStream
+from ms_cfb.Models.DataStreams.stream_base import StreamBase
 
 
 class MinifatFilesystem(FilesystemBase, StreamBase):
@@ -9,7 +9,7 @@ class MinifatFilesystem(FilesystemBase, StreamBase):
         FilesystemBase.__init__(self, size)
         StreamBase.__init__(self)
 
-    def addStream(self, stream):
+    def add_stream(self, stream):
         """
         Add a new stream to the minifat chain and arrange the storage resources
         We need to manage changes to the minifat chain, minifat stream, and the
@@ -20,32 +20,32 @@ class MinifatFilesystem(FilesystemBase, StreamBase):
         # start one now.
         if len(self._streams) == 0:
             self._streams = ArrayStream()
-            self._streams.setStorageChain(self._storageChain)
-            self._storageChain.addStream(self._streams)
-        FilesystemBase.addStream(self, stream)
+            self._streams.set_storage_chain(self._storageChain)
+            self._storage_chain.add_stream(self._streams)
+        FilesystemBase.add_stream(self, stream)
 
-    def extendChain(self, stream, number):
+    def extend_chain(self, stream, number):
         """
         """
-        sectorList = []
+        sector_list = []
         for i in range(number):
-            sectorList.append(self._reserveNextFreeSector())
-        stream.setAdditionalSectors(sectorList)
+            sector_list.append(self._reserve_next_free_sector())
+        stream.set_additional_sectors(sector_list)
 
-    def _startNewChain(self):
+    def _start_new_chain(self):
         # Increase the necessary chain resources by one address
-        newSector = self._reserveNextFreeSector()
+        new_sector = self._reserve_next_free_sector()
         self.append(1)
-        return newSector
+        return new_sector
 
-    def streamSize(self):
+    def stream_size(self):
         """
-        implementation of StreamBase.streamSize()
+        implementation of StreamBase.stream_size()
         """
         return 4 * len(self)
 
-    def _extendData(self, number):
+    def _extend_data(self, number):
         """
-        implementation of StreamBase._extendData()
+        implementation of StreamBase._extend_data()
         """
         pass

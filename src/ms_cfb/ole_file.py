@@ -54,7 +54,7 @@ class OleFile:
         Add a storage or stream object to root
         """
         # verify type of object
-        self._directory.add_stream(object)
+        self._directory.add_directory(object)
 
     def header(self):
         """

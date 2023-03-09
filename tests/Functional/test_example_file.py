@@ -1,4 +1,5 @@
 import os
+import pytest
 import uuid
 from ms_cfb.ole_file import OleFile
 from ms_cfb.Models.Directories.root_directory import RootDirectory

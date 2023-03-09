@@ -13,13 +13,13 @@ class StreamDirectory(Directory):
         self.bytesUsed = 0
         self.file_path = path
 
-    def set_created(self, datetime):
+    def set_created(self, datetime) -> None:
         raise Exception("File Directory must have created date of zero.")
 
-    def set_modified(self, datetime):
+    def set_modified(self, datetime) -> None:
         raise Exception("File Directory must have modified date of zero.")
 
-    def setBytesReserved(self, quantity):
+    def set_bytes_reserved(self, quantity: int) -> None:
         self.bytesUsed = quantity
 
     def file_size(self) -> int:
@@ -28,5 +28,5 @@ class StreamDirectory(Directory):
         """
         return os.stat(self.file_path).st_size
 
-    def minifat_sectors_used(self):
+    def minifat_sectors_used(self) -> int:
         return (self.file_size() - 1) // 64 + 1

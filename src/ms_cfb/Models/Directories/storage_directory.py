@@ -34,7 +34,7 @@ class StorageDirectory(Directory):
     def flatten(self):
         self.flat = [self]
         for child in self.directories:
-            if child.type == 2:
+            if child._type == 2:
                 self.flat.append(child)
             else:
                 self.flat.extend(child.flatten())

@@ -6,7 +6,8 @@ from ms_cfb.ole_file import OleFile
 @pytest.fixture(autouse=True)
 def run_around_tests():
     # Code that will run before your test, for example:
-
+    names = ["vbaProject.bin", "directory_stream.bin"]
+    map(os.remove, names)
     # A test function will be run at this point
     yield
     # Code that will run after your test

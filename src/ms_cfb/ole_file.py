@@ -148,7 +148,7 @@ class OleFile:
         directory_stream.set_storage_chain(self._fat_chain)
         empty_dir = b'\x00' * (16 * 4 + 4) + b'\xff' * 12 + b'\x00' * 16 * 3
         directory_stream.set_padding(empty_dir)
-        self._fatChain.add_stream(directory_stream)
+        self._fat_chain.add_stream(directory_stream)
 
         for stream in directory_array:
             directory_stream.append(stream.to_bytes())
@@ -158,7 +158,7 @@ class OleFile:
                 else:
                     if self._first_minichain_sector == 0:
                         self._minifat_chain.set_storage_chain(self._fat_chain)
-                        self._fat_xhain.add_stream(self._minifat_chain)
+                        self._fat_chain.add_stream(self._minifat_chain)
                         self._first_minichain_sector = \
                             self._minifat_chain.get_start_sector()
                     self._minifat_chain.add_stream(stream)
@@ -173,7 +173,7 @@ class OleFile:
         sectors = len(self._fatChain)
         f.write(b'\x01' * sectors * self._fat_chain.get_sector_size())
 
-        self._fatChain.to_file("./fatChain.bin")
+        self._fat_chain.to_file("./fatChain.bin")
         b = open("./fatChain.bin", "rb")
         f.seek(512)
         f.write(b.read())

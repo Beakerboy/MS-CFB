@@ -1,6 +1,9 @@
 import os
 import uuid
 from ms_cfb.ole_file import OleFile
+from ms_cfb.Models.Directories.root_directory import RootDirectory
+from ms_cfb.Models.Directories.storage_directory import StorageDirectory
+from ms_cfb.Models.Directories.stream_directory import StreamDirectory
 
 
 def test_example_file():

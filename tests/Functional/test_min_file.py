@@ -2,6 +2,21 @@ import os
 from ms_cfb.ole_file import OleFile
 
 
+@pytest.fixture(autouse=True)
+def run_around_tests():
+    # Code that will run before your test, for example:
+
+    # A test function will be run at this point
+    yield
+    # Code that will run after your test
+    root = "vbaProjectCompiler/blank_files/"
+    root2 = "tests/blank/"
+    names = [root + "ThisWorkbook.cls", root + "Sheet1.cls",
+             root2 + "Module1.bas"]
+    remove_module(names)
+    names = ["vbaProject.bin"]
+    map(os.remove, names)
+
 def test_min_file():
     """
     The smallest file has three sectors, one each:

@@ -5,7 +5,7 @@ from ms_cfb.ole_file import OleFile
 
 @pytest.fixture(autouse=True)
 def run_around_tests():
-    # Code that will run before your test, for example:
+    # Code that will run before your test
     names = ["vbaProject.bin", "directory_stream.bin"]
     for name in names:
         if is_file(name):

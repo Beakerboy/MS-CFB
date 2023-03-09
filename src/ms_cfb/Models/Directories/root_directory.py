@@ -17,7 +17,7 @@ class RootDirectory(StorageDirectory):
         minifat_sector_size = 64
         size = 0
         for dir in self.directories:
-            size += dir.minifatSectorsUsed()
+            size += dir.minifat_sectors_used()
         return size * minifat_sector_size
 
     def add_module(self, module) -> None:

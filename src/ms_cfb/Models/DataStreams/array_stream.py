@@ -3,6 +3,9 @@ from ms_cfb.Models.DataStreams.stream_base import StreamBase
 
 class ArrayStream(StreamBase):
 
+    def __init__(self):
+        self._data = []
+
     def to_file(self, path):
         f = open(path, "wb")
         for element in self._data:

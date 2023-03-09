@@ -25,6 +25,12 @@ class StreamDirectory(Directory):
     def set_bytes_reserved(self, quantity: int) -> None:
         self.bytesUsed = quantity
 
+    def stream_size(self) -> int:
+        """
+        implements StreamBase.stream_size()
+        """
+        return self.file_size()
+
     def file_size(self) -> int:
         """
         Size in bytes of the file

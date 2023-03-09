@@ -95,7 +95,7 @@ class FilesystemBase:
         f.write(b'\x02' * sectors * self._sector_size)
         i = 0
         for stream in self._streams:
-            sectors = stream.getSectors()
+            sectors = stream.get_sectors()
             filename = "stream" + str(i) + ".bin"
             stream.to_file(filename)
             s = open(filename, "rb")

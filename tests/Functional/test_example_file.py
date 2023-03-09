@@ -1,4 +1,5 @@
 import os
+import uuid
 from ms_cfb.ole_file import OleFile
 
 

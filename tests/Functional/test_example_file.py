@@ -25,7 +25,7 @@ def test_example_file():
     storage.set_clsid(guid2)
 
     stream1_data = "Data for stream 1" * 32
-    f = open("stream1.bin" "wb")
+    f = open("stream1.bin", "wb")
     f.write(stream1_data)
     f.close()
     stream1 = StreamDirectory("Stream 1", "stream1.bin")

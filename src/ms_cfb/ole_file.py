@@ -1,3 +1,4 @@
+import os
 import struct
 import uuid
 from ms_cfb.Models.DataStreams.file_stream import FileStream
@@ -178,6 +179,7 @@ class OleFile:
         f.seek(512)
         f.write(b.read())
         b.close()
+        os.remove("directory_stream.bin")
         # write directory sectors
         # write minifat chain
         # write minifat data

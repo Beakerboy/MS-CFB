@@ -21,7 +21,6 @@ class MinifatFilesystem(FilesystemBase, StreamBase):
         # start one now.
         if len(self._streams) == 0:
             self._streams = ArrayStream()
-            self._streams.set_storage_chain(self._storage_chain)
             self._storage_chain.add_stream(self._streams)
         FilesystemBase.add_stream(self, stream)
 

@@ -163,7 +163,8 @@ class OleFile:
                         self._fat_chain.add_stream(self._minifat_chain)
                         self._first_minichain_sector = \
                             self._minifat_chain.get_start_sector()
-                    # should Filesystem.add_stream() call StreamBase.set_storage_chain()
+                    # should Filesystem.add_stream() call
+                    # StreamBase.set_storage_chain()?
                     stream.set_storage_chain(self._minifat_chain)
                     self._minifat_chain.add_stream(stream)
                    

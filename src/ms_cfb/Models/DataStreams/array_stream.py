@@ -19,6 +19,11 @@ class ArrayStream(StreamBase):
             f.write(self._render_element(element))
         f.close()
 
+    def stream_size(self) -> int:
+        sum = 0
+        for stream in self._data:
+            sum += stream.stream_size()
+
     def _render_element(self, element) -> bytes:
         return element.to_bytes()
 

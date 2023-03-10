@@ -59,9 +59,9 @@ class MinifatFilesystem(FilesystemBase, StreamBase):
         """
         self.write_chain(path)
         length = os.stat(path).st_size
-        fill = (self._storage_chain._sector_size
-                - length % self._storage_chain._sector_size)
-        if fill > 0:
+        sector_size = self._storage_chain._sector_size
+        fill = (sector_size - length % sector_size)
+        if fill < sector_size:
             c = open(path, "ab")
             c.write(b'\xff' * fill)
             c.close()

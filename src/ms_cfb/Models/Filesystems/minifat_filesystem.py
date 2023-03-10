@@ -6,8 +6,8 @@ from ms_cfb.Models.DataStreams.stream_base import StreamBase
 
 class MinifatFilesystem(FilesystemBase, StreamBase):
 
-    def __init__(self, size):
-        FilesystemBase.__init__(self, size)
+    def __init__(self):
+        FilesystemBase.__init__(self, 64)
         StreamBase.__init__(self)
 
     def add_stream(self, stream):

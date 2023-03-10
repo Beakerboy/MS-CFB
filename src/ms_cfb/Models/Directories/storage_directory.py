@@ -1,5 +1,4 @@
 from ms_cfb.Models.Directories.directory import Directory
-from ms_cfb.Models.Directories.stream_directory import StreamDirectory
 
 
 class StorageDirectory(Directory):

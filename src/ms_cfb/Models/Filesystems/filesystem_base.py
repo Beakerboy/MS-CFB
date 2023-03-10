@@ -27,6 +27,8 @@ class FilesystemBase:
         chain = []
         for stream in self._streams:
             sectors = stream.get_sectors()
+            if len(sectors) == 0:
+                raise Exception("how can this be?")
             max = sectors[-1]
             if max >= len(chain):
                 number = max - len(chain) + 1

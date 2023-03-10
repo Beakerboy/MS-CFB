@@ -28,6 +28,8 @@ class Directory:
         self._start_sector = 0xFFFFFFFE
         self._type = 0
 
+        self._flattened_index = 0
+
     def set_created(self, value):
         self._created = value
 

@@ -9,7 +9,9 @@ def test_initial_properties() -> None:
 
 
 def test_adding_chain() -> None:
+    fs = FilesystemStub(16)
     chain = MinifatFilesystem()
+    chain.set_storage_chain(fs)
     stream = StreamStub()
     chain.add_stream(stream)
     assert len(chain) == 1
@@ -25,3 +27,7 @@ def test_adding_chain() -> None:
 class StreamStub(StreamBase):
     def stream_size(self):
         return 1
+
+
+class FilesystemStub(FilesystemBase):
+    pass

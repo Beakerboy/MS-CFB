@@ -55,7 +55,7 @@ class StreamBase:
         """
         return len(self._data)
 
-    def to_bytes():
+    def to_bytes(self):
         """
         Return the object in bytes form
         """

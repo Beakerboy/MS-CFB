@@ -29,10 +29,11 @@ def test_adding_chain() -> None:
     assert chain.get_chain() == [2, 0xfffffffe, 3, 0xfffffffe]
     assert stream.get_sectors() == [0, 2, 3]
 
-    chain.to_file(test.bin)
+    chain.to_file("test.bin")
     f = open("test.bin", "rb")
     expected = "02000000 FEFFFFFF 03000000 FEFFFFFF"
     assert f.read() == bytes.fromhex(expected)
+
 
 class StreamStub(StreamBase):
     def stream_size(self):

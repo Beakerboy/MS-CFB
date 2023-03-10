@@ -58,6 +58,6 @@ def test_example_file():
     expected = bytes.fromhex(" ".join(sector1)) + b'\xff' * 16 * 27
     assert f.read(512) == expected
 
-    sector2 = (bytes.fromhex("FDFF FFFF FEFF FFFF FEFF FFFF 0400 0000")
-               + b'\xff' * 16 * 31)
+    sector2 = (bytes.fromhex("FDFF FFFF FEFF FFFF FEFF FFFF 0400 0000 FE")
+               + b'\xff' * (16 * 31 - 1))
     assert f.read(512) == sector2

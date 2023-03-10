@@ -146,7 +146,6 @@ class OleFile:
         f = open("directory_stream.bin", 'x')
         f.close()
         directory_stream = FileStream("directory_stream.bin")
-        directory_stream.set_storage_chain(self._fat_chain)
         empty_dir = b'\x00' * (16 * 4 + 4) + b'\xff' * 12 + b'\x00' * 16 * 3
         directory_stream.set_padding(empty_dir)
         self._fat_chain.add_stream(directory_stream)
@@ -156,7 +155,6 @@ class OleFile:
             if stream.get_type() == 2:
                 if stream.file_size() > self._mini_sector_cutoff:
                     self._fat_chain.add_stream(stream)
-                    stream.set_storage_chain(self._fat_chain)
                 else:
                     if self._first_minichain_sector == 0xFFFFFFFE:
                         self._minifat_chain.set_storage_chain(self._fat_chain)

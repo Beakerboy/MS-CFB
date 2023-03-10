@@ -55,12 +55,6 @@ class StreamBase:
         """
         return len(self._data)
 
-    def to_bytes(self):
-        """
-        Return the object in bytes form
-        """
-        pass
-
     def _extend_data(self, data) -> None:
         """
         Add new data to the bytearray

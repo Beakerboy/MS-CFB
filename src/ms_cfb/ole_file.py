@@ -156,6 +156,7 @@ class OleFile:
             if stream.get_type() == 2:
                 if stream.file_size() > self._mini_sector_cutoff:
                     self._fat_chain.add_stream(stream)
+                    stream.set_storage_chain(self._fat_chain)
                 else:
                     if self._first_minichain_sector == 0xFFFFFFFE:
                         self._minifat_chain.set_storage_chain(self._fat_chain)
@@ -163,6 +164,7 @@ class OleFile:
                         self._first_minichain_sector = \
                             self._minifat_chain.get_start_sector()
                     self._minifat_chain.add_stream(stream)
+                    stream.set_storage_chain(self._minifat_chain)
 
     def write_file(self, path: str) -> None:
         """

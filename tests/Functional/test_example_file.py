@@ -33,7 +33,7 @@ def test_example_file():
     storage.set_created(0x01BAB44B12F98800)
     # 11/16/1995 5:43:45 PM
     storage.set_modified(0x01BAB44B13921E80)
-    guid2 = uuid.UUID("56616100-C154-11CE-5385-5BF9A100AA00")
+    guid2 = uuid.UUID("56616100-C154-11CE-8553-00AA00A1F95B")
     storage.set_clsid(guid2)
 
     stream1_data = bytes("Data for stream 1", "utf8") * 32

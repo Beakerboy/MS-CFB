@@ -36,7 +36,7 @@ def test_adding_chain() -> None:
 
 
 def test_adding_chain_longer_storage() -> None:
-    fs = FilesystemStub(18)
+    fs = FilesystemStub(24)
     chain = MinifatFilesystem()
     chain.set_storage_chain(fs)
     stream = StreamStub()

@@ -1,3 +1,4 @@
+from ms_cfb.Models.Filesystems.filesystem_base import FilesystemBase
 from ms_cfb.Models.Filesystems.minifat_filesystem import MinifatFilesystem
 from ms_cfb.Models.DataStreams.stream_base import StreamBase
 

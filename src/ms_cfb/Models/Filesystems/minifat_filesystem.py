@@ -51,7 +51,12 @@ class MinifatFilesystem(FilesystemBase, StreamBase):
         """
         pass
 
-    def to_file(self, path):
+    def to_file(self, path: str) -> None:
+        """
+        Write the chain data to a file.
+        The stream data is written by calling
+        MinifatFilesytem._streams.to_file()
+        """
         filename = "minifat_chain.bin"
         self.write_streams(path)
         self.write_chain(filename)

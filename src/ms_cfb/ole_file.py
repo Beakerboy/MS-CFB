@@ -30,7 +30,7 @@ class OleFile:
         self._fat_chain = FatFilesystem(2 ** self._sector_shift)
 
         # The list of pointers to the address of the next file piece
-        self._minifat_chain = MinifatFilesystem(2 ** self._mini_sector_shift)
+        self._minifat_chain = MinifatFilesystem()
 
         # A list of directories
         self._directory = RootDirectory()

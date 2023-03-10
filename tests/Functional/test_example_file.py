@@ -92,5 +92,5 @@ def test_example_file():
     sector3 = (bytes.fromhex(" ".join(root))
                + bytes.fromhex(" ".join(store))
                + bytes.fromhex(" ".join(file))
-               + unused * 3)
+               + unused)
     assert f.read(512) == sector3

@@ -57,16 +57,9 @@ class MinifatFilesystem(FilesystemBase, StreamBase):
         The stream data is written by calling
         MinifatFilesytem._streams.to_file()
         """
-        filename = "minifat_chain.bin"
-        self.write_streams(path)
-        self.write_chain(filename)
-        f = open(path, "r+b")
-        length = os.stat(filename).st_size
-        c = open(filename, "ab")
+        self.write_chain(path)
+        length = os.stat(path).st_size
+        c = open(path, "ab")
         fill = self._sector_size - length % self._sector_size
         c.write(b'\xff' * fill)
-        c.close()
-        c = open(filename, "rb")
-        f.write(c.read(512))
-        f.close()
         c.close()

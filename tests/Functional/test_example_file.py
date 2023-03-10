@@ -24,7 +24,7 @@ def test_example_file():
     """
 
     root = RootDirectory()
-    guid = uuid.UUID("56616700C15411CE855300AA5BF9A100")
+    guid = uuid.UUID("56616700C15411CE855300AA00A1F95B")
     root.set_clsid(guid)
     root.set_modified(0x01BAB44B13921E80)
 

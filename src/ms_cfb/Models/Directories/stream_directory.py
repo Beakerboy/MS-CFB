@@ -3,7 +3,7 @@ from ms_cfb.Models.Directories.directory import Directory
 from ms_cfb.Models.DataStreams.file_stream import FileStream
 
 
-class StreamDirectory(Directory, FileStream):
+class StreamDirectory(FileStream, Directory):
 
     def __init__(self, name, path):
         Directory.__init__(self)

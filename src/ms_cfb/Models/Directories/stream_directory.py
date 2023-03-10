@@ -1,11 +1,13 @@
 import os
 from ms_cfb.Models.Directories.directory import Directory
+from ms_cfb.Models.DataStreams.file_stream import FileStream
 
 
-class StreamDirectory(Directory):
+class StreamDirectory(Directory, FileStream):
 
     def __init__(self, name, path):
-        super(StreamDirectory, self).__init__()
+        Directory.__init__()
+        FileStream.__init__(path)
         self._type = 2
         self.name = name
         # How many bytes does this item reserve in the file.

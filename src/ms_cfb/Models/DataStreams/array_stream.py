@@ -23,7 +23,7 @@ class ArrayStream(StreamBase):
         sum = 0
         sector_size = self._storage_chain.get_size()
         for stream in self._data:
-            sectors += (stream.stream_size() - 1) // sector_size + 1
+            sectors = (stream.stream_size() - 1) // sector_size + 1
             sum += sectors * sector_size
 
     def _render_element(self, element) -> bytes:

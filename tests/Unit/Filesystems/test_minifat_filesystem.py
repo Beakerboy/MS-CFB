@@ -24,6 +24,11 @@ def test_adding_chain() -> None:
     assert len(chain) == 2
     assert chain.get_chain() == [0xfffffffe, 0xfffffffe]
 
+    chain.extend_chain(stream, 2)
+    assert len(chain) == 4
+    assert chain.get_chain() == [2, 0xfffffffe, 3, 0xfffffffe]
+    assert stream.get_sectors() == [0, 2, 3]
+
 
 class StreamStub(StreamBase):
     def stream_size(self):

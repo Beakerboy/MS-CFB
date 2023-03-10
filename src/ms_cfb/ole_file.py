@@ -167,7 +167,6 @@ class OleFile:
                     # StreamBase.set_storage_chain()?
                     stream.set_storage_chain(self._minifat_chain)
                     self._minifat_chain.add_stream(stream)
-                   
 
     def write_file(self, path: str) -> None:
         """

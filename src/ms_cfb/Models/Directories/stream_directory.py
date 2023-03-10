@@ -6,8 +6,8 @@ from ms_cfb.Models.DataStreams.file_stream import FileStream
 class StreamDirectory(Directory, FileStream):
 
     def __init__(self, name, path):
-        Directory.__init__()
-        FileStream.__init__(path)
+        Directory.__init__(self)
+        FileStream.__init__(self, path)
         self._type = 2
         self.name = name
         # How many bytes does this item reserve in the file.

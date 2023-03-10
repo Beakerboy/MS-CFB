@@ -47,3 +47,4 @@ def test_example_file():
     ole_file.set_root_directory(root)
     ole_file.add_directory_entry(storage)
     ole_file.create_file(".")
+    assert os.stat("vbaProject.bin").st_size == 512 * 5

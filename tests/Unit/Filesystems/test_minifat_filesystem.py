@@ -35,6 +35,22 @@ def test_adding_chain() -> None:
     assert f.read() == bytes.fromhex(expected)
 
 
+def test_adding_chain_longer_storage() -> None:
+    fs = FilesystemStub(18)
+    chain = MinifatFilesystem()
+    chain.set_storage_chain(fs)
+    stream = StreamStub()
+    chain.add_stream(stream)
+    stream2 = StreamStub()
+    chain.add_stream(stream2)
+    chain.extend_chain(stream, 2)
+    chain.to_file("test.bin")
+    f = open("test.bin", "rb")
+    expected = ["02000000 FEFFFFFF 03000000 FEFFFFFF",
+                "FFFFFFFF FFFFFFFF"]
+    assert f.read() == bytes.fromhex(" ".join(expected))
+
+
 class StreamStub(StreamBase):
     def stream_size(self):
         return 1

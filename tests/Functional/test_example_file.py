@@ -48,3 +48,12 @@ def test_example_file():
     ole_file.add_directory_entry(storage)
     ole_file.create_file(".")
     assert os.stat("vbaProject.bin").st_size == 512 * 5
+
+    f = open("vbaProject.bin", "rb")
+    sector1 = ("D0CF 11E0 A1B1 1AE1 0000 0000 0000 0000",
+               "0000 0000 0000 0000 3E00 0300 FEFF 0900",
+               "0600 0000 0000 0000 0000 0000 0100 0000",
+               "0100 0000 0000 0000 0010 0000 0200 0000",
+               "0100 0000 FEFF FFFF 0000 0000 0000 0000")
+    expected = bytes.fromhex(" ".join(sector1)) + b'\xff' * 16 * 27
+    assert f.read(512) == expected

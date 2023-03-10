@@ -10,6 +10,9 @@ class ArrayStream(StreamBase):
     def __iter__(self):
         return iter(self._data)
 
+    def __len__(self) -> int:
+        return len(self._data)
+
     def to_file(self, path):
         f = open(path, "wb")
         for element in self._data:

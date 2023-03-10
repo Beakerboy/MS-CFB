@@ -7,6 +7,9 @@ class ArrayStream(StreamBase):
         super(ArrayStream, self).__init__()
         self._data = []
 
+    def __iter__():
+        return iter(self._data)
+
     def to_file(self, path):
         f = open(path, "wb")
         for element in self._data:

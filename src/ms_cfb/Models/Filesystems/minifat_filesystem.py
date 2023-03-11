@@ -10,6 +10,9 @@ class MinifatFilesystem(FilesystemBase, StreamBase):
         FilesystemBase.__init__(self, 64)
         StreamBase.__init__(self)
 
+    def get_first_stream_sector(self) -> int:
+        return self._steams.get_first_sector()
+
     def add_stream(self, stream):
         """
         Add a new stream to the minifat chain and arrange the storage resources

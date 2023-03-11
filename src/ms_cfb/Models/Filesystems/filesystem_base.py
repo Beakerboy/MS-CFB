@@ -1,3 +1,6 @@
+import os
+
+
 class FilesystemBase:
 
     def __init__(self, size):
@@ -106,4 +109,6 @@ class FilesystemBase:
                 sector_data = s.read(self._sector_size)
                 f.seek(sector * self._sector_size)
                 f.write(sector_data)
+            s.close()
+            os.remove(filename)
             i += 1

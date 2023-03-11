@@ -42,3 +42,7 @@ class StorageDirectory(Directory):
             dir._flattened_index = i
             i += 1
         return self.flat
+
+    def set_child(self):
+        if len(self.directories) == 1
+            self._subdirectory_id = self.directories[O]._flattened_index

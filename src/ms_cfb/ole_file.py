@@ -154,8 +154,8 @@ class OleFile:
                     self._fat_chain.add_stream(stream)
                 else:
                     if self._first_minichain_sector == 0xFFFFFFFE:
-                        # We have not previously added the minifat fs to the fat,
-                        # do that.
+                        # We have not previously added the minifat fs to the fat
+                        # so do that.
                         mf_chain = self._minifat_chain
                         self._fat_chain.add_stream(self._minifat_chain)
 

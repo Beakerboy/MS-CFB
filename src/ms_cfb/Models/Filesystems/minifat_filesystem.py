@@ -11,7 +11,7 @@ class MinifatFilesystem(FilesystemBase, StreamBase):
         StreamBase.__init__(self)
 
     def get_first_stream_sector(self) -> int:
-        return self._steams.get_first_sector()
+        return self._streams.get_first_sector()
 
     def add_stream(self, stream):
         """

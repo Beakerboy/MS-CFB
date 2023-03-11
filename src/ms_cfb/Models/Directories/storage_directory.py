@@ -37,4 +37,8 @@ class StorageDirectory(Directory):
                 self.flat.append(child)
             else:
                 self.flat.extend(child.flatten())
+        i = 0
+        for dir in self.flat:
+            dir._flattened_index = i
+            i += 1
         return self.flat

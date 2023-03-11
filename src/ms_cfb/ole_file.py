@@ -177,12 +177,6 @@ class OleFile:
         f.seek(512)
         f.write(b.read())
         b.close()
-        os.remove("directory_stream.bin")
-        # write directory sectors
-        # write minifat chain
-        # write minifat data
-
-        # write minifat chain sectors
         f.close()
 
     def create_file(self, path: str) -> None:

@@ -17,6 +17,14 @@ class ArrayStream(StreamBase):
         f = open(path, "wb")
         for element in self._data:
             f.write(self._render_element(element))
+        sector_size = self._storage_chain.get_sector_size()
+        length = f.tell()
+        if length % sector_size == 0:
+            mod = sector_size
+        else:
+            mod = length % sector_size
+        fill = (sector_size - mod) // len(self._padding)
+        f.write(self._padding * fill)
         f.close()
 
     def stream_size(self) -> int:

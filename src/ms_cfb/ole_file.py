@@ -1,7 +1,7 @@
 import os
 import struct
 import uuid
-from ms_cfb.Models.DataStreams.file_stream import FileStream
+from ms_cfb.Models.DataStreams.directory_stream import DirectoryStream
 from ms_cfb.Models.Directories.root_directory import RootDirectory
 from ms_cfb.Models.Filesystems.fat_filesystem import FatFilesystem
 from ms_cfb.Models.Filesystems.minifat_filesystem import MinifatFilesystem
@@ -144,15 +144,12 @@ class OleFile:
 
         directory_array = self._directory.flatten()
         self._directory.set_child()
-        f = open("directory_stream.bin", 'x')
-        f.close()
-        directory_stream = FileStream("directory_stream.bin")
-        empty_dir = b'\x00' * (16 * 4 + 4) + b'\xff' * 12 + b'\x00' * 16 * 3
-        directory_stream.set_padding(empty_dir)
+        directory_stream = DirectoryStream()
+       
         self._fat_chain.add_stream(directory_stream)
 
         for stream in directory_array:
-            directory_stream.append(stream.to_bytes())
+            directory_stream.append(stream)
             if stream.get_type() == 2:
                 if stream.file_size() > self._mini_sector_cutoff:
                     self._fat_chain.add_stream(stream)

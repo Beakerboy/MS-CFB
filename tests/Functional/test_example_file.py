@@ -108,7 +108,7 @@ def test_example_file():
     assert f.read(512) == sector5
 
     string = ("7461 2066 6F72 2073 7472 6561 6D20 31"
-              + ""4461 7461 2066 6F72 2073 7472 6561 6D20 31")
+              + "4461 7461 2066 6F72 2073 7472 6561 6D20 31")
     sector6 = (bytes.fromhex(string)
                + b'\x00' * 480)
     assert f.read(512) == sector6

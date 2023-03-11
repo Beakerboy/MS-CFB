@@ -1,7 +1,7 @@
 from ms_cfb.Models.DataStreams.array_stream import ArrayStream
 
 
-class DirectoeyStream(ArrayStream):
+class DirectoryStream(ArrayStream):
 
     def __init__(self):
         ArrayStream.__init__(self)

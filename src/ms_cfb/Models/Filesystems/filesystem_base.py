@@ -1,4 +1,5 @@
 import os
+from random import choice
 
 
 class FilesystemBase:
@@ -102,7 +103,8 @@ class FilesystemBase:
         i = 0
         for stream in self._streams:
             sectors = stream.get_sectors()
-            filename = "stream" + str(i) + ".bin"
+            rand = ''.join([choice(string.letters) for i in range(5)])
+            filename = "stream" + str(i) + rand + ".bin"
             stream.to_file(filename)
             s = open(filename, "rb")
             for sector in sectors:

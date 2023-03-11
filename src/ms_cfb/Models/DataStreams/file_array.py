@@ -11,4 +11,3 @@ class DirectoryStream(ArrayStream):
         f.close()
         os.remove("temp.bin")
         return data
-        

@@ -154,8 +154,12 @@ class OleFile:
                     self._fat_chain.add_stream(stream)
                 else:
                     if self._first_minichain_sector == 0xFFFFFFFE:
+                        # We have not previously added the minifat fs to the fat,
+                        # do that.
                         mf_chain = self._minifat_chain
                         self._fat_chain.add_stream(self._minifat_chain)
+
+                        # Update the project with the mini start sector
                         start_sector = mf_chain.get_start_sector()
                         self._first_minichain_sector = start_sector
                         self._minifat_chain.add_stream(stream)

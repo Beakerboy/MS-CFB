@@ -1,6 +1,6 @@
 import struct
 import uuid
-from ms_cfb.Models.DataStreams.file_stream import FileStream
+from ms_cfb.Models.DataStreams.directory_stream import DirectoryStream
 from ms_cfb.Models.Directories.root_directory import RootDirectory
 from ms_cfb.Models.Filesystems.fat_filesystem import FatFilesystem
 from ms_cfb.Models.Filesystems.minifat_filesystem import MinifatFilesystem
@@ -29,7 +29,7 @@ class OleFile:
         self._fat_chain = FatFilesystem(2 ** self._sector_shift)
 
         # The list of pointers to the address of the next file piece
-        self._minifat_chain = MinifatFilesystem(2 ** self._mini_sector_shift)
+        self._minifat_chain = MinifatFilesystem()
 
         # A list of directories
         self._directory = RootDirectory()
@@ -54,7 +54,7 @@ class OleFile:
         Add a storage or stream object to root
         """
         # verify type of object
-        self._directory.add_stream(object)
+        self._directory.add_directory(object)
 
     def header(self):
         """
@@ -142,26 +142,37 @@ class OleFile:
         """
 
         directory_array = self._directory.flatten()
-        f = open("directory_stream.bin", 'x')
-        f.close()
-        directory_stream = FileStream("directory_stream.bin")
-        directory_stream.set_storage_chain(self._fat_chain)
-        empty_dir = b'\x00' * (16 * 4 + 4) + b'\xff' * 12 + b'\x00' * 16 * 3
-        directory_stream.set_padding(empty_dir)
+        self._directory.set_child()
+        directory_stream = DirectoryStream()
+
         self._fat_chain.add_stream(directory_stream)
 
         for stream in directory_array:
-            directory_stream.append(stream.to_bytes())
+            directory_stream.append(stream)
             if stream.get_type() == 2:
                 if stream.file_size() > self._mini_sector_cutoff:
                     self._fat_chain.add_stream(stream)
                 else:
-                    if self._first_minichain_sector == 0:
-                        self._minifat_chain.set_storage_chain(self._fat_chain)
+                    if self._first_minichain_sector == 0xFFFFFFFE:
+                        # We have not previously added the minifat file sys
+                        # to the fat so do that.
+                        mf_chain = self._minifat_chain
                         self._fat_chain.add_stream(self._minifat_chain)
-                        self._first_minichain_sector = \
-                            self._minifat_chain.get_start_sector()
-                    self._minifat_chain.add_stream(stream)
+
+                        # Update the project with the mini start sector
+                        start_sector = mf_chain.get_start_sector()
+                        self._first_minichain_sector = start_sector
+
+                        # When we add the stream to the minichain, it will
+                        # add the stream array to the fat chain.
+                        self._minifat_chain.add_stream(stream)
+
+                        # Now we can update the root directory with the sector
+                        # of the start of the ministreams
+                        stream_sector = mf_chain.get_first_stream_sector()
+                        self._directory.set_start_sector(stream_sector)
+                    else:
+                        self._minifat_chain.add_stream(stream)
 
     def write_file(self, path: str) -> None:
         """
@@ -178,11 +189,6 @@ class OleFile:
         f.seek(512)
         f.write(b.read())
         b.close()
-        # write directory sectors
-        # write minifat chain
-        # write minifat data
-
-        # write minifat chain sectors
         f.close()
 
     def create_file(self, path: str) -> None:

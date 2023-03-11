@@ -1,5 +1,4 @@
 from ms_cfb.Models.Directories.directory import Directory
-from ms_cfb.Models.Directories.stream_directory import StreamDirectory
 
 
 class StorageDirectory(Directory):
@@ -25,13 +24,7 @@ class StorageDirectory(Directory):
             size += dir.padded_bytes_used()
         return size
 
-    def add_module(self, module):
-        stream = StreamDirectory()
-        stream.name = module.modName.value
-        stream.module = module
-        self.directories.append(stream)
-
-    def add_file(self, stream):
+    def add_directory(self, stream):
         self.directories.append(stream)
 
     def create_binary_tree(self):
@@ -40,8 +33,19 @@ class StorageDirectory(Directory):
     def flatten(self):
         self.flat = [self]
         for child in self.directories:
-            if child.type == 2:
+            if child._type == 2:
                 self.flat.append(child)
             else:
                 self.flat.extend(child.flatten())
+        i = 0
+        for dir in self.flat:
+            dir._flattened_index = i
+            i += 1
         return self.flat
+
+    def set_child(self):
+        if len(self.directories) == 1:
+            self._subdirectory_id = self.directories[0]._flattened_index
+        for child in self.directories:
+            if child._type == 1:
+                child.set_child()

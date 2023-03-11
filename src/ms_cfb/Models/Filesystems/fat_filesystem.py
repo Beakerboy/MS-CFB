@@ -48,3 +48,4 @@ class FatFilesystem(FilesystemBase):
         f.write(c.read(512))
         f.close()
         c.close()
+        os.remove("fat_chain.bin")

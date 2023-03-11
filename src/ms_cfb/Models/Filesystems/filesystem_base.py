@@ -1,3 +1,8 @@
+import os
+import string
+from random import choice
+
+
 class FilesystemBase:
 
     def __init__(self, size):
@@ -68,6 +73,7 @@ class FilesystemBase:
     def add_stream(self, stream):
         sector = self._start_new_chain()
         stream.set_start_sector(sector)
+        stream.set_storage_chain(self)
         sectors_needed = (stream.stream_size() - 1) // self._sector_size
         sectors_needed = max(sectors_needed, 0)
         if sectors_needed > 0:
@@ -96,11 +102,14 @@ class FilesystemBase:
         i = 0
         for stream in self._streams:
             sectors = stream.get_sectors()
-            filename = "stream" + str(i) + ".bin"
+            rand = ''.join([choice(string.ascii_letters) for i in range(5)])
+            filename = "stream" + str(i) + rand + ".bin"
             stream.to_file(filename)
             s = open(filename, "rb")
             for sector in sectors:
                 sector_data = s.read(self._sector_size)
                 f.seek(sector * self._sector_size)
                 f.write(sector_data)
+            s.close()
+            os.remove(filename)
             i += 1

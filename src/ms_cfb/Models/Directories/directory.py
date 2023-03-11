@@ -25,8 +25,10 @@ class Directory:
         # The sector where this stream begins
         # This can either be a minifat sector number or a Fat sector
         # depending on the stream size.
-        self._start_sector = 0xFFFFFFFE
+        self._start_sector = 0
         self._type = 0
+
+        self._flattened_index = 0
 
     def set_created(self, value):
         self._created = value
@@ -48,6 +50,9 @@ class Directory:
 
     def get_start_sector(self) -> int:
         return self._start_sector
+
+    def set_clsid(self, uuid) -> None:
+        self._class_id = uuid
 
     def name_size(self) -> int:
         """The byte length of the name"""
@@ -78,7 +83,7 @@ class Directory:
             self.user_flags,
             self._created,
             self._modified,
-            self._start_sector,
+            self.get_start_sector(),
             self.file_size(),
             0
         )

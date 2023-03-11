@@ -1,5 +1,21 @@
 import os
+import pytest
 from ms_cfb.ole_file import OleFile
+
+
+@pytest.fixture(autouse=True)
+def run_around_tests():
+    # Code that will run before your test
+    names = ["vbaProject.bin", "directory_stream.bin"]
+    for name in names:
+        if os.path.isfile(name):
+            os.remove(name)
+    # A test function will be run at this point
+    yield
+    # Code that will run after your test
+    for name in names:
+        if os.path.isfile(name):
+            os.remove(name)
 
 
 def test_min_file():

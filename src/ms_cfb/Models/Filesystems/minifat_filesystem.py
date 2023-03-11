@@ -1,6 +1,6 @@
 import os
 from ms_cfb.Models.Filesystems.filesystem_base import FilesystemBase
-from ms_cfb.Models.DataStreams.array_stream import ArrayStream
+from ms_cfb.Models.DataStreams.file_array import FileArray
 from ms_cfb.Models.DataStreams.stream_base import StreamBase
 
 
@@ -23,7 +23,7 @@ class MinifatFilesystem(FilesystemBase, StreamBase):
         # If we have not started a minifat data stream in the FAT chain
         # start one now.
         if len(self._streams) == 0:
-            self._streams = ArrayStream()
+            self._streams = FileArray()
             self._storage_chain.add_stream(self._streams)
         FilesystemBase.add_stream(self, stream)
         self._storage_chain.request_new_sectors(self._streams)

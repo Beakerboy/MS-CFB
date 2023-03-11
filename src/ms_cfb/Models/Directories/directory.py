@@ -83,7 +83,7 @@ class Directory:
             self.user_flags,
             self._created,
             self._modified,
-            self._start_sector,
+            self.get_start_sector(),
             self.file_size(),
             0
         )

@@ -94,3 +94,10 @@ def test_example_file():
                + bytes.fromhex(" ".join(file))
                + unused)
     assert f.read(512) == sector3
+
+    mini = ("0100 0000 0200 0000 0300 0000 0400 0000",
+            "0500 0000 0600 0000 0700 0000 0800 0000",
+            "FEFF FFFF")
+    sector4 = (bytes.fromhex(" ".join(root))
+               + b'\FF' * (16 * 29 + 12)
+    assert f.read(512) == sector4

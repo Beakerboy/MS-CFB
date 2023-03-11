@@ -162,7 +162,13 @@ class OleFile:
                         # Update the project with the mini start sector
                         start_sector = mf_chain.get_start_sector()
                         self._first_minichain_sector = start_sector
+
+                        # When we add the stream to the minichain, it will
+                        # add the stream array to the fat chain.
                         self._minifat_chain.add_stream(stream)
+
+                        # Now we can update the root directory with the sector
+                        # of the start of the ministreams
                         stream_sector = mf_chain.get_first_stream_sector()
                         self._directory.set_start_sector(stream_sector)
                     else:

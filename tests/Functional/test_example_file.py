@@ -103,6 +103,6 @@ def test_example_file():
     assert f.read(512) == sector4
 
     string = "4461 7461 2066 6F72 2073 7472 6561 6D20 31"
-    sector5 = sector4 = (bytes.fromhex(string) * 30
+    sector5 = (bytes.fromhex(string) * 30
                + b'\x44\x61')
     assert f.read(512) == sector5

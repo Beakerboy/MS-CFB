@@ -144,7 +144,6 @@ class OleFile:
 
         directory_array = self._directory.flatten()
         self._directory.set_child()
-        directory_array = self._directory.flatten()
         f = open("directory_stream.bin", 'x')
         f.close()
         directory_stream = FileStream("directory_stream.bin")

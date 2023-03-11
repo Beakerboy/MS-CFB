@@ -102,7 +102,7 @@ class FilesystemBase:
         i = 0
         for stream in self._streams:
             sectors = stream.get_sectors()
-            rand = ''.join([choice(string.letters) for i in range(5)])
+            rand = ''.join([choice(string.ascii_letters) for i in range(5)])
             filename = "stream" + str(i) + rand + ".bin"
             stream.to_file(filename)
             s = open(filename, "rb")

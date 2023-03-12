@@ -42,6 +42,7 @@ class OleFile:
             self._sector_shift = 9
         else:
             self._sector_shift = 12
+        self._fat_chain = FatFilesystem(2 ** self._sector_shift)
 
     def get_version(self):
         return self._major_version

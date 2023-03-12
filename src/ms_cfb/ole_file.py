@@ -204,7 +204,11 @@ class OleFile:
 
 def main():
     parser = argparse.ArgumentParser()
-    parser.add_argument("directory")
+    parser.add_argument("directory", help="The directory that contains your files.")
+    parser.add_argument("-v", "--version", type=int, choices=[3, 4],
+                    help="The OLE version to use.")
+    parser.add_argument("-o", "--output",
+                    help="The output file name.")
     parser.parse_args()
 
 if __name__ == '__main__':

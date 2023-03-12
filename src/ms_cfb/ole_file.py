@@ -189,7 +189,7 @@ class OleFile:
 
         self._fat_chain.to_file("./fatChain.bin")
         b = open("./fatChain.bin", "rb")
-        f.seek(512)
+        f.seek(2 ** self._sector_shift)
         f.write(b.read())
         b.close()
         f.close()

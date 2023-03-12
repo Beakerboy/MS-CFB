@@ -39,8 +39,8 @@ def test_min_file():
     assert f.read(4096) == expected
 
     sector2 = (bytes.fromhex("FDFF FFFF FEFF FFFF FFFF FFFF FFFF FFFF")
-               + b'\xff' * 16 * 31)
-    # assert f.read(512) == sector2
+               + b'\xff' * (16 * (31 + 7 * 32)))
+    assert f.read(512) == sector2
 
     root = ("5200 6F00 6F00 7400 2000 4500 6E00 7400",
             "7200 7900 0000 0000 0000 0000 0000 0000",
@@ -53,5 +53,5 @@ def test_min_file():
 
     unused = b'\x00' * (16 * 4 + 4) + b'\xff' * 12 + b'\x00' * 16 * 3
 
-    sector3 = bytes.fromhex(" ".join(root)) + unused * 3
-    # assert f.read(512) == sector3
+    sector3 = bytes.fromhex(" ".join(root)) + unused * 31
+    assert f.read(512) == sector3

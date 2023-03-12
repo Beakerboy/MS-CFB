@@ -1,3 +1,4 @@
+import argparse
 import struct
 import uuid
 from ms_cfb.Models.DataStreams.directory_stream import DirectoryStream
@@ -200,3 +201,10 @@ class OleFile:
         """
         self.build_file()
         self.write_file(path)
+
+def main():
+    parser = argparse.ArgumentParser()
+    parser.parse_args()
+
+if __name__ == '__main__'
+    main()

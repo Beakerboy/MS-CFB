@@ -45,7 +45,7 @@ class FatFilesystem(FilesystemBase):
         c.write(b'\xff' * fill)
         c.close()
         c = open("fat_chain.bin", "rb")
-        f.write(c.read(512))
+        f.write(c.read(self._sector_size))
         f.close()
         c.close()
         os.remove("fat_chain.bin")

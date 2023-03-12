@@ -209,6 +209,8 @@ def main():
                     help="The OLE version to use.")
     parser.add_argument("-o", "--output",
                     help="The output file name.")
+    parser.add_argument("-x", "--extra",
+                    help="Path to exta directory settings yml file.")
     parser.parse_args()
 
 if __name__ == '__main__':

@@ -18,12 +18,6 @@ class StorageDirectory(Directory):
             size += dir.minifat_sectors_used()
         return size
 
-    def padded_bytes_used(self):
-        size = 0
-        for dir in self.directories:
-            size += dir.padded_bytes_used()
-        return size
-
     def add_directory(self, stream):
         self.directories.append(stream)
 

@@ -34,7 +34,7 @@ class OleFile:
         # A list of directories
         self._directory = RootDirectory()
 
-    def set_version(self, version):
+    def set_version(self, version: int) -> None:
         if version > 4 or version < 3:
             raise Exception("Version must be 3 or 4")
         self._major_version = version
@@ -42,21 +42,22 @@ class OleFile:
             self._sector_shift = 9
         else:
             self._sector_shift = 12
+        self._fat_chain = FatFilesystem(2 ** self._sector_shift)
 
-    def get_version(self):
+    def get_version(self) -> int:
         return self._major_version
 
-    def set_root_directory(self, dir):
+    def set_root_directory(self, dir) -> None:
         self._directory = dir
 
-    def add_directory_entry(self, object):
+    def add_directory_entry(self, object) -> None:
         """
         Add a storage or stream object to root
         """
         # verify type of object
         self._directory.add_directory(object)
 
-    def header(self):
+    def header(self) -> bytes:
         """
         Create a 512 byte header sector for a OLE object.
         """
@@ -87,9 +88,11 @@ class OleFile:
         )
 
         header += self.write_header_fat_sector_list()
+        if self._major_version == 4:
+            header += b'\x00' * 3584
         return header
 
-    def get_dif_start_sector(self):
+    def get_dif_start_sector(self) -> int:
         """
         The Fat sector lost in the header can only list the position of 109
         sectors.If more sectors are needed, the DIF sector lists these sector
@@ -186,7 +189,7 @@ class OleFile:
 
         self._fat_chain.to_file("./fatChain.bin")
         b = open("./fatChain.bin", "rb")
-        f.seek(512)
+        f.seek(2 ** self._sector_shift)
         f.write(b.read())
         b.close()
         f.close()

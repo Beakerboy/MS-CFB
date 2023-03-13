@@ -6,7 +6,7 @@ from ms_cfb.ole_file import OleFile
 @pytest.fixture(autouse=True)
 def run_around_tests():
     # Code that will run before your test
-    names = ["vbaProject.bin", "directory_stream.bin"]
+    names = ["Test2.bin", "directory_stream.bin"]
     for name in names:
         if os.path.isfile(name):
             os.remove(name)
@@ -24,8 +24,8 @@ def test_min_file():
     header, fat, directory
     """
     ole_file = OleFile()
-    ole_file.create_file(".")
-    assert os.stat("vbaProject.bin").st_size == 512 * 3
+    ole_file.create_file("Test2.bin")
+    assert os.stat("Test2.bin").st_size == 512 * 3
 
     f = open("vbaProject.bin", "rb")
     sector1 = ("D0CF 11E0 A1B1 1AE1 0000 0000 0000 0000",

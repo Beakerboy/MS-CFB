@@ -2,7 +2,7 @@ import os
 from ms_cfb.ole_file import main
 
 
-def test_min_file():
+def test_min_file(mocker):
     """
     The smallest file has three sectors, one each:
     header, fat, directory

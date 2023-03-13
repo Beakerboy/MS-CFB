@@ -222,13 +222,14 @@ def main():
     ole_file = OleFile()
     if args.version == 4:
         ole_file.set_version(4)
+    config = {"directories": {}}
     if args.extra is not None and os.path.isfile(args.extra):
         config = yaml.safe_load(args.extra)
     root = RootDirectory()
     obj = os.scandir(args.directory)
     for entry in obj:
         if entry.is_dir():
-            root.add_directory(create_storage(entry))
+            root.add_directory(create_storage(entry, config))
         else:
             dir = StreamDirectory(entry.name, entry.path)
             root.add_directory(dir)
@@ -238,12 +239,24 @@ def main():
     ole_file.create_file(args.output)
 
 
-def create_storage(direntry):
+def create_storage(direntry, config):
     dir = StorageDirectory(direntry.name)
+    if direntry in config["directories"]:
+        dir_config = config["directories"][direntry]
+        if "modified" in dir_config:
+            datetime = Filetime.fromisoformat(dir_config["modified"])
+            dir.set_modified(datetime.to_msfiletime())
+        if "created" in dir_config:
+            datetime = Filetime.fromisoformat(dir_config["modified"])
+            dir.set_created(datetime.to_msfiletime())
+        if "clsid" in dir_config:
+            dir.set_clsid(uuid.UUID(dir_config["clsid"]))
+        if "flags" in dir_config:
+            dir.set_flags()
     obj = os.scandir(direntry.path)
     for entry in obj:
         if entry.is_dir():
-            dir.add_directory(create_storage(entry))
+            dir.add_directory(create_storage(entry, config))
         else:
             stream = StreamDirectory(entry.name, entry.path)
             dir.add_directory(stream)

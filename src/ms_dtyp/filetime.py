@@ -16,4 +16,4 @@ class Filetime(datetime):
         """
         dif = self - datetime(1601, 1, 1, 0, 0, 0)
         filetime = dif / timedelta(microseconds=1) * 10
-        return filetime
+        return int(filetime)

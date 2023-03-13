@@ -21,6 +21,8 @@ def run_around_tests():
     for name in names:
         if os.path.isfile(name):
             os.remove(name)
+    os.rmdir("./files/Storage 1")
+    os.rmdir("./files")
 
 
 def test_example_file(mocker):

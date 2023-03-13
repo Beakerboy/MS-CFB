@@ -246,19 +246,16 @@ def update_attributes(dir, conf):
     if "modified" in conf:
         datetime = Filetime.fromisoformat(dir_config["modified"])
         dir.set_modified(datetime.to_msfiletime())
-    if "created" in dir_config:
+    if "created" in conf:
         datetime = Filetime.fromisoformat(dir_config["created"])
         dir.set_created(datetime.to_msfiletime())
-    if "clsid" in dir_config:
+    if "clsid" in conf:
         dir.set_clsid(uuid.UUID(dir_config["clsid"]))
-    if "flags" in dir_config:
+    if "flags" in conf:
         dir.set_flags()
 
 def create_storage(direntry, directories):
     dir = StorageDirectory(direntry.name)
-    if direntry.name in directories:
-        dir_config = directories[direntry.name]
-        update_attributes(dir, dir_config)
     obj = os.scandir(direntry.path)
     for entry in obj:
         if entry.is_dir():
@@ -268,6 +265,9 @@ def create_storage(direntry, directories):
             dir.add_directory(stream)
     mod_time = Filetime.fromtimestamp(os.stat(direntry.path).st_mtime)
     dir.set_modified(mod_time.to_msfiletime())
+    if direntry.name in directories:
+        dir_config = directories[direntry.name]
+        update_attributes(dir, dir_config)
     return dir
 
 

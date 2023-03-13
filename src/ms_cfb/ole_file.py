@@ -234,7 +234,7 @@ def create_storage(direntry):
     dir = StorageDirectory(direntey.name)
     obj = os.scandir(direntry.path)
     for entry in obj:
-        if entry.is_dir()
+        if entry.is_dir():
             dir.add_directory(create_storage(entry))
         else:
             stream = StreamDirectory(entry.name, entry.path)

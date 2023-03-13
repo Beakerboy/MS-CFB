@@ -78,6 +78,8 @@ class Directory:
             self._subdirectory_id
         )
         dir += self._class_id.bytes_le
+        if not(isinstance(self._modified, int)):
+            raise Exception(str(self._modified) + "is not an int")
         dir += struct.pack(
             "<IQQIII",
             self.user_flags,

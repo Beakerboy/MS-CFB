@@ -238,8 +238,8 @@ def main():
             root.add_directory(dir)
     mod_time = os.stat(args.directory).st_mtime
     root.set_modified(int(mod_time))
-    if "." in directories:
-        dir_config = directories["."]
+    if "." in new_config:
+        dir_config = new_config["."]
         update_attributes(root, dir_config)
     ole_file.set_root_directory(root)
     ole_file.create_file(args.output)

@@ -217,7 +217,31 @@ def main():
     ole_file = OleFile()
     if args.version == 4:
         ole_file.set_version(4)
+    
+    obj = os.scandir(args.directory)
+    for entry in obj:
+        if entry.is_dir():
+            ole_file.add_directory_entry(create_storage(entry))
+        else:
+            dir = StreamDirectory(entry.name, entry.path)
+            ole_file.add_directory_entry(dir)
+    mod_time = os.stat(args.directory).st_mtime
+    self._directory.set_modified(mod_time)
     ole_file.create_file(args.output)
+
+
+def create_storage(direntry):
+    dir = StorageDirectory(direntey.name)
+    obj = os.scandir(direntry.path)
+    for entry in obj:
+        if entry.is_dir()
+            dir.add_directory(create_storage(entry))
+        else:
+            stream = StreamDirectory(entry.name, entry.path)
+            dir.add_directory(stream)
+    mod_time = os.stat(direntry.path).st_mtime
+    dir.set_modified(mod_time)
+    return dir
 
 
 if __name__ == '__main__':

@@ -238,6 +238,9 @@ def main():
             root.add_directory(dir)
     mod_time = os.stat(args.directory).st_mtime
     root.set_modified(int(mod_time))
+    if "." in directories:
+        dir_config = directories["."]
+        update_attributes(root, dir_config)
     ole_file.set_root_directory(root)
     ole_file.create_file(args.output)
 
@@ -253,6 +256,7 @@ def update_attributes(dir, conf):
         dir.set_clsid(uuid.UUID(dir_config["clsid"]))
     if "flags" in conf:
         dir.set_flags()
+
 
 def create_storage(direntry, directories):
     dir = StorageDirectory(direntry.name)

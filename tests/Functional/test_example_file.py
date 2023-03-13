@@ -51,7 +51,7 @@ def test_example_file():
     ole_file.create_file("Test1.bin")
     assert os.stat("Test1.bin").st_size == 512 * 6
 
-    f = open("vbaProject.bin", "rb")
+    f = open("Test1.bin", "rb")
     sector1 = ("D0CF 11E0 A1B1 1AE1 0000 0000 0000 0000",
                "0000 0000 0000 0000 3E00 0300 FEFF 0900",
                "0600 0000 0000 0000 0000 0000 0100 0000",

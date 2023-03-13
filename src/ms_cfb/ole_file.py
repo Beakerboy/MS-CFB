@@ -243,7 +243,7 @@ def main():
 def create_storage(direntry, directories):
     dir = StorageDirectory(direntry.name)
     if direntry in directories:
-        dir_config = config["directories"][direntry]
+        dir_config = directories[direntry]
         if "modified" in dir_config:
             datetime = Filetime.fromisoformat(dir_config["modified"])
             dir.set_modified(datetime.to_msfiletime())
@@ -257,7 +257,7 @@ def create_storage(direntry, directories):
     obj = os.scandir(direntry.path)
     for entry in obj:
         if entry.is_dir():
-            dir.add_directory(create_storage(entry, config))
+            dir.add_directory(create_storage(entry, directories))
         else:
             stream = StreamDirectory(entry.name, entry.path)
             dir.add_directory(stream)

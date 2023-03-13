@@ -223,7 +223,7 @@ def main():
     if args.version == 4:
         ole_file.set_version(4)
     if os.path.isfile(args.extra):
-        config = yaml.safe_load(file)
+        config = yaml.safe_load(args.extra)
     root = RootDirectory()
     obj = os.scandir(args.directory)
     for entry in obj:

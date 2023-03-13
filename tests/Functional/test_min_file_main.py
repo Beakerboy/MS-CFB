@@ -17,9 +17,9 @@ def test_min_file(mocker):
         ],
     )
     main()
-    assert os.stat("vbaProject.bin").st_size == 512 * 3
+    assert os.stat("Test123.bin").st_size == 512 * 3
 
-    f = open("vbaProject.bin", "rb")
+    f = open("Test123.bin", "rb")
     sector1 = ("D0CF 11E0 A1B1 1AE1 0000 0000 0000 0000",
                "0000 0000 0000 0000 3E00 0300 FEFF 0900",
                "0600 0000 0000 0000 0000 0000 0100 0000",

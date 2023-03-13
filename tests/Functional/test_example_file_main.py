@@ -37,6 +37,8 @@ def test_example_file(mocker):
             "ole_file.py",
             "-o",
             filename,
+            "-x",
+            "tests/example.yml",
             "./files",
         ],
     )

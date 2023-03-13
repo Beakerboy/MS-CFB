@@ -241,7 +241,8 @@ def main():
 
 def create_storage(direntry, config):
     dir = StorageDirectory(direntry.name)
-    if direntry in config["directories"]:
+    directories = config["directories"]
+    if direntry in directories:
         dir_config = config["directories"][direntry]
         if "modified" in dir_config:
             datetime = Filetime.fromisoformat(dir_config["modified"])

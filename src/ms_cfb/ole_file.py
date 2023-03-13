@@ -222,7 +222,7 @@ def main():
     ole_file = OleFile()
     if args.version == 4:
         ole_file.set_version(4)
-    if os.path.isfile(args.extra):
+    if args.extra is not None and os.path.isfile(args.extra):
         config = yaml.safe_load(args.extra)
     root = RootDirectory()
     obj = os.scandir(args.directory)

@@ -261,7 +261,7 @@ def create_storage(direntry, config):
             stream = StreamDirectory(entry.name, entry.path)
             dir.add_directory(stream)
     mod_time = Filetime.fromtimestamp(os.stat(direntry.path).st_mtime)
-    dir.set_modified(mod_time.tomsfiletime())
+    dir.set_modified(mod_time.to_msfiletime())
     return dir
 
 

@@ -241,7 +241,7 @@ def main():
 
 def create_storage(direntry, config):
     dir = StorageDirectory(direntry.name)
-    directories = config["directories"]
+    directories = config[0]["directories"]
     if direntry in directories:
         dir_config = config["directories"][direntry]
         if "modified" in dir_config:

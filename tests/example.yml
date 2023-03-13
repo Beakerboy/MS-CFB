@@ -1,10 +1,12 @@
 directories:
-  - .:
+  {
+    .:
       {
         clsid: 56616700-C154-11CE-8553-00AA00A1F95B
       }
-  - Storage 1:
+    Storage 1:
       {
         created: 0x01BAB44B12F98800,
         clsid: 56616100-C154-11CE-8553-00AA00A1F95B
       }
+  }

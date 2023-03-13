@@ -1,10 +1,5 @@
 import os
 import pytest
-import uuid
-from ms_cfb.ole_file import OleFile
-from ms_cfb.Models.Directories.root_directory import RootDirectory
-from ms_cfb.Models.Directories.storage_directory import StorageDirectory
-from ms_cfb.Models.Directories.stream_directory import StreamDirectory
 
 
 @pytest.fixture(autouse=True)
@@ -42,7 +37,7 @@ def test_example_file(mocker):
             "./files",
         ],
     )
-   
+
     assert os.stat(filename).st_size == 512 * 6
 
     f = open(filename, "rb")

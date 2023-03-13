@@ -1,5 +1,20 @@
 import os
+import pytest
 from ms_cfb.ole_file import main
+
+
+@pytest.fixture(autouse=True)
+def run_around_tests():
+    # Code that will run before your test
+    os.mkdir("./files")
+    names = ["Test123.bin"]
+    # A test function will be run at this point
+    yield
+    # Code that will run after your test
+    for name in names:
+        if os.path.isfile(name):
+            os.remove(name)
+    os.rmdir("./files")
 
 
 def test_min_file(mocker):

@@ -182,7 +182,7 @@ class OleFile:
         """
         Write the OLE file to disk
         """
-        f = open(path + '/vbaProject.bin', 'wb+')
+        f = open(path, 'wb+')
         f.write(self.header())
         # extend file to full size
         sectors = len(self._fat_chain)

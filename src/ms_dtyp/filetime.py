@@ -15,5 +15,5 @@ class Filetime(datetime):
         Convert to MS Filetime
         """
         dif = self - datetime(1601, 1, 1, 0, 0, 0)
-        filetime = dif / timedelta(microseconds=1) * 10
+        filetime = dif / timedelta(milliseconds=1) * 10
         return filetime

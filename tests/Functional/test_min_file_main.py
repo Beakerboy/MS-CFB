@@ -16,7 +16,7 @@ def test_min_file():
             "-/files",
         ],
     )
-    main()
+    ole_file.main()
     assert os.stat("vbaProject.bin").st_size == 512 * 3
 
     f = open("vbaProject.bin", "rb")

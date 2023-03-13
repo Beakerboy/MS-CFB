@@ -17,6 +17,7 @@ def run_around_tests():
     # A test function will be run at this point
     yield
     # Code that will run after your test
+    # use shutil.rmtree("./files") instead?
     names = ["example_test.bin", "./Storage 1/Stream 1.bin"]
     for name in names:
         if os.path.isfile(name):

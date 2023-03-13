@@ -2,6 +2,7 @@ import argparse
 import os
 import struct
 import uuid
+import yaml
 from ms_cfb.Models.DataStreams.directory_stream import DirectoryStream
 from ms_cfb.Models.Directories.root_directory import RootDirectory
 from ms_cfb.Models.Directories.storage_directory import StorageDirectory
@@ -221,6 +222,8 @@ def main():
     ole_file = OleFile()
     if args.version == 4:
         ole_file.set_version(4)
+    if os.path.isfile(args.extra):
+        config = yaml.safe_load(file)
     root = RootDirectory()
     obj = os.scandir(args.directory)
     for entry in obj:

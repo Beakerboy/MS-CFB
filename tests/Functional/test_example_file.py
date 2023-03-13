@@ -14,8 +14,10 @@ def run_around_tests():
     # A test function will be run at this point
     yield
     # Code that will run after your test
-    names = ["vbaProject.bin"]
-    map(os.remove, names)
+    names = ["Test1.bin", "stream1.bin"]
+    for name in names:
+        if os.path.isfile(name):
+            os.remove(name)
 
 
 def test_example_file():
@@ -46,7 +48,7 @@ def test_example_file():
     ole_file = OleFile()
     ole_file.set_root_directory(root)
     ole_file.add_directory_entry(storage)
-    ole_file.create_file(".")
+    ole_file.create_file("Test1.bin")
     assert os.stat("vbaProject.bin").st_size == 512 * 6
 
     f = open("vbaProject.bin", "rb")

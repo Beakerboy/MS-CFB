@@ -246,6 +246,7 @@ def main():
 
 
 def create_storage(direntry, directories):
+    raise Exception()
     dir = StorageDirectory(direntry.name)
     if direntry in directories:
         dir_config = directories[direntry]

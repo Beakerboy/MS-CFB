@@ -250,7 +250,7 @@ def create_storage(direntry, directories):
             datetime = Filetime.fromisoformat(dir_config["modified"])
             dir.set_modified(datetime.to_msfiletime())
         if "created" in dir_config:
-            datetime = Filetime.fromisoformat(dir_config["modified"])
+            datetime = Filetime.fromisoformat(dir_config["created"])
             dir.set_created(datetime.to_msfiletime())
         if "clsid" in dir_config:
             dir.set_clsid(uuid.UUID(dir_config["clsid"]))

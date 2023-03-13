@@ -220,21 +220,22 @@ def main():
     ole_file = OleFile()
     if args.version == 4:
         ole_file.set_version(4)
-    
+    root = RootDirectory()
     obj = os.scandir(args.directory)
     for entry in obj:
         if entry.is_dir():
-            ole_file.add_directory_entry(create_storage(entry))
+            root.add_directory(create_storage(entry))
         else:
             dir = StreamDirectory(entry.name, entry.path)
-            ole_file.add_directory_entry(dir)
+            root.add_directory(dir)
     mod_time = os.stat(args.directory).st_mtime
-    self._directory.set_modified(mod_time)
+    root.set_modified(mod_time)
+    ole_file.set_root_directory(root)
     ole_file.create_file(args.output)
 
 
 def create_storage(direntry):
-    dir = StorageDirectory(direntey.name)
+    dir = StorageDirectory(direntry.name)
     obj = os.scandir(direntry.path)
     for entry in obj:
         if entry.is_dir():

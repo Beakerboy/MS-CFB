@@ -224,7 +224,8 @@ def main():
         ole_file.set_version(4)
     config = {"directories": {}}
     if args.extra is not None and os.path.isfile(args.extra):
-        config = yaml.safe_load(args.extra)
+        stream = file(args.extra, 'r')
+        config = yaml.safe_load(stream)
     root = RootDirectory()
     obj = os.scandir(args.directory)
     for entry in obj:

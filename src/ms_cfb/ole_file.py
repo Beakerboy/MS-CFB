@@ -1,4 +1,5 @@
 import argparse
+import os
 import struct
 import uuid
 from ms_cfb.Models.DataStreams.directory_stream import DirectoryStream

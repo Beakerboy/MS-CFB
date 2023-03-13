@@ -229,7 +229,7 @@ def main():
             dir = StreamDirectory(entry.name, entry.path)
             root.add_directory(dir)
     mod_time = os.stat(args.directory).st_mtime
-    root.set_modified(mod_time)
+    root.set_modified(int(mod_time))
     ole_file.set_root_directory(root)
     ole_file.create_file(args.output)
 
@@ -244,7 +244,7 @@ def create_storage(direntry):
             stream = StreamDirectory(entry.name, entry.path)
             dir.add_directory(stream)
     mod_time = os.stat(direntry.path).st_mtime
-    dir.set_modified(mod_time)
+    dir.set_modified(int(mod_time))
     return dir
 
 

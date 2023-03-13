@@ -202,6 +202,7 @@ class OleFile:
         self.build_file()
         self.write_file(path)
 
+
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("directory", help="The directory that contains your files.")
@@ -212,6 +213,7 @@ def main():
     parser.add_argument("-x", "--extra",
                     help="Path to exta directory settings yml file.")
     parser.parse_args()
+
 
 if __name__ == '__main__':
     main()

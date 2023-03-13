@@ -1,5 +1,5 @@
 import os
-import ms_cfb.ole_file
+from ms_cfb.ole_file import main
 
 
 def test_min_file():
@@ -16,7 +16,7 @@ def test_min_file():
             "-/files",
         ],
     )
-    ole_file.main()
+    main()
     assert os.stat("vbaProject.bin").st_size == 512 * 3
 
     f = open("vbaProject.bin", "rb")

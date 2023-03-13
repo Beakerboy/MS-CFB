@@ -8,7 +8,7 @@ from ms_cfb.Models.Directories.storage_directory import StorageDirectory
 from ms_cfb.Models.Directories.stream_directory import StreamDirectory
 from ms_cfb.Models.Filesystems.fat_filesystem import FatFilesystem
 from ms_cfb.Models.Filesystems.minifat_filesystem import MinifatFilesystem
-
+from ms_dtyp.filetime import Filetime
 
 class OleFile:
 

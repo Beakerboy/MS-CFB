@@ -227,7 +227,7 @@ def main():
         stream = open(args.extra, 'r')
         config = yaml.safe_load(stream)
     new_config = {}
-    for (key, val) in config.directories.items():
+    for (key, val) in config["directories"].items():
         full_path = os.path.relpath(key, args.directory)
         new_config[full_path] = val
 

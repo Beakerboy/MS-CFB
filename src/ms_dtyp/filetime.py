@@ -14,4 +14,4 @@ class Filetime(datetime):
         """
         Convert to MS Filetime
         """
-        return (self - datetime.datetime(1601, 1, 1, 0, 0, 0)) * 10
+        return (self - datetime(1601, 1, 1, 0, 0, 0)) * 10

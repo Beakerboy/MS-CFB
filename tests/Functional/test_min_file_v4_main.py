@@ -14,6 +14,7 @@ def run_around_tests():
         if os.path.isfile(name):
             os.remove(name)
 
+
 def test_min_file(mocker):
     """
     The smallest file has three sectors, one each:

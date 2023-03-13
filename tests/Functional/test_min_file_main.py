@@ -1,5 +1,6 @@
 import os
 import pytest
+import shutil
 from ms_cfb.ole_file import main
 
 
@@ -14,7 +15,7 @@ def run_around_tests():
     for name in names:
         if os.path.isfile(name):
             os.remove(name)
-    os.rmdir("./files")
+    shutil.rmtree("./files")
 
 
 def test_min_file(mocker):

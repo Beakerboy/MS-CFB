@@ -7,6 +7,6 @@ def test_datetime():
 
 
 def test_to_msfiletime():
-    date = "1995/11/16 17:43:45"
+    date = "1995-11-16 17:43:45"
     obj = Filetime.fromisoformat(date)
     assert obj.to_msfiletime() == 0x01BAB44B13921E80

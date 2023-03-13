@@ -247,13 +247,13 @@ def main():
 
 def update_attributes(dir, conf):
     if "modified" in conf:
-        datetime = Filetime.fromisoformat(dir_config["modified"])
+        datetime = Filetime.fromisoformat(conf["modified"])
         dir.set_modified(datetime.to_msfiletime())
     if "created" in conf:
-        datetime = Filetime.fromisoformat(dir_config["created"])
+        datetime = Filetime.fromisoformat(conf["created"])
         dir.set_created(datetime.to_msfiletime())
     if "clsid" in conf:
-        dir.set_clsid(uuid.UUID(dir_config["clsid"]))
+        dir.set_clsid(uuid.UUID(conf["clsid"]))
     if "flags" in conf:
         dir.set_flags()
 

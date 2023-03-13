@@ -230,7 +230,7 @@ def main():
     obj = os.scandir(args.directory)
     for entry in obj:
         if entry.is_dir():
-            root.add_directory(create_storage(entry, config))
+            root.add_directory(create_storage(entry, config["directories"]))
         else:
             dir = StreamDirectory(entry.name, entry.path)
             root.add_directory(dir)
@@ -240,10 +240,8 @@ def main():
     ole_file.create_file(args.output)
 
 
-def create_storage(direntry, config):
+def create_storage(direntry, directories):
     dir = StorageDirectory(direntry.name)
-    raise Exception(str(config))
-    directories = config[0]["directories"]
     if direntry in directories:
         dir_config = config["directories"][direntry]
         if "modified" in dir_config:

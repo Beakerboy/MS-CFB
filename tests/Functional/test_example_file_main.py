@@ -1,5 +1,6 @@
 import os
 import pytest
+import shutil
 
 
 @pytest.fixture(autouse=True)
@@ -17,13 +18,11 @@ def run_around_tests():
     # A test function will be run at this point
     yield
     # Code that will run after your test
-    # use shutil.rmtree("./files") instead?
-    names = ["example_test.bin", "./Storage 1/Stream 1.bin"]
+    names = ["example_test.bin"]
     for name in names:
         if os.path.isfile(name):
             os.remove(name)
-    os.rmdir("./files/Storage 1")
-    os.rmdir("./files")
+    shutil.rmtree("./files")
 
 
 def test_example_file(mocker):

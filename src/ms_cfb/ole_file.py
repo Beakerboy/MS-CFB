@@ -207,11 +207,11 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("directory", help="The directory that contains your files.")
     parser.add_argument("-v", "--version", type=int, choices=[3, 4],
-                    help="The OLE version to use.")
+                        help="The OLE version to use.")
     parser.add_argument("-o", "--output",
-                    help="The output file name.")
+                        help="The output file name.")
     parser.add_argument("-x", "--extra",
-                    help="Path to exta directory settings yml file.")
+                        help="Path to exta directory settings yml file.")
     parser.parse_args()
 
 

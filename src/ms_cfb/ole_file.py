@@ -226,11 +226,16 @@ def main():
     if args.extra is not None and os.path.isfile(args.extra):
         stream = open(args.extra, 'r')
         config = yaml.safe_load(stream)
+    new_config = {}
+    for (key, val) in config.directories.items():
+        full_path = os.path.relpath(key, args.directory)
+        new_config[full_path] = val
+
     root = RootDirectory()
     obj = os.scandir(args.directory)
     for entry in obj:
         if entry.is_dir():
-            root.add_directory(create_storage(entry, config["directories"]))
+            root.add_directory(create_storage(entry, new_config))
         else:
             dir = StreamDirectory(entry.name, entry.path)
             root.add_directory(dir)

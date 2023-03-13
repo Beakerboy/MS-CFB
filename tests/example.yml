@@ -1,12 +1,12 @@
 "directories":
   -
-    "file": "."
+    "directory": "."
     "values":
       {
         "clsid": "{56616700-C154-11CE-8553-00AA00A1F95B}"
       }
   -
-    "file": "Storage 1"
+    "directory": "Storage 1"
     "values":
       {
         "created": 0x01BAB44B12F98800,

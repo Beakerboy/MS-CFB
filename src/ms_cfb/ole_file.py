@@ -226,10 +226,7 @@ def main():
     if args.extra is not None and os.path.isfile(args.extra):
         stream = open(args.extra, 'r')
         config = yaml.safe_load(stream)
-    new_config = {}
-    for (key, val) in config["directories"].items():
-        full_path = os.path.relpath(key, args.directory)
-        new_config[full_path] = val
+    new_config = config["directories"]
 
     root = RootDirectory()
     obj = os.scandir(args.directory)

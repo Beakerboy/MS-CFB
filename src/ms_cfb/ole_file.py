@@ -245,7 +245,7 @@ def main():
 def create_storage(direntry, directories):
     dir = StorageDirectory(direntry.name)
     if direntry.name in directories:
-        dir_config = directories[direntry]
+        dir_config = directories[direntry.name]
         if "modified" in dir_config:
             datetime = Filetime.fromisoformat(dir_config["modified"])
             dir.set_modified(datetime.to_msfiletime())

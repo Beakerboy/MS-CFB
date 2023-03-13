@@ -1,6 +1,7 @@
 import os
 import pytest
 import shutil
+from ms_cfb.ole_file import main
 
 
 @pytest.fixture(autouse=True)

@@ -30,22 +30,22 @@ class Directory:
 
         self._flattened_index = 0
 
-    def set_created(self, value):
+    def set_created(self, value: int) -> None:
         self._created = value
 
-    def get_created(self):
+    def get_created(self) -> int:
         return self._created
 
-    def set_modified(self, value):
+    def set_modified(self, value: int) -> None:
         self._modified = value
 
-    def get_modified(self):
+    def get_modified(self) -> int:
         return self._modified
 
     def get_type(self) -> int:
         return self._type
 
-    def set_start_sector(self, value):
+    def set_start_sector(self, value: int) -> None:
         self._start_sector = value
 
     def get_start_sector(self) -> int:
@@ -58,10 +58,10 @@ class Directory:
         """The byte length of the name"""
         return (len(self.name) + 1) * 2
 
-    def set_additional_sectors(self, sector_list):
+    def set_additional_sectors(self, sector_list: list) -> None:
         self._additional_sectors = sector_list
 
-    def file_size(self):
+    def file_size(self) -> int:
         return 0
 
     def to_bytes(self) -> bytes:

@@ -13,7 +13,7 @@ def test_min_file(mocker):
             "ole_file.py",
             "-o",
             "Test123.bin",
-            "-/files",
+            "./files",
         ],
     )
     main()

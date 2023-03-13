@@ -11,3 +11,7 @@ def test_set_version_exception():
 def test_get_version():
     ole_file = OleFile()
     assert ole_file.get_version() == 3
+    ole_file.set_version(4)
+    assert ole_file.get_version() == 4
+    ole_file.set_version(3)
+    assert ole_file.get_version() == 3

@@ -242,20 +242,23 @@ def main():
     ole_file.create_file(args.output)
 
 
+def update_attributes(dir, conf):
+    if "modified" in conf:
+        datetime = Filetime.fromisoformat(dir_config["modified"])
+        dir.set_modified(datetime.to_msfiletime())
+    if "created" in dir_config:
+        datetime = Filetime.fromisoformat(dir_config["created"])
+        dir.set_created(datetime.to_msfiletime())
+    if "clsid" in dir_config:
+        dir.set_clsid(uuid.UUID(dir_config["clsid"]))
+    if "flags" in dir_config:
+        dir.set_flags()
+
 def create_storage(direntry, directories):
     dir = StorageDirectory(direntry.name)
     if direntry.name in directories:
         dir_config = directories[direntry.name]
-        if "modified" in dir_config:
-            datetime = Filetime.fromisoformat(dir_config["modified"])
-            dir.set_modified(datetime.to_msfiletime())
-        if "created" in dir_config:
-            datetime = Filetime.fromisoformat(dir_config["created"])
-            dir.set_created(datetime.to_msfiletime())
-        if "clsid" in dir_config:
-            dir.set_clsid(uuid.UUID(dir_config["clsid"]))
-        if "flags" in dir_config:
-            dir.set_flags()
+        update_attributes(dir, dir_config)
     obj = os.scandir(direntry.path)
     for entry in obj:
         if entry.is_dir():

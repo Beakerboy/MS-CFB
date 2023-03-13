@@ -1,6 +1,6 @@
 import os
 import pytest
-from ms_cfb.ole_file import OleFile
+import ms_cfb.ole_file
 
 
 @pytest.fixture(autouse=True)

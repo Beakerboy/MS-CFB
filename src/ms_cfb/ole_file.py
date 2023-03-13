@@ -215,6 +215,8 @@ def main():
                         help="Path to exta directory settings yml file.")
     args = parser.parse_args()
     ole_file = OleFile()
+    if args.version == 4:
+        ole_file.set_version(4)
     ole_file.create_file(args.output)
 
 

@@ -39,7 +39,7 @@ def test_example_file(mocker):
             "./files",
         ],
     )
-
+    main()
     assert os.stat(filename).st_size == 512 * 6
 
     f = open(filename, "rb")

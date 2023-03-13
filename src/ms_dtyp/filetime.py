@@ -15,5 +15,5 @@ class Filetime(datetime):
         Convert to MS Filetime
         """
         dif = self - datetime(1601, 1, 1, 0, 0, 0)
-        filetime = dif.total_seconds() * 10 / timedelta(microseconds=1)
+        filetime = (dif.total_seconds() * 10) / timedelta(microseconds=1)
         return filetime

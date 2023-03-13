@@ -213,7 +213,9 @@ def main():
                         help="The output file name.")
     parser.add_argument("-x", "--extra",
                         help="Path to exta directory settings yml file.")
-    parser.parse_args()
+    args = parser.parse_args()
+    ole_file = OleFile()
+    ole_file.create_file(args.output)
 
 
 if __name__ == '__main__':

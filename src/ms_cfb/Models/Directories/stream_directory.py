@@ -44,7 +44,7 @@ class StreamDirectory(FileStream, Directory):
 
     def minifat_sectors_used(self) -> int:
         """
-        Overrides Directory.minifat_sectors_used()
+        Implements Directory.minifat_sectors_used()
         How many minifat sectors does this stream use?
         """
         if self.file_size() >= 4096:

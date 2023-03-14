@@ -43,4 +43,10 @@ class StreamDirectory(FileStream, Directory):
         return os.stat(self._file_path).st_size
 
     def minifat_sectors_used(self) -> int:
+        """
+        Implements Directory.minifat_sectors_used()
+        How many minifat sectors does this stream use?
+        """
+        if self.file_size() >= 4096:
+            return 0
         return (self.file_size() - 1) // 64 + 1

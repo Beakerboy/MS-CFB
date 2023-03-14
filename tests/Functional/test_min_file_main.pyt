@@ -1,33 +1,41 @@
 import os
 import pytest
-from ms_cfb.ole_file import OleFile
+import shutil
+from ms_cfb.ole_file import main
 
 
 @pytest.fixture(autouse=True)
 def run_around_tests():
     # Code that will run before your test
-    names = ["Test2.bin", "directory_stream.bin"]
-    for name in names:
-        if os.path.isfile(name):
-            os.remove(name)
+    os.mkdir("./files")
+    names = ["Test123.bin"]
     # A test function will be run at this point
     yield
     # Code that will run after your test
     for name in names:
         if os.path.isfile(name):
             os.remove(name)
+    shutil.rmtree("./files")
 
 
-def test_min_file():
+def test_min_file(mocker):
     """
     The smallest file has three sectors, one each:
     header, fat, directory
     """
-    ole_file = OleFile()
-    ole_file.create_file("Test2.bin")
-    assert os.stat("Test2.bin").st_size == 512 * 3
+    mocker.patch(
+        "sys.argv",
+        [
+            "ole_file.py",
+            "-o",
+            "Test123.bin",
+            "./files",
+        ],
+    )
+    main()
+    assert os.stat("Test123.bin").st_size == 512 * 3
 
-    f = open("Test2.bin", "rb")
+    f = open("Test123.bin", "rb")
     sector1 = ("D0CF 11E0 A1B1 1AE1 0000 0000 0000 0000",
                "0000 0000 0000 0000 3E00 0300 FEFF 0900",
                "0600 0000 0000 0000 0000 0000 0100 0000",

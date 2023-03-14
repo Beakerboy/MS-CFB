@@ -1,3 +1,6 @@
+from ms_cfb.Models.Directories.directory_factory import DirectoryFactory
+
+
 def test_from_binary():
     data = (b''
             + b'R\x00o\x00o\x00t\x00 \x00E\x00n\x00t\x00'

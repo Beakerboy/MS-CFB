@@ -65,7 +65,7 @@ class Directory:
         return 0
 
     def to_bytes(self) -> bytes:
-        format = "<64shbb3I"
+        format = "<64shbb3I16sIQQIII"
 
         dir = struct.pack(
             format,
@@ -75,13 +75,8 @@ class Directory:
             self.color,
             self._previous_directory_id,
             self._next_directory_id,
-            self._subdirectory_id
-        )
-        dir += self._class_id.bytes_le
-        if not isinstance(self._modified, int):
-            raise Exception(str(self._modified) + "is not an int")
-        dir += struct.pack(
-            "<IQQIII",
+            self._subdirectory_id,
+            self._class_id.bytes_le,
             self.user_flags,
             self._created,
             self._modified,

@@ -1,3 +1,4 @@
+import struct
 from ms_cfb.Models.Directories.root_directory import RootDirectory
 
 

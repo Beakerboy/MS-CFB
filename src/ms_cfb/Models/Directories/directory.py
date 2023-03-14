@@ -1,6 +1,5 @@
 import struct
 import uuid
-from ms_cfb.Models.Directories.root_directory import RootDirectory
 from ms_dtyp.filetime import Filetime
 
 

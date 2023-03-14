@@ -19,8 +19,8 @@ class Directory:
 
         self._user_flags = 0
 
-        self._created = 0
-        self._modified = 0
+        self._created = Filetime(1601, 1, 1)
+        self._modified = Filetime(1601, 1, 1)
 
         # The sector where this stream begins
         # This can either be a minifat sector number or a Fat sector
@@ -30,16 +30,16 @@ class Directory:
 
         self._flattened_index = 0
 
-    def set_created(self, value: int) -> None:
+    def set_created(self, value) -> None:
         self._created = value
 
-    def get_created(self) -> int:
+    def get_created(self):
         return self._created
 
-    def set_modified(self, value: int) -> None:
+    def set_modified(self, value) -> None:
         self._modified = value
 
-    def get_modified(self) -> int:
+    def get_modified(self):
         return self._modified
 
     def get_type(self) -> int:
@@ -78,8 +78,8 @@ class Directory:
             self._subdirectory_id,
             self._class_id.bytes_le,
             self._user_flags,
-            self._created,
-            self._modified,
+            self._created.to_msfiletime(),
+            self._modified.to_msfiletime(),
             self.get_start_sector(),
             self.file_size(),
             0

@@ -1,5 +1,6 @@
 import struct
 import uuid
+from ms_dtyp.filetime import Filetime
 
 
 class Directory:

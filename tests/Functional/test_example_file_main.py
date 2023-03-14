@@ -31,11 +31,6 @@ def test_example_file(mocker):
     """
     The example file as described in MS-CFB
     """
-    direntry = "./files"
-    ts = os.stat(direntry).st_mtime
-    assert ts == 816561825
-    ft = Filetime.fromtimestamp(ts)
-    assert ft.isoformat() == "1985"
     filename = "example_test.bin"
     mocker.patch(
         "sys.argv",

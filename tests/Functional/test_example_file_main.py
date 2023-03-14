@@ -35,7 +35,7 @@ def test_example_file(mocker):
     ts = os.stat(direntry).st_mtime
     assert ts == 816561825
     ft = Filetime.fromtimestamp(ts)
-    assert fs.isoformat() == "1985"
+    assert ft.isoformat() == "1985"
     filename = "example_test.bin"
     mocker.patch(
         "sys.argv",

@@ -105,4 +105,3 @@ class Directory:
          start_sector,
          file_size,
          zero) = struct.unpack(format, data)
-        

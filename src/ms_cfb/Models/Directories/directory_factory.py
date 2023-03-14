@@ -3,7 +3,7 @@ from ms_cfb.Models.Directories.root_directory import RootDirectory
 
 class DirectoryFactory:
 
-   @classmethod
+    @classmethod
     def from_bin(cls, data):
         obj = cls()
         format = "<64shbb3I16sIQQIII"

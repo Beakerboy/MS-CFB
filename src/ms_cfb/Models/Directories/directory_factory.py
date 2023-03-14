@@ -27,3 +27,4 @@ class DirectoryFactory:
             obj = RootDirectory()
             modified = Filetime.from_msfiletime(modified)
             raise Exception(modified.isoformat())
+        return obj

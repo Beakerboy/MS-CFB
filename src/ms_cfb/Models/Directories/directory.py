@@ -1,5 +1,6 @@
 import struct
 import uuid
+from ms_cfb.Models.Directories.root_directory import RootDirectory
 from ms_dtyp.filetime import Filetime
 
 
@@ -93,15 +94,19 @@ class Directory:
         format = "<64shbb3I16sIQQIII"
         (name,
          name_size,
-         obj._type,
-         obj.color,
-         obj._previous_directory_id,
-         obj._next_directory_id,
-         obj._subdirectory_id,
+         type,
+         color,
+         previous_directory_id,
+         next_directory_id,
+         subdirectory_id,
          class_id,
-         obj._user_flags,
+         user_flags,
          created,
          modified,
          start_sector,
          file_size,
          zero) = struct.unpack(format, data)
+         if type == 5:
+             obj = RootDirectory()
+             modified = Filetime.from_msfiletime(modified)
+             raise Exception(modified.isoformat())

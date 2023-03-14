@@ -30,7 +30,8 @@ def test_example_file(mocker):
     """
     The example file as described in MS-CFB
     """
-    assert os.stat(direntry.path).st_mtime == 816561825
+    direntry = "./files"
+    assert os.stat(direntry).st_mtime == 816561825
     filename = "example_test.bin"
     mocker.patch(
         "sys.argv",

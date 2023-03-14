@@ -6,7 +6,7 @@ from ms_dtyp.filetime import Filetime
 class DirectoryFactory:
 
     @classmethod
-    def from_bin(cls, data):
+    def from_binary(cls, data):
         obj = cls()
         format = "<64shbb3I16sIQQIII"
         (name,

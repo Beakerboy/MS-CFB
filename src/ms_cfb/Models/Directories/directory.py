@@ -106,7 +106,7 @@ class Directory:
          start_sector,
          file_size,
          zero) = struct.unpack(format, data)
-         if type == 5:
-             obj = RootDirectory()
-             modified = Filetime.from_msfiletime(modified)
-             raise Exception(modified.isoformat())
+        if type == 5:
+            obj = RootDirectory()
+            modified = Filetime.from_msfiletime(modified)
+            raise Exception(modified.isoformat())

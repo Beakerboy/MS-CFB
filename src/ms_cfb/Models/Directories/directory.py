@@ -89,16 +89,17 @@ class Directory:
 
     @classmethod
     def from_bin(cls, data):
+        obj = cls()
         format = "<64shbb3I16sIQQIII"
         (name,
          name_size,
-         self._type,
-         self.color,
-         self._previous_directory_id,
-         self._next_directory_id,
-         self._subdirectory_id,
+         obj._type,
+         obj.color,
+         obj._previous_directory_id,
+         obj._next_directory_id,
+         obj._subdirectory_id,
          class_id,
-         self._user_flags,
+         obj._user_flags,
          created,
          modified,
          start_sector,

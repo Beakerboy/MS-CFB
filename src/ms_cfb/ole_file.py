@@ -237,6 +237,8 @@ def main():
             dir = StreamDirectory(entry.name, entry.path)
             root.add_directory(dir)
     mod_time = os.stat(args.directory).st_mtime
+    if mod_time != 816561825:
+            raise Exception("TS is " + str(ts))
     root.set_modified(int(mod_time))
     if "." in new_config:
         dir_config = new_config["."]

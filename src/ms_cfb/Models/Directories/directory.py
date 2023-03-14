@@ -17,7 +17,7 @@ class Directory:
 
         self._class_id = uuid.UUID(int=0x00)
 
-        self.user_flags = 0
+        self._user_flags = 0
 
         self._created = 0
         self._modified = 0
@@ -77,7 +77,7 @@ class Directory:
             self._next_directory_id,
             self._subdirectory_id,
             self._class_id.bytes_le,
-            self.user_flags,
+            self._user_flags,
             self._created,
             self._modified,
             self.get_start_sector(),

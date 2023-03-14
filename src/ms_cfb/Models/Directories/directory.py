@@ -32,13 +32,13 @@ class Directory:
         self._flattened_index = 0
 
     def set_created(self, value) -> None:
-        self._created = value
+        self._created = Filetime.from_msfiletime(value)
 
     def get_created(self):
         return self._created
 
     def set_modified(self, value) -> None:
-        self._modified = value
+        self._modified = Filetime.from_msfiletime(value)
 
     def get_modified(self):
         return self._modified

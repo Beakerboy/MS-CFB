@@ -2,6 +2,7 @@ import os
 from ms_cfb.Models.DataStreams.array_stream import ArrayStream
 from ms_cfb.Models.DataStreams.file_stream import FileStream
 
+
 class FileArray(ArrayStream):
 
     def _render_element(self, dir: 'FileStream') -> bytes:

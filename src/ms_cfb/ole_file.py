@@ -55,7 +55,7 @@ class OleFile:
     def get_version(self) -> int:
         return self._major_version
 
-    def set_root_directory(self, dir) -> None:
+    def set_root_directory(self, dir: RootDirectory) -> None:
         self._directory = dir
 
     def add_directory_entry(self, object) -> None:

@@ -17,7 +17,7 @@ from ms_dtyp.filetime import Filetime
 class OleFile:
 
     # class default constructor
-    def __init__(self):
+    def __init__(self) -> None:
 
         # Instance Attributes
         self._minor_version = 62

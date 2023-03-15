@@ -1,11 +1,12 @@
 import os
 import string
+from ms_cfb.Models.DataStreams.stream_base import StreamBase
 from random import choice
 
 
 class FilesystemBase:
 
-    def __init__(self, size) -> None:
+    def __init__(self, size: int) -> None:
         # The number of bytes in each sector
         self._sector_size = size
 
@@ -50,7 +51,7 @@ class FilesystemBase:
         self._next_free_sector += 1
         return sector
 
-    def extend_chain(self, stream, number) -> None:
+    def extend_chain(self, stream: 'StreamBase', number: int) -> None:
         """
         """
         sector_list = []
@@ -58,7 +59,7 @@ class FilesystemBase:
             sector_list.append(self._reserve_next_free_sector())
         stream.set_additional_sectors(sector_list)
 
-    def request_new_sectors(self, stream) -> None:
+    def request_new_sectors(self, stream: 'StreamBase') -> None:
         """
         the size of the stream has changed, based on the new size, are
         additional sectors needed?
@@ -69,7 +70,7 @@ class FilesystemBase:
             needed = (size - 1) // self._sector_size + 1
             self.extend_chain(stream, needed - have)
 
-    def add_stream(self, stream) -> None:
+    def add_stream(self, stream: 'StreamBase') -> None:
         sector = self._start_new_chain()
         stream.set_start_sector(sector)
         stream.set_storage_chain(self)
@@ -84,7 +85,7 @@ class FilesystemBase:
         new_sector = self._reserve_next_free_sector()
         return new_sector
 
-    def write_chain(self, path) -> None:
+    def write_chain(self, path: str) -> None:
         """
         write the chain list to a file.
         """
@@ -94,7 +95,7 @@ class FilesystemBase:
         for address in chain:
             f.write(address.to_bytes(4, "little"))
 
-    def write_streams(self, path) -> None:
+    def write_streams(self, path: str) -> None:
         sectors = len(self)
         f = open(path, "wb")
         f.write(b'\x02' * sectors * self._sector_size)

@@ -2,14 +2,14 @@ from ms_cfb.Models.Filesystems.fat_filesystem import FatFilesystem
 from ms_cfb.Models.DataStreams.stream_base import StreamBase
 
 
-def test_initial_properties():
+def test_initial_properties() -> None:
     chain = FatFilesystem(512)
     assert chain.get_sector_size() == 512
     assert len(chain) == 1
     assert chain.get_chain() == [0xfffffffd]
 
 
-def test_adding_chain():
+def test_adding_chain() -> None:
     chain = FatFilesystem(512)
     stream = StreamStub()
     chain.add_stream(stream)
@@ -22,7 +22,7 @@ def test_adding_chain():
     assert chain.get_chain() == [0xfffffffd, 0xfffffffe, 0xfffffffe]
 
 
-def test_extend_chain():
+def test_extend_chain() -> None:
     chain = FatFilesystem(512)
     stream1 = StreamStub()
     chain.add_stream(stream1)
@@ -33,7 +33,7 @@ def test_extend_chain():
     assert chain.get_chain() == [0xfffffffd, 3, 0xfffffffe, 4, 0xfffffffe]
 
 
-def test_new_fat_table_sector():
+def test_new_fat_table_sector() -> None:
     chain = FatFilesystem(512)
     stream1 = StreamStub()
     chain.add_stream(stream1)
@@ -44,7 +44,7 @@ def test_new_fat_table_sector():
     assert len(chain) == 130
 
 
-def test_extend_through_fat_sector():
+def test_extend_through_fat_sector() -> None:
     chain = FatFilesystem(512)
     stream1 = StreamStub()
     chain.add_stream(stream1)
@@ -56,7 +56,7 @@ def test_extend_through_fat_sector():
     assert len(chain) == 130
 
 
-def test_last_sector_on_fat_sector():
+def test_last_sector_on_fat_sector() -> None:
     chain = FatFilesystem(512)
     stream1 = StreamStub()
     chain.add_stream(stream1)
@@ -67,7 +67,7 @@ def test_last_sector_on_fat_sector():
     assert len(chain) == 130
 
 
-def test_extend_through_fat_sector2():
+def test_extend_through_fat_sector2() -> None:
     chain = FatFilesystem(512)
     stream1 = StreamStub()
     chain.add_stream(stream1)
@@ -77,7 +77,7 @@ def test_extend_through_fat_sector2():
     assert chain.get_chain()[126:] == [127, 129, 0xFFFFFFFD, 130, 0xFFFFFFFE]
 
 
-def test_write_chain():
+def test_write_chain() -> None:
     fs = FatFilesystem(512)
     fs.write_chain("chain.bin")
     f = open("chain.bin", "rb")
@@ -85,5 +85,5 @@ def test_write_chain():
 
 
 class StreamStub(StreamBase):
-    def stream_size(self):
+    def stream_size(self) -> int:
         return 1

@@ -3,7 +3,7 @@ from ms_cfb.Models.DataStreams.stream_base import StreamBase
 
 class ArrayStream(StreamBase):
 
-    def __init__(self):
+    def __init__(self) -> None:
         super(ArrayStream, self).__init__()
         self._data = []
 
@@ -13,7 +13,7 @@ class ArrayStream(StreamBase):
     def __len__(self) -> int:
         return len(self._data)
 
-    def to_file(self, path):
+    def to_file(self, path) -> None:
         f = open(path, "wb")
         for element in self._data:
             f.write(self._render_element(element))

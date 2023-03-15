@@ -3,6 +3,7 @@ import os
 import struct
 import uuid
 import yaml
+from pathlib import Path
 from ms_cfb.Models.DataStreams.directory_stream import DirectoryStream
 from ms_cfb.Models.Directories.root_directory import RootDirectory
 from ms_cfb.Models.Directories.storage_directory import StorageDirectory
@@ -266,7 +267,8 @@ def create_storage(direntry, directories):
         if entry.is_dir():
             dir.add_directory(create_storage(entry, directories))
         else:
-            stream = StreamDirectory(entry.name, entry.path)
+            stem = Path(entry.name).stem
+            stream = StreamDirectory(stem, entry.path)
             dir.add_directory(stream)
     mod_time = Filetime.fromtimestamp(os.stat(direntry.path).st_mtime)
     dir.set_modified(mod_time)

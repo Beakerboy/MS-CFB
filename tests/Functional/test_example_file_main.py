@@ -5,6 +5,7 @@ from ms_cfb.ole_file import main
 from ms_dtyp.filetime import Filetime
 from pytest_mock import MockerFixture
 
+
 @pytest.fixture(autouse=True)
 def run_around_tests() -> None:
     # Code that will run before your test, for example:

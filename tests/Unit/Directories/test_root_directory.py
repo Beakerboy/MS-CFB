@@ -1,5 +1,6 @@
 import pytest
 from ms_cfb.Models.Directories.root_directory import RootDirectory
+from ms_dtyp.filetime import Filetime
 
 
 def test_directory():
@@ -7,7 +8,8 @@ def test_directory():
     dir = RootDirectory()
     dir.name = "Root Entry"
     assert dir.name_size() == 22
-    dir.set_modified(0x01D92433C2B823C0)
+    ft = Filetype.from_msdiletype(0x01D92433C2B823C0)
+    dir.set_modified(ft)
     dir.set_start_sector(3)
     dir.color = 0
 

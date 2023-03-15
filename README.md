@@ -40,6 +40,22 @@ Root Entry
      ├── dir
      └── _VBA_PROJECT
 ```
+To run the program
+```
+python ole_file.py [-h] [-v {3,4}] [-o OUTPUT] [-x EXTRA] directory
+positional arguments:
+  directory             The directory that contains your files.
+
+optional arguments:
+  -h, --help            show this help message and exit
+  -v {3,4}, --version {3,4}
+                        The OLE version to use.
+  -o OUTPUT, --output OUTPUT
+                        The output file name.
+  -x EXTRA, --extra EXTRA
+                        Path to exta directory settings yml file.
+```
+
 
 
 

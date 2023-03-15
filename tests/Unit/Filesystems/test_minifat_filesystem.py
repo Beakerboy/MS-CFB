@@ -52,7 +52,7 @@ def test_adding_chain_longer_storage() -> None:
 
 
 class StreamStub(StreamBase):
-    def stream_size(self):
+    def stream_size(self) -> int:
         return 1
 
 

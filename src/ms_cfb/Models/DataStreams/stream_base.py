@@ -32,13 +32,13 @@ class StreamBase:
         """
         self._sectors = [sector]
 
-    def get_start_sector(self):
+    def get_start_sector(self) -> int:
         return self._sectors[0]
 
     def set_additional_sectors(self, sectors) -> None:
         self._sectors.extend(sectors)
 
-    def get_sectors(self):
+    def get_sectors(self) -> list:
         return self._sectors
 
     def append(self, data) -> None:

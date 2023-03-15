@@ -6,14 +6,14 @@ from ms_cfb.Models.DataStreams.stream_base import StreamBase
 
 class MinifatFilesystem(FilesystemBase, StreamBase):
 
-    def __init__(self):
+    def __init__(self) -> None:
         FilesystemBase.__init__(self, 64)
         StreamBase.__init__(self)
 
     def get_first_stream_sector(self) -> int:
         return self._streams.get_start_sector()
 
-    def add_stream(self, stream):
+    def add_stream(self, stream) -> None:
         """
         Add a new stream to the minifat chain and arrange the storage resources
         We need to manage changes to the minifat chain, minifat stream, and the
@@ -28,7 +28,7 @@ class MinifatFilesystem(FilesystemBase, StreamBase):
         FilesystemBase.add_stream(self, stream)
         self._storage_chain.request_new_sectors(self._streams)
 
-    def extend_chain(self, stream, number):
+    def extend_chain(self, stream, number) -> None:
         """
         """
         sector_list = []
@@ -36,19 +36,19 @@ class MinifatFilesystem(FilesystemBase, StreamBase):
             sector_list.append(self._reserve_next_free_sector())
         stream.set_additional_sectors(sector_list)
 
-    def _start_new_chain(self):
+    def _start_new_chain(self) -> int:
         # Increase the necessary chain resources by one address
         new_sector = self._reserve_next_free_sector()
         self.append(1)
         return new_sector
 
-    def stream_size(self):
+    def stream_size(self) -> int:
         """
         implementation of StreamBase.stream_size()
         """
         return 4 * len(self)
 
-    def _extend_data(self, number):
+    def _extend_data(self, number) -> None:
         """
         implementation of StreamBase._extend_data()
         """

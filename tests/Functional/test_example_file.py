@@ -29,7 +29,7 @@ def test_example_file():
     root = RootDirectory()
     guid = uuid.UUID("56616700C15411CE855300AA00A1F95B")
     root.set_clsid(guid)
-    root.set_modified(Filetime.from_ms_filetime(0x01BAB44B13921E80))
+    root.set_modified(Filetime.from_msfiletime(0x01BAB44B13921E80))
 
     storage = StorageDirectory("Storage 1")
     # 11/16/1995 5:43:44 PM

@@ -7,6 +7,7 @@ from ms_cfb.Models.Directories.storage_directory import StorageDirectory
 from ms_cfb.Models.Directories.stream_directory import StreamDirectory
 from ms_dtyp.filetime import Filetime
 
+
 @pytest.fixture(autouse=True)
 def run_around_tests():
     # Code that will run before your test, for example:

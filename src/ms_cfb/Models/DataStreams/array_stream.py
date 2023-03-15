@@ -4,6 +4,8 @@ from typing import TypeVar
 
 
 T = TypeVar('T', bound='ArrayStream')
+
+
 class ArrayStream(StreamBase):
 
     def __init__(self: T) -> None:

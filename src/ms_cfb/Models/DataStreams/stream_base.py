@@ -1,3 +1,6 @@
+from ms_cfb.Models.Filesystems.filesystem_base import FilesystemBase
+
+
 class StreamBase:
     """
     Base class for any object which will appear as a stream within a sector
@@ -22,7 +25,7 @@ class StreamBase:
     def set_padding(self, padding: bytes) -> None:
         self._padding = padding
 
-    def set_storage_chain(self, chain) -> None:
+    def set_storage_chain(self, chain: 'FilesystemBase') -> None:
         self._storage_chain = chain
 
     def set_start_sector(self, sector: int) -> None:
@@ -35,13 +38,13 @@ class StreamBase:
     def get_start_sector(self) -> int:
         return self._sectors[0]
 
-    def set_additional_sectors(self, sectors) -> None:
+    def set_additional_sectors(self, sectors: list) -> None:
         self._sectors.extend(sectors)
 
     def get_sectors(self) -> list:
         return self._sectors
 
-    def append(self, data) -> None:
+    def append(self, data: bytes) -> None:
         """
         Extend the data in this stream.
         Request additional chain storage if needed
@@ -55,7 +58,7 @@ class StreamBase:
         """
         return len(self._data)
 
-    def _extend_data(self, data) -> None:
+    def _extend_data(self, data: bytes) -> None:
         """
         Add new data to the bytearray
         """

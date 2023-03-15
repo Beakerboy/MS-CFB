@@ -8,7 +8,7 @@ def test_directory():
     dir = RootDirectory()
     dir.name = "Root Entry"
     assert dir.name_size() == 22
-    ft = Filetime.from_msdiletype(0x01D92433C2B823C0)
+    ft = Filetime.from_msfiletype(0x01D92433C2B823C0)
     dir.set_modified(ft)
     dir.set_start_sector(3)
     dir.color = 0

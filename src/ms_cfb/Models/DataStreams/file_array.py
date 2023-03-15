@@ -6,6 +6,7 @@ from typing import TypeVar
 
 T = TypeVar('T', bound='FileArray')
 
+
 class FileArray(ArrayStream):
 
     def _render_element(self: T, dir: 'FileStream') -> bytes:

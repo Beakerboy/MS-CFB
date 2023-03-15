@@ -6,7 +6,7 @@ from ms_dtyp.filetime import Filetime
 class Directory:
     """An OLE directory object"""
 
-    def __init__(self):
+    def __init__(self) -> None:
         self.name = ""
 
         # red = 0, black = 1
@@ -34,13 +34,13 @@ class Directory:
     def set_created(self, value) -> None:
         self._created = value
 
-    def get_created(self):
+    def get_created(self) -> Filetime:
         return self._created
 
     def set_modified(self, value) -> None:
         self._modified = value
 
-    def get_modified(self):
+    def get_modified(self) -> Filetime:
         return self._modified
 
     def get_type(self) -> int:

@@ -2,6 +2,7 @@ import os
 import pytest
 import shutil
 from ms_cfb.ole_file import main
+from ms_dtyp.filetime import Filetime
 
 
 @pytest.fixture(autouse=True)

@@ -1,6 +1,7 @@
 from ms_cfb.Models.DataStreams.stream_base import StreamBase
 from typing import Iterator
 
+
 class ArrayStream(StreamBase):
 
     def __init__(self) -> None:

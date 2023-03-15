@@ -3,7 +3,7 @@ import pytest
 import shutil
 from ms_cfb.ole_file import main
 from ms_dtyp.filetime import Filetime
-
+from pytest_mock import MockerFixture
 
 @pytest.fixture(autouse=True)
 def run_around_tests() -> None:
@@ -29,7 +29,7 @@ def run_around_tests() -> None:
     shutil.rmtree("./files")
 
 
-def test_example_file(mocker: 'MockFixture') -> None:
+def test_example_file(mocker: MockFixture) -> None:
     """
     The example file as described in MS-CFB.
     The fixture generated the file and directories, the test method

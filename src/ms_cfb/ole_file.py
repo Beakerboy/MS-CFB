@@ -121,7 +121,7 @@ class OleFile:
             return 0
         return (count - 109 - 1) // (2 ** (self._sector_shift - 2)) + 1
 
-    def write_header_fat_sector_list(self):
+    def write_header_fat_sector_list(self) -> None:
         """
         Create a 436 byte stream of the first 109 FAT sectors, padded with
         \\xFF.
@@ -209,7 +209,7 @@ class OleFile:
         self.write_file(path)
 
 
-def main():
+def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("directory",
                         help="The directory that contains your files.")
@@ -247,7 +247,7 @@ def main():
     ole_file.create_file(args.output)
 
 
-def update_attributes(dir, conf):
+def update_attributes(dir: 'Directory', conf: dict) -> None:
     if "modified" in conf:
         datetime = Filetime.fromisoformat(conf["modified"])
         dir.set_modified(datetime)
@@ -260,7 +260,7 @@ def update_attributes(dir, conf):
         dir.set_flags()
 
 
-def create_storage(direntry, directories):
+def create_storage(direntry, directories: dict):
     dir = StorageDirectory(direntry.name)
     obj = os.scandir(direntry.path)
     for entry in obj:

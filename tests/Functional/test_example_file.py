@@ -5,7 +5,7 @@ from ms_cfb.ole_file import OleFile
 from ms_cfb.Models.Directories.root_directory import RootDirectory
 from ms_cfb.Models.Directories.storage_directory import StorageDirectory
 from ms_cfb.Models.Directories.stream_directory import StreamDirectory
-
+from ms_dtyp.filetime import Filetime
 
 @pytest.fixture(autouse=True)
 def run_around_tests():
@@ -32,7 +32,7 @@ def test_example_file():
 
     storage = StorageDirectory("Storage 1")
     # 11/16/1995 5:43:44 PM
-    storage.set_created(0x01BAB44B12F98800)
+    storage.set_created(Filetime.from_ms_filetime(0x01BAB44B12F98800))
     # 11/16/1995 5:43:45 PM
     storage.set_modified(0x01BAB44B13921E80)
     guid2 = uuid.UUID("56616100-C154-11CE-8553-00AA00A1F95B")

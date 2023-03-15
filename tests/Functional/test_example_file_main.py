@@ -31,7 +31,10 @@ def run_around_tests():
 
 def test_example_file(mocker):
     """
-    The example file as described in MS-CFB
+    The example file as described in MS-CFB.
+    The fixture generated the file and directories, the test method
+    will create the output as if run from the command line as:
+    python ole_file.py -o example_test.bin -x tests/example.yml ./files
     """
     mod_time = os.stat("./files").st_mtime
     ft = Filetime.fromtimestamp(mod_time)

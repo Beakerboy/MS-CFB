@@ -261,7 +261,8 @@ def update_attributes(dir: 'Directory', conf: dict) -> None:
         dir.set_flags()
 
 
-def create_storage(direntry: os.DirEntry, directories: dict) -> StorageDirectory:
+def create_storage(direntry: os.DirEntry,
+                   directories: dict) -> StorageDirectory:
     dir = StorageDirectory(direntry.name)
     obj = os.scandir(direntry.path)
     for entry in obj:

@@ -31,6 +31,7 @@ def test_example_file(mocker):
     """
     The example file as described in MS-CFB
     """
+    mod_time = os.stat("./files").st_mtime
     ft = Filetime.fromtimestamp(mod_time)
     assert ft.to_msfiletime() == 0x01BAB44B13921E80
     filename = "example_test.bin"
@@ -45,6 +46,7 @@ def test_example_file(mocker):
             "./files",
         ],
     )
+    mod_time = os.stat("./files").st_mtime
     ft = Filetime.fromtimestamp(mod_time)
     assert ft.to_msfiletime() == 0x01BAB44B13921E80
     main()

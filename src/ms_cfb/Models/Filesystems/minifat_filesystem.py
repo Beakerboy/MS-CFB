@@ -13,7 +13,7 @@ class MinifatFilesystem(FilesystemBase, StreamBase):
     def get_first_stream_sector(self) -> int:
         return self._streams.get_start_sector()
 
-    def add_stream(self, stream) -> None:
+    def add_stream(self, stream: 'StreamBase') -> None:
         """
         Add a new stream to the minifat chain and arrange the storage resources
         We need to manage changes to the minifat chain, minifat stream, and the
@@ -28,7 +28,7 @@ class MinifatFilesystem(FilesystemBase, StreamBase):
         FilesystemBase.add_stream(self, stream)
         self._storage_chain.request_new_sectors(self._streams)
 
-    def extend_chain(self, stream, number) -> None:
+    def extend_chain(self, stream: 'StreamBase', number: int) -> None:
         """
         """
         sector_list = []
@@ -48,7 +48,7 @@ class MinifatFilesystem(FilesystemBase, StreamBase):
         """
         return 4 * len(self)
 
-    def _extend_data(self, number) -> None:
+    def _extend_data(self, number: int) -> None:
         """
         implementation of StreamBase._extend_data()
         """

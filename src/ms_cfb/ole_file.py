@@ -58,7 +58,7 @@ class OleFile:
     def set_root_directory(self, dir: RootDirectory) -> None:
         self._directory = dir
 
-    def add_directory_entry(self, object) -> None:
+    def add_directory_entry(self, object: 'Directory') -> None:
         """
         Add a storage or stream object to root
         """

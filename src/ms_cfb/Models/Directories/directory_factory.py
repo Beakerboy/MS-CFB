@@ -1,4 +1,5 @@
 import struct
+from ms_cfb.Models.Directories.directory import Directory
 from ms_cfb.Models.Directories.root_directory import RootDirectory
 from ms_dtyp.filetime import Filetime
 
@@ -6,7 +7,7 @@ from ms_dtyp.filetime import Filetime
 class DirectoryFactory:
 
     @classmethod
-    def from_binary(cls, data) -> Directory:
+    def from_binary(cls, data) -> type[Directory]:
         obj = cls()
         format = "<64shbb3I16sIQQIII"
         (name,

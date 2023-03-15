@@ -1,5 +1,5 @@
 from ms_cfb.Models.Directories.directory_factory import DirectoryFactory
-
+from ms_cfb.Models.Directories.root_directory import RootDirectory
 
 def test_from_binary():
     da = (b''
@@ -12,4 +12,4 @@ def test_from_binary():
           + b'\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x92\xbe\xab0'
           + b'\x00\x00\x00\x00\x03\x00\x00\x00@\x02\x00\x00\x00\x00\x00\x00')
     root = DirectoryFactory.from_binary(da)
-    assert root.get_type() == 5
+    assert instanceof(root, RootDirectory)

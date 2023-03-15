@@ -13,7 +13,7 @@ class ArrayStream(StreamBase):
     def __len__(self) -> int:
         return len(self._data)
 
-    def to_file(self, path) -> None:
+    def to_file(self, path: str) -> None:
         f = open(path, "wb")
         for element in self._data:
             f.write(self._render_element(element))
@@ -35,10 +35,10 @@ class ArrayStream(StreamBase):
             sum += sectors * sector_size
         return sum
 
-    def _render_element(self, element) -> bytes:
+    def _render_element(self, element: Any) -> bytes:
         return element.to_bytes()
 
-    def _extend_data(self, data) -> None:
+    def _extend_data(self, data: Any) -> None:
         """
         Add new data to the array
         """

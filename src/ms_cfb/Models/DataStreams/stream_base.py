@@ -4,7 +4,7 @@ class StreamBase:
     chain.
     """
 
-    def __init__(self):
+    def __init__(self) -> None:
 
         # The stuff that will be used to squeeze data into the chain.
         # It can just be the data itself.

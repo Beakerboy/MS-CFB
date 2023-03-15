@@ -38,7 +38,7 @@ class Directory:
         return self._created
 
     def set_modified(self, value) -> None:
-        self._modified = Filetime.from_msfiletime(value)
+        self._modified = value
 
     def get_modified(self):
         return self._modified

@@ -3,7 +3,7 @@ from ms_cfb.Models.Directories.directory import Directory
 from typing import TypeVar
 
 
-T = TypeVar('T', bound='ArrayStream')
+T = TypeVar('T', bound='DirectoryStream')
 
 
 class DirectoryStream(ArrayStream):

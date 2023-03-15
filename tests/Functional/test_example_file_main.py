@@ -31,6 +31,8 @@ def test_example_file(mocker):
     """
     The example file as described in MS-CFB
     """
+    ft = Filetime.fromtimestamp(mod_time)
+    assert ft.to_msfiletime() == 0x01BAB44B13921E80
     filename = "example_test.bin"
     mocker.patch(
         "sys.argv",
@@ -43,6 +45,8 @@ def test_example_file(mocker):
             "./files",
         ],
     )
+    ft = Filetime.fromtimestamp(mod_time)
+    assert ft.to_msfiletime() == 0x01BAB44B13921E80
     main()
     assert os.stat(filename).st_size == 512 * 6
 

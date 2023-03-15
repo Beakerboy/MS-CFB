@@ -1,6 +1,3 @@
-from ms_cfb.Models.Filesystems.filesystem_base import FilesystemBase
-
-
 class StreamBase:
     """
     Base class for any object which will appear as a stream within a sector
@@ -25,7 +22,7 @@ class StreamBase:
     def set_padding(self, padding: bytes) -> None:
         self._padding = padding
 
-    def set_storage_chain(self, chain: 'FilesystemBase') -> None:
+    def set_storage_chain(self, chain) -> None:
         self._storage_chain = chain
 
     def set_start_sector(self, sector: int) -> None:

@@ -269,7 +269,7 @@ def create_storage(direntry, directories):
             stream = StreamDirectory(entry.name, entry.path)
             dir.add_directory(stream)
     mod_time = Filetime.fromtimestamp(os.stat(direntry.path).st_mtime)
-    dir.set_modified(mod_time.to_msfiletime())
+    dir.set_modified(mod_time)
     if direntry.name in directories:
         dir_config = directories[direntry.name]
         update_attributes(dir, dir_config)

@@ -8,7 +8,7 @@ class FatFilesystem(FilesystemBase):
         super().__init__(size)
         self._next_free_sector = 1
 
-    def get_chain(self):
+    def get_chain(self) -> list:
         """
         Need to add support for DIFAT
         """

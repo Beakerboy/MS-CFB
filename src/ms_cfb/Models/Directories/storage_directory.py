@@ -3,28 +3,28 @@ from ms_cfb.Models.Directories.directory import Directory
 
 class StorageDirectory(Directory):
 
-    def __init__(self, name):
+    def __init__(self, name) -> None:
         super(StorageDirectory, self).__init__()
         self.name = name
         self._type = 1
         self.directories = []
 
-    def file_size(self):
+    def file_size(self) -> int:
         return 0
 
-    def minifat_sectors_used(self):
+    def minifat_sectors_used(self) -> int:
         size = 0
         for dir in self.directories:
             size += dir.minifat_sectors_used()
         return size
 
-    def add_directory(self, stream):
+    def add_directory(self, stream) -> None:
         self.directories.append(stream)
 
-    def create_binary_tree(self):
+    def _create_binary_tree(self) -> None:
         pass
 
-    def flatten(self):
+    def flatten(self) -> list:
         self.flat = [self]
         for child in self.directories:
             if child._type == 2:
@@ -37,7 +37,7 @@ class StorageDirectory(Directory):
             i += 1
         return self.flat
 
-    def set_child(self):
+    def set_child(self) -> None:
         if len(self.directories) == 1:
             self._subdirectory_id = self.directories[0]._flattened_index
         for child in self.directories:

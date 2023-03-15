@@ -1,6 +1,7 @@
 from ms_cfb.Models.Directories.directory_factory import DirectoryFactory
 from ms_cfb.Models.Directories.root_directory import RootDirectory
 
+
 def test_from_binary():
     da = (b''
           + b'R\x00o\x00o\x00t\x00 \x00E\x00n\x00t\x00'

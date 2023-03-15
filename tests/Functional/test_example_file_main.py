@@ -29,7 +29,7 @@ def run_around_tests() -> None:
     shutil.rmtree("./files")
 
 
-def test_example_file(mocker: MockFixture) -> None:
+def test_example_file(mocker: MockerFixture) -> None:
     """
     The example file as described in MS-CFB.
     The fixture generated the file and directories, the test method

@@ -31,13 +31,13 @@ class Directory:
 
         self._flattened_index = 0
 
-    def set_created(self, value) -> None:
+    def set_created(self, value: Filetime) -> None:
         self._created = value
 
     def get_created(self) -> Filetime:
         return self._created
 
-    def set_modified(self, value) -> None:
+    def set_modified(self, value: Filetime) -> None:
         self._modified = value
 
     def get_modified(self) -> Filetime:
@@ -52,8 +52,8 @@ class Directory:
     def get_start_sector(self) -> int:
         return self._start_sector
 
-    def set_clsid(self, uuid) -> None:
-        self._class_id = uuid
+    def set_clsid(self, clsid: uuid.UUID) -> None:
+        self._class_id = clsid
 
     def name_size(self) -> int:
         """The byte length of the name"""

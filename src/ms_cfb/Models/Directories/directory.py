@@ -32,7 +32,7 @@ class Directory:
         self._flattened_index = 0
 
     def set_created(self, value) -> None:
-        self._created = Filetime.from_msfiletime(value)
+        self._created = value
 
     def get_created(self):
         return self._created

@@ -1,4 +1,5 @@
 from ms_cfb.Models.DataStreams.array_stream import ArrayStream
+from ms_cfb.Models.Directories.directory import Directory
 
 
 class DirectoryStream(ArrayStream):
@@ -8,7 +9,7 @@ class DirectoryStream(ArrayStream):
         self._padding = (b'\x00' * (16 * 4 + 4) + b'\xff' * 12
                          + b'\x00' * 16 * 3)
 
-    def _render_element(self, dir) -> bytes:
+    def _render_element(self, dir: 'Directory') -> bytes:
         return dir.to_bytes()
 
     def stream_size(self) -> int:

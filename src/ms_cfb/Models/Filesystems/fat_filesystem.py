@@ -4,7 +4,7 @@ from ms_cfb.Models.Filesystems.filesystem_base import FilesystemBase
 
 class FatFilesystem(FilesystemBase):
 
-    def __init__(self, size):
+    def __init__(self, size) -> None:
         super().__init__(size)
         self._next_free_sector = 1
 
@@ -35,7 +35,7 @@ class FatFilesystem(FilesystemBase):
         """
         return (self._next_free_sector - 1) // self._sector_size + 1
 
-    def to_file(self, path):
+    def to_file(self, path) -> None:
         self.write_streams(path)
         self.write_chain("fat_chain.bin")
         f = open(path, "r+b")

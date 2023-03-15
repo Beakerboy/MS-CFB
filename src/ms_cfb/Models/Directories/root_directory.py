@@ -3,7 +3,7 @@ from ms_cfb.Models.Directories.storage_directory import StorageDirectory
 
 class RootDirectory(StorageDirectory):
 
-    def __init__(self):
+    def __init__(self) -> None:
         super(RootDirectory, self).__init__("Root Entry")
         self._type = 5
         self._start_sector = 0xFFFFFFFE

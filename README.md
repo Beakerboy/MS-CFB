@@ -56,6 +56,15 @@ optional arguments:
                         Path to exta directory settings yml file.
 ```
 
+Some directory setting can be specified from a YAML file. Directory paths are relative to the project root. Users can specify creation and modification date in ISO format, class id as a UUID string, and user flags as a four byte integer.
+```yaml
+directories:
+  .:
+    clsid: 56616700-C154-11CE-8553-00AA00A1F95B
+  Storage 1:
+    created: "1995-11-16 17:43:44"
+    clsid: 56616100-C154-11CE-8553-00AA00A1F95B
+```
 
 
 

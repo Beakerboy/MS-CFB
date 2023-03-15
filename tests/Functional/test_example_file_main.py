@@ -1,58 +1,64 @@
 import os
 import pytest
-import uuid
-from ms_cfb.ole_file import OleFile
-from ms_cfb.Models.Directories.root_directory import RootDirectory
-from ms_cfb.Models.Directories.storage_directory import StorageDirectory
-from ms_cfb.Models.Directories.stream_directory import StreamDirectory
+import shutil
+from ms_cfb.ole_file import main
 from ms_dtyp.filetime import Filetime
 
 
 @pytest.fixture(autouse=True)
 def run_around_tests():
     # Code that will run before your test, for example:
+    os.mkdir("./files")
+    os.mkdir("./files/Storage 1")
 
+    stream1_data = bytes("Data for stream 1", "utf8") * 32
+    f = open("./files/Storage 1/Stream 1.bin", "wb")
+    f.write(stream1_data)
+    f.close()
+    ft = Filetime.from_msfiletime(0x01BAB44B13921E80)
+    ts = ft.timestamp()
+    os.utime("./files/Storage 1", (ts, ts))
+    os.utime("./files", (ts, ts))
     # A test function will be run at this point
     yield
     # Code that will run after your test
-    names = ["Test1.bin", "stream1.bin"]
+    names = ["example_test.bin"]
     for name in names:
         if os.path.isfile(name):
             os.remove(name)
+    shutil.rmtree("./files")
 
 
-def test_example_file():
+def test_example_file(mocker):
     """
     The example file as described in MS-CFB
     """
+    mod_time = os.stat("./files").st_mtime
+    ft = Filetime.fromtimestamp(mod_time)
+    assert ft.to_msfiletime() == 0x01BAB44B13921E80
+    filename = "example_test.bin"
+    mocker.patch(
+        "sys.argv",
+        [
+            "ole_file.py",
+            "-o",
+            filename,
+            "-x",
+            "tests/example.yml",
+            "./files",
+        ],
+    )
+    mod_time = os.stat("./files").st_mtime
+    ft = Filetime.fromtimestamp(mod_time)
+    assert ft.to_msfiletime() == 0x01BAB44B13921E80
+    main()
+    assert os.stat(filename).st_size == 512 * 6
 
-    root = RootDirectory()
-    guid = uuid.UUID("56616700C15411CE855300AA00A1F95B")
-    root.set_clsid(guid)
-    root.set_modified(Filetime.from_msfiletime(0x01BAB44B13921E80))
+    mod_time = os.stat("./files").st_mtime
+    ft = Filetime.fromtimestamp(mod_time)
+    assert ft.to_msfiletime() == 0x01BAB44B13921E80
 
-    storage = StorageDirectory("Storage 1")
-    # 11/16/1995 5:43:44 PM
-    storage.set_created(Filetime.from_msfiletime(0x01BAB44B12F98800))
-    # 11/16/1995 5:43:45 PM
-    storage.set_modified(Filetime.from_msfiletime(0x01BAB44B13921E80))
-    guid2 = uuid.UUID("56616100-C154-11CE-8553-00AA00A1F95B")
-    storage.set_clsid(guid2)
-
-    stream1_data = bytes("Data for stream 1", "utf8") * 32
-    f = open("stream1.bin", "wb")
-    f.write(stream1_data)
-    f.close()
-    stream1 = StreamDirectory("Stream 1", "stream1.bin")
-    storage.add_directory(stream1)
-
-    ole_file = OleFile()
-    ole_file.set_root_directory(root)
-    ole_file.add_directory_entry(storage)
-    ole_file.create_file("Test1.bin")
-    assert os.stat("Test1.bin").st_size == 512 * 6
-
-    f = open("Test1.bin", "rb")
+    f = open(filename, "rb")
     sector1 = ("D0CF 11E0 A1B1 1AE1 0000 0000 0000 0000",
                "0000 0000 0000 0000 3E00 0300 FEFF 0900",
                "0600 0000 0000 0000 0000 0000 0100 0000",

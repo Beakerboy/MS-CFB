@@ -1,5 +1,5 @@
 from ms_cfb.Models.DataStreams.stream_base import StreamBase
-
+from typing import Iterator
 
 class ArrayStream(StreamBase):
 
@@ -7,7 +7,7 @@ class ArrayStream(StreamBase):
         super(ArrayStream, self).__init__()
         self._data = []
 
-    def __iter__(self):
+    def __iter__(self) -> Iterator:
         return iter(self._data)
 
     def __len__(self) -> int:

@@ -6,7 +6,7 @@ from ms_dtyp.filetime import Filetime
 
 
 @pytest.fixture(autouse=True)
-def run_around_tests():
+def run_around_tests() -> None:
     # Code that will run before your test, for example:
     os.mkdir("./files")
     os.mkdir("./files/Storage 1")
@@ -29,7 +29,7 @@ def run_around_tests():
     shutil.rmtree("./files")
 
 
-def test_example_file(mocker):
+def test_example_file(mocker) -> None:
     """
     The example file as described in MS-CFB.
     The fixture generated the file and directories, the test method

@@ -12,4 +12,4 @@ def test_from_binary():
           + b'\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x92\xbe\xab0'
           + b'\x00\x00\x00\x00\x03\x00\x00\x00@\x02\x00\x00\x00\x00\x00\x00')
     root = DirectoryFactory.from_binary(da)
-    assert instanceof(root, RootDirectory)
+    assert isinstance(root, RootDirectory)

@@ -7,5 +7,5 @@ This software operates as recommended in the [Microsoft interoperability guideli
 MS-CFB required python 3.7 or greater.
 
 ## Contributing
-Contributions are welcome. Please ensure new features include unit tests to maintain 100% coverage. All code must adhere to the PEP8 standards for both formatting and naming. Method signatures must be fully annotated.
+Contributions are welcome. Please ensure new features include unit tests to maintain 100% coverage. All code must adhere to the [PEP8 Standards](https://peps.python.org/pep-0008/) for both formatting and naming. Method signatures must be fully annotated.
 

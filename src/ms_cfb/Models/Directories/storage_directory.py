@@ -18,8 +18,8 @@ class StorageDirectory(Directory):
             size += dir.minifat_sectors_used()
         return size
 
-    def add_directory(self, stream) -> None:
-        self.directories.append(stream)
+    def add_directory(self, dir: 'Directory') -> None:
+        self.directories.append(dir)
 
     def _create_binary_tree(self) -> None:
         pass

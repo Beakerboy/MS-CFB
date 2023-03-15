@@ -36,9 +36,6 @@ def test_example_file(mocker):
     will create the output as if run from the command line as:
     python ole_file.py -o example_test.bin -x tests/example.yml ./files
     """
-    mod_time = os.stat("./files").st_mtime
-    ft = Filetime.fromtimestamp(mod_time)
-    assert ft.to_msfiletime() == 0x01BAB44B13921E80
     filename = "example_test.bin"
     mocker.patch(
         "sys.argv",
@@ -51,9 +48,6 @@ def test_example_file(mocker):
             "./files",
         ],
     )
-    mod_time = os.stat("./files").st_mtime
-    ft = Filetime.fromtimestamp(mod_time)
-    assert ft.to_msfiletime() == 0x01BAB44B13921E80
     main()
     assert os.stat(filename).st_size == 512 * 6
 

@@ -56,7 +56,7 @@ optional arguments:
                         Path to exta directory settings yml file.
 ```
 
-Some directory setting can be specified from a YAML file. Directory paths are relative to the project root. Users can specify creation and modification date in ISO format, class id as a UUID string, and user flags as a four byte integer.
+Some directory settings can be specified from a YAML file. Directory paths are relative to the project root. Users can specify creation and modification date in ISO format, class id as a UUID string, and user flags as a four byte integer.
 ```yaml
 directories:
   .:

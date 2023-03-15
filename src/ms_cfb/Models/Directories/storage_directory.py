@@ -3,7 +3,7 @@ from ms_cfb.Models.Directories.directory import Directory
 
 class StorageDirectory(Directory):
 
-    def __init__(self, name) -> None:
+    def __init__(self, name: str) -> None:
         super(StorageDirectory, self).__init__()
         self.name = name
         self._type = 1

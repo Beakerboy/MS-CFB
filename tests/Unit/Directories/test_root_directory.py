@@ -3,7 +3,7 @@ from ms_cfb.Models.Directories.root_directory import RootDirectory
 from ms_dtyp.filetime import Filetime
 
 
-def test_directory():
+def test_directory() -> None:
 
     dir = RootDirectory()
     dir.name = "Root Entry"
@@ -25,7 +25,7 @@ def test_directory():
     assert dir.to_bytes() == bytes.fromhex(" ".join(ex))
 
 
-def test_add_created():
+def test_add_created() -> None:
     dir = RootDirectory()
     with pytest.raises(Exception):
         date = 0x12345

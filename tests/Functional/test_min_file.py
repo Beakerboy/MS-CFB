@@ -4,7 +4,7 @@ from ms_cfb.ole_file import OleFile
 
 
 @pytest.fixture(autouse=True)
-def run_around_tests():
+def run_around_tests() -> None:
     # Code that will run before your test
     names = ["Test2.bin", "directory_stream.bin"]
     for name in names:
@@ -18,7 +18,7 @@ def run_around_tests():
             os.remove(name)
 
 
-def test_min_file():
+def test_min_file() -> None:
     """
     The smallest file has three sectors, one each:
     header, fat, directory

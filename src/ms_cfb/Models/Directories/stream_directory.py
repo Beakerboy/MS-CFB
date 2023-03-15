@@ -5,7 +5,7 @@ from ms_cfb.Models.DataStreams.file_stream import FileStream
 
 class StreamDirectory(FileStream, Directory):
 
-    def __init__(self, name, path):
+    def __init__(self, name, path) -> None:
         Directory.__init__(self)
         FileStream.__init__(self, path)
         self._type = 2

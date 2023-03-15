@@ -15,8 +15,10 @@ def run_around_tests():
     f = open("./files/Storage 1/Stream 1.bin", "wb")
     f.write(stream1_data)
     f.close()
-    os.utime("./files/Storage 1", (816561825, 816561825))
-    os.utime("./files", (816561825, 816561825))
+    ft = Filetime.from_msfiletime(0x01BAB44B13921E80)
+    ts = ft.timestamp()
+    os.utime("./files/Storage 1", (ts, ts))
+    os.utime("./files", (ts, ts))
     # A test function will be run at this point
     yield
     # Code that will run after your test

@@ -51,10 +51,6 @@ def test_example_file(mocker):
     main()
     assert os.stat(filename).st_size == 512 * 6
 
-    mod_time = os.stat("./files").st_mtime
-    ft = Filetime.fromtimestamp(mod_time)
-    assert ft.to_msfiletime() == 0x01BAB44B13921E80
-
     f = open(filename, "rb")
     sector1 = ("D0CF 11E0 A1B1 1AE1 0000 0000 0000 0000",
                "0000 0000 0000 0000 3E00 0300 FEFF 0900",

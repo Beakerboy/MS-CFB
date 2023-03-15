@@ -4,7 +4,7 @@ from datetime import datetime, timedelta
 class Filetime(datetime):
 
     @classmethod
-    def from_msfiletime(cls, filetime: int):
+    def from_msfiletime(cls, filetime: int) -> Filetime:
         null_date = datetime(1601, 1, 1, 0, 0, 0)
         date_time = null_date + timedelta(microseconds=filetime//10)
         timestamp = date_time.timestamp()

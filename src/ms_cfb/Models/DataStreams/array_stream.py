@@ -24,10 +24,10 @@ class ArrayStream(StreamBase):
         for element in self._data:
             f.write(self._render_element(element))
         length = f.tell()
-        if length % self._sector_size == 0:
-            mod = self._sector_size
+        if length % self._storage_sector_size == 0:
+            mod = self._storage_sector_size
         else:
-            mod = length % self._sector_size
+            mod = length % self._storage_sector_size
         fill = (self._storage_sector_size - mod) // len(self._padding)
         f.write(self._padding * fill)
         f.close()

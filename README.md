@@ -67,7 +67,7 @@ directories:
 ```
 
 ## Tests
-The tests directory contains examples of how the classes can be used within other projects. There are also complete functional tests the include full working examples of creating the OLE file from CLI or using the module's objects.
+The tests directory contains examples of how the classes can be used within other projects. There are also complete functional tests that include full working examples of creating the OLE file from CLI or using the module's objects.
 
 ## Contributing
 Contributions are welcome. Please ensure new features include unit tests to maintain 100% coverage. All code must adhere to the [PEP8 Standards](https://peps.python.org/pep-0008/) for both formatting and naming. Method signatures must be fully annotated.

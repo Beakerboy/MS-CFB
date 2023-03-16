@@ -5,7 +5,7 @@ from ms_cfb.Models.DataStreams.stream_base import StreamBase
 from typing import TypeVar
 
 
-T = TypeVar('T', bound='ArrayStream')
+T = TypeVar('T', bound='MinifatFilesystem')
 
 
 class MinifatFilesystem(FilesystemBase, StreamBase):

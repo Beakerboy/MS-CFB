@@ -1,6 +1,7 @@
 from ms_cfb.Models.DataStreams.stream_base import StreamBase
 from typing import Iterator
 from typing import TypeVar
+from typing import Any
 
 
 T = TypeVar('T', bound='ArrayStream')
@@ -40,7 +41,7 @@ class ArrayStream(StreamBase):
             sum += sectors * sector_size
         return sum
 
-    def _extend_data(self: T, data) -> None:
+    def _extend_data(self: T, data: Any) -> None:
         """
         Add new data to the array
         """

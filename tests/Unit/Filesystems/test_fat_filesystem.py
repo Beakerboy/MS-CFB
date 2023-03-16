@@ -83,7 +83,12 @@ def test_write_chain() -> None:
     f = open("chain.bin", "rb")
     assert f.read() == bytes.fromhex("FDFF FFFF")
 
+from typing import TypeVar
+
+
+T = TypeVar('T', bound='ArrayStream')
+
 
 class StreamStub(StreamBase):
-    def stream_size(self) -> int:
+    def stream_size(self: T) -> int:
         return 1

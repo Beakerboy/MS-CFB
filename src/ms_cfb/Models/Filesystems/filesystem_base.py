@@ -5,7 +5,7 @@ from random import choice
 from typing import TypeVar
 
 
-T = TypeVar('T', bound='ArrayStream')
+T = TypeVar('T', bound='FilesystemBase')
 
 
 class FilesystemBase:

@@ -63,6 +63,10 @@ class FilesystemBase:
             sector_list.append(self._reserve_next_free_sector())
         stream.set_additional_sectors(sector_list)
 
+    def update_stream_sectors(self: T) -> None:
+        for stream in streams:
+            self.request_new_sectors(stream)
+
     def request_new_sectors(self: T, stream: 'StreamBase') -> None:
         """
         the size of the stream has changed, based on the new size, are

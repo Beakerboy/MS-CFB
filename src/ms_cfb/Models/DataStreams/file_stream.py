@@ -30,11 +30,10 @@ class FileStream(StreamBase):
     def to_file(self: T, path: str) -> None:
         shutil.copy(self._data, path)
         length = os.stat(path).st_size
-        sector_size = self._storage_chain.get_sector_size()
-        if length % sector_size == 0:
-            mod = sector_size
+        if length % self._sector_size == 0:
+            mod = self._sector_size
         else:
-            mod = length % sector_size
-        fill = (sector_size - mod) // len(self._padding)
+            mod = length % self._sector_size
+        fill = (self._sector_size - mod) // len(self._padding)
         c = open(path, "ab")
         c.write(self._padding * fill)

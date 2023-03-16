@@ -159,15 +159,17 @@ class OleFile:
         directory_array = self._directory.flatten()
         self._directory.set_child()
         directory_stream = DirectoryStream()
-
+        directory_stream.set_sector_size(self._fat_chain.get_sector_size())
         self._fat_chain.add_stream(directory_stream)
 
         for stream in directory_array:
             directory_stream.append(stream)
             if stream.get_type() == 2:
                 if stream.file_size() > self._mini_sector_cutoff:
+                    stream.set_sector_size(self._fat_chain.get_sector_size())
                     self._fat_chain.add_stream(stream)
                 else:
+                    stream.set_sector_size(64)
                     if self._first_minichain_sector == 0xFFFFFFFE:
                         # We have not previously added the minifat file sys
                         # to the fat so do that.

@@ -11,7 +11,6 @@ def test_initial_properties() -> None:
 
 
 def test_adding_chain() -> None:
-    fs = FilesystemStub(16)
     chain = MinifatFilesystem()
     stream = StreamStub()
     chain.add_stream(stream)
@@ -36,7 +35,6 @@ def test_adding_chain() -> None:
 
 
 def test_adding_chain_longer_storage() -> None:
-    fs = FilesystemStub(24)
     chain = MinifatFilesystem()
     stream = StreamStub()
     chain.add_stream(stream)

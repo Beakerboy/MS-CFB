@@ -30,7 +30,6 @@ class MinifatFilesystem(FilesystemBase, StreamBase):
             self._streams = FileArray()
             self._storage_chain.add_stream(self._streams)
         FilesystemBase.add_stream(self, stream)
-        self._storage_chain.request_new_sectors(self._streams)
 
     def extend_chain(self: T, stream: 'StreamBase', number: int) -> None:
         """

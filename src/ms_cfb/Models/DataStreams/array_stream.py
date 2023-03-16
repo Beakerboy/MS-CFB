@@ -28,15 +28,15 @@ class ArrayStream(StreamBase):
             mod = self._sector_size
         else:
             mod = length % self._sector_size
-        fill = (self._sector_size - mod) // len(self._padding)
+        fill = (self._storage_sector_size - mod) // len(self._padding)
         f.write(self._padding * fill)
         f.close()
 
     def stream_size(self: T) -> int:
         sum = 0
         for stream in self._data:
-            sectors = (stream.stream_size() - 1) // self._sector_size + 1
-            sum += sectors * self._sector_size
+            sectors = (stream.stream_size() - 1) // self._storage_sector_size + 1
+            sum += sectors * self._storage_sector_size
         return sum
 
     def _extend_data(self: T, data: Any) -> None:

@@ -5,7 +5,6 @@ from typing import TypeVar
 T = TypeVar('T', bound='Filetime')
 
 
-
 class Filetime(datetime):
 
     @classmethod

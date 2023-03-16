@@ -11,7 +11,7 @@ def test_initial_properties() -> None:
 
 def test_adding_chain() -> None:
     chain = MinifatFilesystem()
-    chain.set_storage_sector_size(512)
+    chain.set_storage_sector_size(16)
     stream = StreamStub()
     stream.set_storage_sector_size(64)
     chain.add_stream(stream)
@@ -38,7 +38,7 @@ def test_adding_chain() -> None:
 
 def test_adding_chain_longer_storage() -> None:
     chain = MinifatFilesystem()
-    chain.set_storage_sector_size(512)
+    chain.set_storage_sector_size(24)
     stream = StreamStub()
     stream.set_storage_sector_size(64)
     chain.add_stream(stream)

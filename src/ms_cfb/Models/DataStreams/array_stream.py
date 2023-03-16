@@ -23,22 +23,20 @@ class ArrayStream(StreamBase):
         f = open(path, "wb")
         for element in self._data:
             f.write(self._render_element(element))
-        sector_size = self._storage_chain.get_sector_size()
         length = f.tell()
-        if length % sector_size == 0:
-            mod = sector_size
+        if length % self._sector_size == 0:
+            mod = self._sector_size
         else:
-            mod = length % sector_size
-        fill = (sector_size - mod) // len(self._padding)
+            mod = length % self._sector_size
+        fill = (self._sector_size - mod) // len(self._padding)
         f.write(self._padding * fill)
         f.close()
 
     def stream_size(self: T) -> int:
         sum = 0
-        sector_size = self._storage_chain.get_sector_size()
         for stream in self._data:
-            sectors = (stream.stream_size() - 1) // sector_size + 1
-            sum += sectors * sector_size
+            sectors = (stream.stream_size() - 1) // self._sector_size + 1
+            sum += sectors * self._sector_size
         return sum
 
     def _extend_data(self: T, data: Any) -> None:

@@ -1,12 +1,16 @@
 import struct
 import uuid
 from ms_dtyp.filetime import Filetime
+from typing import TypeVar
+
+
+T = TypeVar('T', bound='ArrayStream')
 
 
 class Directory:
     """An OLE directory object"""
 
-    def __init__(self) -> None:
+    def __init__(self: T) -> None:
         self.name = ""
 
         # red = 0, black = 1
@@ -31,41 +35,41 @@ class Directory:
 
         self._flattened_index = 0
 
-    def set_created(self, value: Filetime) -> None:
+    def set_created(self: T, value: Filetime) -> None:
         self._created = value
 
-    def get_created(self) -> Filetime:
+    def get_created(self: T) -> Filetime:
         return self._created
 
-    def set_modified(self, value: Filetime) -> None:
+    def set_modified(self: T, value: Filetime) -> None:
         self._modified = value
 
-    def get_modified(self) -> Filetime:
+    def get_modified(self: T) -> Filetime:
         return self._modified
 
-    def get_type(self) -> int:
+    def get_type(self: T) -> int:
         return self._type
 
-    def set_start_sector(self, value: int) -> None:
+    def set_start_sector(self: T, value: int) -> None:
         self._start_sector = value
 
-    def get_start_sector(self) -> int:
+    def get_start_sector(self: T) -> int:
         return self._start_sector
 
-    def set_clsid(self, clsid: uuid.UUID) -> None:
+    def set_clsid(self: T, clsid: uuid.UUID) -> None:
         self._class_id = clsid
 
-    def name_size(self) -> int:
+    def name_size(self: T) -> int:
         """The byte length of the name"""
         return (len(self.name) + 1) * 2
 
-    def set_additional_sectors(self, sector_list: list) -> None:
+    def set_additional_sectors(self: T, sector_list: list) -> None:
         self._additional_sectors = sector_list
 
-    def file_size(self) -> int:
+    def file_size(self: T) -> int:
         return 0
 
-    def to_bytes(self) -> bytes:
+    def to_bytes(self: T) -> bytes:
         format = "<64shbb3I16sIQQIII"
 
         dir = struct.pack(

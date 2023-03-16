@@ -40,9 +40,6 @@ class ArrayStream(StreamBase):
             sum += sectors * sector_size
         return sum
 
-    def _render_element(self: T, element) -> bytes:
-        return element.to_bytes()
-
     def _extend_data(self: T, data) -> None:
         """
         Add new data to the array

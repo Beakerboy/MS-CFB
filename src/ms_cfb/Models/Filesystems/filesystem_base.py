@@ -63,6 +63,10 @@ class FilesystemBase:
             sector_list.append(self._reserve_next_free_sector())
         stream.set_additional_sectors(sector_list)
 
+    def update_stream_sectors(self: T) -> None:
+        for stream in self._streams:
+            self.request_new_sectors(stream)
+
     def request_new_sectors(self: T, stream: 'StreamBase') -> None:
         """
         the size of the stream has changed, based on the new size, are
@@ -77,7 +81,6 @@ class FilesystemBase:
     def add_stream(self: T, stream: 'StreamBase') -> None:
         sector = self._start_new_chain()
         stream.set_start_sector(sector)
-        stream.set_storage_chain(self)
         sectors_needed = (stream.stream_size() - 1) // self._sector_size
         sectors_needed = max(sectors_needed, 0)
         if sectors_needed > 0:

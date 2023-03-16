@@ -13,24 +13,17 @@ class MinifatFilesystem(FilesystemBase, StreamBase):
     def __init__(self: T) -> None:
         FilesystemBase.__init__(self, 64)
         StreamBase.__init__(self)
+        self._streams = FileArray()
+
+    def set_storage_sector_size(self: T, size: int) -> None:
+        self._storage_sector_size = size
+        self._streams.set_storage_sector_size(size)
+
+    def get_streams(self: T) -> FileArray:
+        return self._streams
 
     def get_first_stream_sector(self: T) -> int:
         return self._streams.get_start_sector()
-
-    def add_stream(self: T, stream: 'StreamBase') -> None:
-        """
-        Add a new stream to the minifat chain and arrange the storage resources
-        We need to manage changes to the minifat chain, minifat stream, and the
-        FAT resources for them.
-        """
-
-        # If we have not started a minifat data stream in the FAT chain
-        # start one now.
-        if len(self._streams) == 0:
-            self._streams = FileArray()
-            self._storage_chain.add_stream(self._streams)
-        FilesystemBase.add_stream(self, stream)
-        self._storage_chain.request_new_sectors(self._streams)
 
     def extend_chain(self: T, stream: 'StreamBase', number: int) -> None:
         """
@@ -66,9 +59,8 @@ class MinifatFilesystem(FilesystemBase, StreamBase):
         """
         self.write_chain(path)
         length = os.stat(path).st_size
-        sector_size = self._storage_chain._sector_size
-        fill = (sector_size - length % sector_size)
-        if fill < sector_size:
+        fill = (self._storage_sector_size - length % self._storage_sector_size)
+        if fill < self._storage_sector_size:
             c = open(path, "ab")
             c.write(b'\xff' * fill)
             c.close()

@@ -159,20 +159,25 @@ class OleFile:
         directory_array = self._directory.flatten()
         self._directory.set_child()
         directory_stream = DirectoryStream()
-
+        fat_sec_size = self._fat_chain.get_sector_size()
+        directory_stream.set_storage_sector_size(fat_sec_size)
+        self._minifat_chain.set_storage_sector_size(fat_sec_size)
         self._fat_chain.add_stream(directory_stream)
 
         for stream in directory_array:
             directory_stream.append(stream)
             if stream.get_type() == 2:
                 if stream.file_size() > self._mini_sector_cutoff:
+                    stream.set_storage_sector_size(fat_sec_size)
                     self._fat_chain.add_stream(stream)
                 else:
+                    stream.set_storage_sector_size(64)
                     if self._first_minichain_sector == 0xFFFFFFFE:
                         # We have not previously added the minifat file sys
                         # to the fat so do that.
                         mf_chain = self._minifat_chain
                         self._fat_chain.add_stream(self._minifat_chain)
+                        self._fat_chain.add_stream(mf_chain.get_streams())
 
                         # Update the project with the mini start sector
                         start_sector = mf_chain.get_start_sector()
@@ -188,6 +193,7 @@ class OleFile:
                         self._directory.set_start_sector(stream_sector)
                     else:
                         self._minifat_chain.add_stream(stream)
+                    self._fat_chain.update_stream_sectors()
 
     def write_file(self: T, path: str) -> None:
         """

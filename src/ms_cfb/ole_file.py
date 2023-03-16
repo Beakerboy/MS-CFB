@@ -188,6 +188,7 @@ class OleFile:
                         self._directory.set_start_sector(stream_sector)
                     else:
                         self._minifat_chain.add_stream(stream)
+                    self._fat_chain.update_stream_sectors()
 
     def write_file(self: T, path: str) -> None:
         """

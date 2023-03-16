@@ -13,23 +13,13 @@ class MinifatFilesystem(FilesystemBase, StreamBase):
     def __init__(self: T) -> None:
         FilesystemBase.__init__(self, 64)
         StreamBase.__init__(self)
+        self._streams = FileArray()
+
+    def get_streams(self: T): FileArray:
+        return self._streams
 
     def get_first_stream_sector(self: T) -> int:
         return self._streams.get_start_sector()
-
-    def add_stream(self: T, stream: 'StreamBase') -> None:
-        """
-        Add a new stream to the minifat chain and arrange the storage resources
-        We need to manage changes to the minifat chain, minifat stream, and the
-        FAT resources for them.
-        """
-
-        # If we have not started a minifat data stream in the FAT chain
-        # start one now.
-        if len(self._streams) == 0:
-            self._streams = FileArray()
-            self._storage_chain.add_stream(self._streams)
-        FilesystemBase.add_stream(self, stream)
 
     def extend_chain(self: T, stream: 'StreamBase', number: int) -> None:
         """

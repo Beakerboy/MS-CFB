@@ -4,9 +4,6 @@ from typing import TypeVar
 T = TypeVar('T', bound='StreamBase')
 
 
-S = TypeVar('T', bound='FilesystemBase')
-
-
 class StreamBase:
     """
     Base class for any object which will appear as a stream within a sector
@@ -31,7 +28,7 @@ class StreamBase:
     def set_padding(self: T, padding: bytes) -> None:
         self._padding = padding
 
-    def set_storage_chain(self: T, chain: S) -> None:
+    def set_storage_chain(self: T, chain) -> None:
         self._storage_chain = chain
 
     def set_start_sector(self: T, sector: int) -> None:

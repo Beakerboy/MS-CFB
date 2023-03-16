@@ -38,7 +38,7 @@ class StreamBase:
     def get_start_sector(self: T) -> int:
         return self._sectors[0]
 
-    def set_sector_size(size: int) -> None:
+    def set_sector_size(self: T, size: int) -> None:
         self._sector_size = size
 
     def set_additional_sectors(self: T, sectors: list) -> None:

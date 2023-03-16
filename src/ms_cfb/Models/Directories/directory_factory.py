@@ -2,12 +2,16 @@ import struct
 from ms_cfb.Models.Directories.directory import Directory
 from ms_cfb.Models.Directories.root_directory import RootDirectory
 from ms_dtyp.filetime import Filetime
+from typing import TypeVar
+
+
+T = TypeVar('T', bound='DirectoryFactory')
 
 
 class DirectoryFactory:
 
     @classmethod
-    def from_binary(cls, data) -> 'Directory':
+    def from_binary(cls: T, data: bytes) -> 'Directory':
         obj = cls()
         format = "<64shbb3I16sIQQIII"
         (name,

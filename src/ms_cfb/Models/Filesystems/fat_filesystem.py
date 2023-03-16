@@ -1,14 +1,18 @@
 import os
 from ms_cfb.Models.Filesystems.filesystem_base import FilesystemBase
+from typing import TypeVar
+
+
+T = TypeVar('T', bound='FatFilesystem')
 
 
 class FatFilesystem(FilesystemBase):
 
-    def __init__(self, size: int) -> None:
+    def __init__(self: T, size: int) -> None:
         super().__init__(size)
         self._next_free_sector = 1
 
-    def get_chain(self) -> list:
+    def get_chain(self: T) -> list:
         """
         Need to add support for DIFAT
         """
@@ -22,20 +26,20 @@ class FatFilesystem(FilesystemBase):
                 chain[i * 0x80] = 0xFFFFFFFD
         return chain
 
-    def _reserve_next_free_sector(self) -> int:
+    def _reserve_next_free_sector(self: T) -> int:
         if self._next_free_sector % 0x80 == 0:
             self._next_free_sector += 1
         sector = self._next_free_sector
         self._next_free_sector += 1
         return sector
 
-    def count_fat_chain_sectors(self) -> int:
+    def count_fat_chain_sectors(self: T) -> int:
         """
         How many fat chain sectors are needed to express the chain?
         """
         return (self._next_free_sector - 1) // self._sector_size + 1
 
-    def to_file(self, path: str) -> None:
+    def to_file(self: T, path: str) -> None:
         self.write_streams(path)
         self.write_chain("fat_chain.bin")
         f = open(path, "r+b")

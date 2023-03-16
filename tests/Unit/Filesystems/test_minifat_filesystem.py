@@ -56,7 +56,7 @@ T = TypeVar('T', bound='StreamStub')
 
 
 class StreamStub(StreamBase):
-    def stream_size(self) -> int:
+    def stream_size(self: T) -> int:
         return 1
 
 

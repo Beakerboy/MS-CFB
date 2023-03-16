@@ -64,7 +64,7 @@ class FilesystemBase:
         stream.set_additional_sectors(sector_list)
 
     def update_stream_sectors(self: T) -> None:
-        for stream in streams:
+        for stream in self._streams:
             self.request_new_sectors(stream)
 
     def request_new_sectors(self: T, stream: 'StreamBase') -> None:

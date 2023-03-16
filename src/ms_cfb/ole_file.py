@@ -159,8 +159,8 @@ class OleFile:
         directory_array = self._directory.flatten()
         self._directory.set_child()
         directory_stream = DirectoryStream()
-        directory_stream.set_sector_size(self._fat_chain.get_sector_size())
-        self._minifat_chain.set_sector_size(self._fat_chain.get_sector_size())
+        directory_stream.set_storage_sector_size(self._fat_chain.get_sector_size())
+        self._minifat_chain.set_storage_sector_size(self._fat_chain.get_sector_size())
         self._fat_chain.add_stream(directory_stream)
 
         for stream in directory_array:

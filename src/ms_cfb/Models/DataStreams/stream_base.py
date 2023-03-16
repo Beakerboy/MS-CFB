@@ -1,4 +1,5 @@
 from typing import TypeVar
+from ms_cfb.Models.Filesystems.filesystem_base import FilesystemBase
 
 
 T = TypeVar('T', bound='StreamBase')
@@ -28,7 +29,7 @@ class StreamBase:
     def set_padding(self: T, padding: bytes) -> None:
         self._padding = padding
 
-    def set_storage_chain(self: T, chain) -> None:
+    def set_storage_chain(self: T, chain: FilesystemBase) -> None:
         self._storage_chain = chain
 
     def set_start_sector(self: T, sector: int) -> None:

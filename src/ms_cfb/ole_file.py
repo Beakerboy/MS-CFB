@@ -175,6 +175,7 @@ class OleFile:
                         # to the fat so do that.
                         mf_chain = self._minifat_chain
                         self._fat_chain.add_stream(self._minifat_chain)
+                        self._fat_chain.add_stream(mf_chain.get_streams())
 
                         # Update the project with the mini start sector
                         start_sector = mf_chain.get_start_sector()

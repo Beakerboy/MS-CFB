@@ -1,19 +1,25 @@
 from ms_cfb.Models.DataStreams.stream_base import StreamBase
+from typing import Iterator
+from typing import TypeVar
+from typing import Any
+
+
+T = TypeVar('T', bound='ArrayStream')
 
 
 class ArrayStream(StreamBase):
 
-    def __init__(self):
+    def __init__(self: T) -> None:
         super(ArrayStream, self).__init__()
         self._data = []
 
-    def __iter__(self):
+    def __iter__(self: T) -> Iterator:
         return iter(self._data)
 
-    def __len__(self) -> int:
+    def __len__(self: T) -> int:
         return len(self._data)
 
-    def to_file(self, path):
+    def to_file(self: T, path: str) -> None:
         f = open(path, "wb")
         for element in self._data:
             f.write(self._render_element(element))
@@ -27,7 +33,7 @@ class ArrayStream(StreamBase):
         f.write(self._padding * fill)
         f.close()
 
-    def stream_size(self) -> int:
+    def stream_size(self: T) -> int:
         sum = 0
         sector_size = self._storage_chain.get_sector_size()
         for stream in self._data:
@@ -35,10 +41,7 @@ class ArrayStream(StreamBase):
             sum += sectors * sector_size
         return sum
 
-    def _render_element(self, element) -> bytes:
-        return element.to_bytes()
-
-    def _extend_data(self, data) -> None:
+    def _extend_data(self: T, data: Any) -> None:
         """
         Add new data to the array
         """

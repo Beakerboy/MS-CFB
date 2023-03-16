@@ -1,5 +1,6 @@
 from ms_cfb.Models.Filesystems.fat_filesystem import FatFilesystem
 from ms_cfb.Models.DataStreams.stream_base import StreamBase
+from typing import TypeVar
 
 
 def test_initial_properties() -> None:
@@ -84,6 +85,9 @@ def test_write_chain() -> None:
     assert f.read() == bytes.fromhex("FDFF FFFF")
 
 
+T = TypeVar('T', bound='StreamStub')
+
+
 class StreamStub(StreamBase):
-    def stream_size(self) -> int:
+    def stream_size(self: T) -> int:
         return 1

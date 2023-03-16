@@ -5,18 +5,23 @@ import uuid
 import yaml
 from pathlib import Path
 from ms_cfb.Models.DataStreams.directory_stream import DirectoryStream
+from ms_cfb.Models.Directories.directory import Directory
 from ms_cfb.Models.Directories.root_directory import RootDirectory
 from ms_cfb.Models.Directories.storage_directory import StorageDirectory
 from ms_cfb.Models.Directories.stream_directory import StreamDirectory
 from ms_cfb.Models.Filesystems.fat_filesystem import FatFilesystem
 from ms_cfb.Models.Filesystems.minifat_filesystem import MinifatFilesystem
 from ms_dtyp.filetime import Filetime
+from typing import TypeVar
+
+
+T = TypeVar('T', bound='OleFile')
 
 
 class OleFile:
 
     # class default constructor
-    def __init__(self):
+    def __init__(self: T) -> None:
 
         # Instance Attributes
         self._minor_version = 62
@@ -41,7 +46,7 @@ class OleFile:
         # A list of directories
         self._directory = RootDirectory()
 
-    def set_version(self, version: int) -> None:
+    def set_version(self: T, version: int) -> None:
         if version > 4 or version < 3:
             raise Exception("Version must be 3 or 4")
         self._major_version = version
@@ -51,20 +56,20 @@ class OleFile:
             self._sector_shift = 12
         self._fat_chain = FatFilesystem(2 ** self._sector_shift)
 
-    def get_version(self) -> int:
+    def get_version(self: T) -> int:
         return self._major_version
 
-    def set_root_directory(self, dir) -> None:
+    def set_root_directory(self: T, dir: RootDirectory) -> None:
         self._directory = dir
 
-    def add_directory_entry(self, object) -> None:
+    def add_directory_entry(self: T, object: 'Directory') -> None:
         """
         Add a storage or stream object to root
         """
         # verify type of object
         self._directory.add_directory(object)
 
-    def header(self) -> bytes:
+    def header(self: T) -> bytes:
         """
         Create a 512 byte header sector for a OLE object.
         """
@@ -99,7 +104,7 @@ class OleFile:
             header += b'\x00' * 3584
         return header
 
-    def get_dif_start_sector(self) -> int:
+    def get_dif_start_sector(self: T) -> int:
         """
         The Fat sector lost in the header can only list the position of 109
         sectors.If more sectors are needed, the DIF sector lists these sector
@@ -110,7 +115,7 @@ class OleFile:
         # research how Dif works
         return 0
 
-    def count_dif_sectors(self) -> int:
+    def count_dif_sectors(self: T) -> int:
         """
         How many sectors of 512 entries are needed to list the positions of the
         remaining FAT sectors.
@@ -121,7 +126,7 @@ class OleFile:
             return 0
         return (count - 109 - 1) // (2 ** (self._sector_shift - 2)) + 1
 
-    def write_header_fat_sector_list(self):
+    def write_header_fat_sector_list(self: T) -> None:
         """
         Create a 436 byte stream of the first 109 FAT sectors, padded with
         \\xFF.
@@ -135,7 +140,7 @@ class OleFile:
         output = output.ljust(436, b'\xff')
         return output
 
-    def get_fat_sectors(self) -> list:
+    def get_fat_sectors(self: T) -> list:
         """
         List which sectors contain FAT chain information. They should be on
         128 sector intervals.
@@ -146,7 +151,7 @@ class OleFile:
             sector_list.append(i * (2 ** (self._sector_shift - 2)))
         return sector_list
 
-    def build_file(self) -> None:
+    def build_file(self: T) -> None:
         """
         Build the OLE file data structures from the project data.
         """
@@ -184,7 +189,7 @@ class OleFile:
                     else:
                         self._minifat_chain.add_stream(stream)
 
-    def write_file(self, path: str) -> None:
+    def write_file(self: T, path: str) -> None:
         """
         Write the OLE file to disk
         """
@@ -201,7 +206,7 @@ class OleFile:
         b.close()
         f.close()
 
-    def create_file(self, path: str) -> None:
+    def create_file(self: T, path: str) -> None:
         """
         Build and Write the OLE file
         """
@@ -209,7 +214,7 @@ class OleFile:
         self.write_file(path)
 
 
-def main():
+def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("directory",
                         help="The directory that contains your files.")
@@ -247,7 +252,7 @@ def main():
     ole_file.create_file(args.output)
 
 
-def update_attributes(dir, conf):
+def update_attributes(dir: 'Directory', conf: dict) -> None:
     if "modified" in conf:
         datetime = Filetime.fromisoformat(conf["modified"])
         dir.set_modified(datetime)
@@ -260,7 +265,8 @@ def update_attributes(dir, conf):
         dir.set_flags()
 
 
-def create_storage(direntry, directories):
+def create_storage(direntry: os.DirEntry,
+                   directories: dict) -> StorageDirectory:
     dir = StorageDirectory(direntry.name)
     obj = os.scandir(direntry.path)
     for entry in obj:

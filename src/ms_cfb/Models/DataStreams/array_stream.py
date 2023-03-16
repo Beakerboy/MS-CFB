@@ -35,7 +35,7 @@ class ArrayStream(StreamBase):
     def stream_size(self: T) -> int:
         sum = 0
         for stream in self._data:
-            sectors = ((stream.stream_size() - 1) 
+            sectors = ((stream.stream_size() - 1)
                        // self._storage_sector_size
                        + 1)
             sum += sectors * self._storage_sector_size

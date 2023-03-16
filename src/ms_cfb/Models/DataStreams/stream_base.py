@@ -10,7 +10,7 @@ class StreamBase:
     chain.
     """
 
-    def __init__(self: T) -> None:
+    def __init__(self: T, sector_size: int) -> None:
 
         # The stuff that will be used to squeeze data into the chain.
         # It can just be the data itself.
@@ -21,6 +21,9 @@ class StreamBase:
 
         # bytes to pad data to fill a sector
         self._padding = b'\x00'
+
+        # the size in bytes of a sector in the storage chain
+        self._sector_size = sector_size
 
     def set_padding(self: T, padding: bytes) -> None:
         self._padding = padding

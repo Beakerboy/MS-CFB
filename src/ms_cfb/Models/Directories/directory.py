@@ -4,7 +4,7 @@ from ms_dtyp.filetime import Filetime
 from typing import TypeVar
 
 
-T = TypeVar('T', bound='ArrayStream')
+T = TypeVar('T', bound='Directory')
 
 
 class Directory:

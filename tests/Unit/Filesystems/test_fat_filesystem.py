@@ -1,5 +1,6 @@
 from ms_cfb.Models.Filesystems.fat_filesystem import FatFilesystem
 from ms_cfb.Models.DataStreams.stream_base import StreamBase
+from typing import TypeVar
 
 
 def test_initial_properties() -> None:
@@ -83,10 +84,8 @@ def test_write_chain() -> None:
     f = open("chain.bin", "rb")
     assert f.read() == bytes.fromhex("FDFF FFFF")
 
-from typing import TypeVar
 
-
-T = TypeVar('T', bound='ArrayStream')
+T = TypeVar('T', bound='StreamStub')
 
 
 class StreamStub(StreamBase):

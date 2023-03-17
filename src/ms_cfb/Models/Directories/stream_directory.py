@@ -1,11 +1,17 @@
 import os
+import uuid
 from ms_cfb.Models.Directories.directory import Directory
 from ms_cfb.Models.DataStreams.file_stream import FileStream
+from ms_dtyp.filetime import Filetime
+from typing import TypeVar
+
+
+T = TypeVar('T', bound='StreamDirectory')
 
 
 class StreamDirectory(FileStream, Directory):
 
-    def __init__(self, name, path):
+    def __init__(self: T, name: str, path: str) -> None:
         Directory.__init__(self)
         FileStream.__init__(self, path)
         self._type = 2
@@ -15,34 +21,34 @@ class StreamDirectory(FileStream, Directory):
         self.bytesUsed = 0
         self._file_path = path
 
-    def set_created(self, datetime) -> None:
+    def set_created(self: T, datetime: Filetime) -> None:
         raise Exception("File Directory must have created date of zero.")
 
-    def set_modified(self, datetime) -> None:
+    def set_modified(self: T, datetime: Filetime) -> None:
         raise Exception("File Directory must have modified date of zero.")
 
-    def set_clsid(self, uuid) -> None:
+    def set_clsid(self: T, clsid: uuid.UUID) -> None:
         raise Exception("clsid must be zero.")
 
-    def set_bytes_reserved(self, quantity: int) -> None:
+    def set_bytes_reserved(self: T, quantity: int) -> None:
         self.bytesUsed = quantity
 
-    def get_start_sector(self) -> int:
+    def get_start_sector(self: T) -> int:
         return self._sectors[0]
 
-    def stream_size(self) -> int:
+    def stream_size(self: T) -> int:
         """
         implements StreamBase.stream_size()
         """
         return self.file_size()
 
-    def file_size(self) -> int:
+    def file_size(self: T) -> int:
         """
         Size in bytes of the file
         """
         return os.stat(self._file_path).st_size
 
-    def minifat_sectors_used(self) -> int:
+    def minifat_sectors_used(self: T) -> int:
         """
         Implements Directory.minifat_sectors_used()
         How many minifat sectors does this stream use?

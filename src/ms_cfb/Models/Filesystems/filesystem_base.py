@@ -1,11 +1,16 @@
 import os
 import string
+from ms_cfb.Models.DataStreams.stream_base import StreamBase
 from random import choice
+from typing import TypeVar
+
+
+T = TypeVar('T', bound='FilesystemBase')
 
 
 class FilesystemBase:
 
-    def __init__(self, size):
+    def __init__(self: T, size: int) -> None:
         # The number of bytes in each sector
         self._sector_size = size
 
@@ -16,16 +21,16 @@ class FilesystemBase:
         # the end of a sector.
         self._streams = []
 
-    def __len__(self):
+    def __len__(self: T) -> int:
         return self._next_free_sector
 
-    def get_sector_size(self):
+    def get_sector_size(self: T) -> int:
         """
         Get the number of bytes in each sector
         """
         return self._sector_size
 
-    def get_chain(self) -> list:
+    def get_chain(self: T) -> list:
         """
         Express the sector chain as a list of ints
         """
@@ -45,12 +50,12 @@ class FilesystemBase:
 
         return chain
 
-    def _reserve_next_free_sector(self):
+    def _reserve_next_free_sector(self: T) -> int:
         sector = self._next_free_sector
         self._next_free_sector += 1
         return sector
 
-    def extend_chain(self, stream, number):
+    def extend_chain(self: T, stream: 'StreamBase', number: int) -> None:
         """
         """
         sector_list = []
@@ -58,7 +63,11 @@ class FilesystemBase:
             sector_list.append(self._reserve_next_free_sector())
         stream.set_additional_sectors(sector_list)
 
-    def request_new_sectors(self, stream):
+    def update_stream_sectors(self: T) -> None:
+        for stream in self._streams:
+            self.request_new_sectors(stream)
+
+    def request_new_sectors(self: T, stream: 'StreamBase') -> None:
         """
         the size of the stream has changed, based on the new size, are
         additional sectors needed?
@@ -68,24 +77,22 @@ class FilesystemBase:
         if (have * self._sector_size) < size:
             needed = (size - 1) // self._sector_size + 1
             self.extend_chain(stream, needed - have)
-        pass
 
-    def add_stream(self, stream):
+    def add_stream(self: T, stream: 'StreamBase') -> None:
         sector = self._start_new_chain()
         stream.set_start_sector(sector)
-        stream.set_storage_chain(self)
         sectors_needed = (stream.stream_size() - 1) // self._sector_size
         sectors_needed = max(sectors_needed, 0)
         if sectors_needed > 0:
             self.extend_chain(stream, sectors_needed)
         self._streams.append(stream)
 
-    def _start_new_chain(self):
+    def _start_new_chain(self: T) -> int:
         # Increase the necessary chain resources by one address
         new_sector = self._reserve_next_free_sector()
         return new_sector
 
-    def write_chain(self, path):
+    def write_chain(self: T, path: str) -> None:
         """
         write the chain list to a file.
         """
@@ -95,7 +102,7 @@ class FilesystemBase:
         for address in chain:
             f.write(address.to_bytes(4, "little"))
 
-    def write_streams(self, path):
+    def write_streams(self: T, path: str) -> None:
         sectors = len(self)
         f = open(path, "wb")
         f.write(b'\x02' * sectors * self._sector_size)

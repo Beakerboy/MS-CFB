@@ -9,7 +9,7 @@ from ms_dtyp.filetime import Filetime
 
 
 @pytest.fixture(autouse=True)
-def run_around_tests():
+def run_around_tests() -> None:
     # Code that will run before your test, for example:
 
     # A test function will be run at this point
@@ -21,7 +21,7 @@ def run_around_tests():
             os.remove(name)
 
 
-def test_example_file():
+def test_example_file() -> None:
     """
     The example file as described in MS-CFB
     """

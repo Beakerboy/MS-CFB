@@ -34,6 +34,30 @@ class Directory(Node):
 
         self._flattened_index = 0
 
+    def __lt__(self: T, other: T) -> bool:
+        return ((len(self.name), self.name.upper())
+                < (len(other.name), other.name.upper()))
+
+    def __le__(self: T, other: T) -> bool:
+        return ((len(self.name), self.name.upper())
+                <= (len(other.name), other.name.upper()))
+
+    def __gt__(self: T, other: T) -> bool:
+        return ((len(self.name), self.name.upper())
+                > (len(other.name), other.name.upper()))
+
+    def __ge__(self: T, other: T) -> bool:
+        return ((len(self.name), self.name.upper())
+                >= (len(other.name), other.name.upper()))
+
+    def __eq__(self: T, other: T) -> bool:
+        return ((len(self.name), self.name.upper())
+                == (len(other.name), other.name.upper()))
+
+    def __ne__(self: T, other: T) -> bool:
+        return ((len(self.name), self.name.upper())
+                != (len(other.name), other.name.upper()))
+
     def set_created(self: T, value: Filetime) -> None:
         self._created = value
 

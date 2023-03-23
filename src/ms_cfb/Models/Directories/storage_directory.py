@@ -25,7 +25,6 @@ class StorageDirectory(Directory):
 
     def add_directory(self: T, dir: 'Directory') -> None:
         self.directories.insert(dir)
-        self.directories[key] = dir
 
     def flatten(self: T) -> list:
         self.flat = [self]

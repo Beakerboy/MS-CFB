@@ -1,20 +1,19 @@
 import struct
 import uuid
 from ms_dtyp.filetime import Filetime
+from rbtree import Node
 from typing import TypeVar
 
 
 T = TypeVar('T', bound='Directory')
 
 
-class Directory:
+class Directory(Node):
     """An OLE directory object"""
 
     def __init__(self: T) -> None:
+        Node.__init__(self)
         self.name = ""
-
-        # red = 0, black = 1
-        self.color = 1
 
         self._previous_directory_id = 0xFFFFFFFF
         self._next_directory_id = 0xFFFFFFFF
@@ -77,7 +76,7 @@ class Directory:
             self.name.encode("utf_16_le"),
             self.name_size(),
             self._type,
-            self.color,
+            1 if self.is_red() else 0,
             self._previous_directory_id,
             self._next_directory_id,
             self._subdirectory_id,

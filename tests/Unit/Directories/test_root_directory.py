@@ -11,7 +11,7 @@ def test_directory() -> None:
     ft = Filetime.from_msfiletime(0x01D92433C2B823C0)
     dir.set_modified(ft)
     dir.set_start_sector(3)
-    dir.color = 0
+    dir.set_color("red")
 
     ex = ["5200 6F00 6F00 7400 2000 4500 6E00 7400",
           "7200 7900 0000 0000 0000 0000 0000 0000",

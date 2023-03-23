@@ -29,7 +29,7 @@ class StorageDirectory(Directory):
     def _create_binary_tree(self: T) -> None:
         tree = RedBlackTree()
         for dir in self._directories:
-            tree.insert(len(self.name), upper(self.name))    
+            tree.insert(len(self.name), self.name.upper())
 
     def flatten(self: T) -> list:
         self.flat = [self]

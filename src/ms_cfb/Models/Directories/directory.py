@@ -76,7 +76,7 @@ class Directory(Node):
             self.name.encode("utf_16_le"),
             self.name_size(),
             self._type,
-            1 if self.is_red() else 0,
+            0 if self.is_red() else 1,
             self._previous_directory_id,
             self._next_directory_id,
             self._subdirectory_id,

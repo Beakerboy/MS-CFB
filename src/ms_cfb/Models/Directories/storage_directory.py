@@ -12,7 +12,7 @@ class StorageDirectory(Directory):
         super(StorageDirectory, self).__init__()
         self.name = name
         self._type = 1
-        self.directories = []
+        self.directories = RedBlackTree()
 
     def file_size(self: T) -> int:
         return 0
@@ -24,12 +24,9 @@ class StorageDirectory(Directory):
         return size
 
     def add_directory(self: T, dir: 'Directory') -> None:
-        self.directories.append(dir)
-
-    def _create_binary_tree(self: T) -> None:
-        tree = RedBlackTree()
-        for dir in self._directories:
-            tree.insert(len(self.name), self.name.upper())
+        key = (len(dir.name), dir.name.upper())
+        self.directories.insert(key)
+        self.directories[key] = dir
 
     def flatten(self: T) -> list:
         self.flat = [self]

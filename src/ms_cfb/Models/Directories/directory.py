@@ -1,20 +1,19 @@
 import struct
 import uuid
 from ms_dtyp.filetime import Filetime
+from rbtree import Node
 from typing import TypeVar
 
 
 T = TypeVar('T', bound='Directory')
 
 
-class Directory:
+class Directory(Node):
     """An OLE directory object"""
 
     def __init__(self: T) -> None:
+        Node.__init__(self)
         self.name = ""
-
-        # red = 0, black = 1
-        self.color = 1
 
         self._previous_directory_id = 0xFFFFFFFF
         self._next_directory_id = 0xFFFFFFFF
@@ -34,6 +33,30 @@ class Directory:
         self._type = 0
 
         self._flattened_index = 0
+
+    def __lt__(self: T, other: T) -> bool:
+        return ((len(self.name), self.name.upper())
+                < (len(other.name), other.name.upper()))
+
+    def __le__(self: T, other: T) -> bool:
+        return ((len(self.name), self.name.upper())
+                <= (len(other.name), other.name.upper()))
+
+    def __gt__(self: T, other: T) -> bool:
+        return ((len(self.name), self.name.upper())
+                > (len(other.name), other.name.upper()))
+
+    def __ge__(self: T, other: T) -> bool:
+        return ((len(self.name), self.name.upper())
+                >= (len(other.name), other.name.upper()))
+
+    def __eq__(self: T, other: T) -> bool:
+        return ((len(self.name), self.name.upper())
+                == (len(other.name), other.name.upper()))
+
+    def __ne__(self: T, other: T) -> bool:
+        return ((len(self.name), self.name.upper())
+                != (len(other.name), other.name.upper()))
 
     def set_created(self: T, value: Filetime) -> None:
         self._created = value
@@ -77,7 +100,7 @@ class Directory:
             self.name.encode("utf_16_le"),
             self.name_size(),
             self._type,
-            self.color,
+            0 if self.is_red() else 1,
             self._previous_directory_id,
             self._next_directory_id,
             self._subdirectory_id,

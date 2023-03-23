@@ -40,8 +40,7 @@ class StorageDirectory(Directory):
         return self.flat
 
     def set_child(self: T) -> None:
-        if len(self.directories) == 1:
-            self._subdirectory_id = self.directories[0]._flattened_index
+        self._subdirectory_id = self.directories.get_root()._flattened_index
         for child in self.directories:
             if child._type == 1:
                 child.set_child()

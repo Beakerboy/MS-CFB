@@ -24,8 +24,7 @@ class StorageDirectory(Directory):
         return size
 
     def add_directory(self: T, dir: 'Directory') -> None:
-        key = (len(dir.name), dir.name.upper())
-        self.directories.insert(key)
+        self.directories.insert(dir)
         self.directories[key] = dir
 
     def flatten(self: T) -> list:

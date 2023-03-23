@@ -27,7 +27,7 @@ class StorageDirectory(Directory):
         self.directories.append(dir)
 
     def _create_binary_tree(self: T) -> None:
-           tree = RedBlackTree()
+        tree = RedBlackTree()
         for dir in self._directories:
             tree.insert(len(name), upper(name))    
 

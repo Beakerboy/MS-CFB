@@ -16,6 +16,9 @@ classifiers = [
     "License :: OSI Approved :: MIT License",
     "Operating System :: OS Independent",
 ]
+dependencies = [
+  'PyYAML',
+]
 
 [project.urls]
 "Homepage" = "https://github.com/Beakerboy/MS-CFB"

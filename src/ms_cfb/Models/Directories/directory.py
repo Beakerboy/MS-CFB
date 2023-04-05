@@ -52,11 +52,13 @@ class Directory(Node):
 
     def __eq__(self: T, other: T) -> bool:
         if other.is_null():
-            return false
+            return False
         return ((len(self.name), self.name.upper())
                 == (len(other.name), other.name.upper()))
 
     def __ne__(self: T, other: T) -> bool:
+        if other.is_null():
+            return True
         return ((len(self.name), self.name.upper())
                 != (len(other.name), other.name.upper()))
 

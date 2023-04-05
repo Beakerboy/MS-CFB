@@ -100,7 +100,7 @@ class Directory(Node):
         format = "<64shbb3I16sIQQIII"
         color = 0 if self.is_red() else 1
         if self._type == 5 and len(self.directories) > 2:
-            color = 0 
+            color = 0
         dir = struct.pack(
             format,
             self.name.encode("utf_16_le"),

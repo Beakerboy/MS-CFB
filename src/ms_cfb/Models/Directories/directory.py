@@ -105,7 +105,7 @@ class Directory(Node):
             color = 0
         right = 0
         if self.right.is_null():
-            right = 0xFFFFFFFF 
+            right = 0xFFFFFFFF
         else:
             right = self.right._flattened_index
         dir = struct.pack(

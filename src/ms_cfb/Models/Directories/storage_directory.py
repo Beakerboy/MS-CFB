@@ -13,6 +13,7 @@ class StorageDirectory(Directory):
         self.name = name
         self._type = 1
         self.directories = RedBlackTree()
+        self._flat = []
 
     def file_size(self: T) -> int:
         return 0
@@ -25,20 +26,20 @@ class StorageDirectory(Directory):
 
     def add_directory(self: T, dir: 'Directory') -> None:
         self.directories.insert(dir)
+        if dir._type == 2:
+            self._flat.append(dir)
 
     def flatten(self: T) -> list:
-        self.flat = [self]
+        flat = [self]
         for child in self.directories:
             if child._type != 2:
-                self.flat.extend(child.flatten())
-        for child in self.directories:
-            if child._type == 2:
-                self.flat.append(child)
+                flat.extend(child.flatten())
+        flat.extend(self._flat)
         i = 0
-        for dir in self.flat:
+        for dir in flat:
             dir._flattened_index = i
             i += 1
-        return self.flat
+        return flat
 
     def set_child(self: T) -> None:
         child_root = self.directories.get_root()

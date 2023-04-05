@@ -98,13 +98,14 @@ class Directory(Node):
 
     def to_bytes(self: T) -> bytes:
         format = "<64shbb3I16sIQQIII"
-
+        color = 0 if self.is_red() else 1
+        color = 0 if self._type == 5 && len(self.directories> > 2
         dir = struct.pack(
             format,
             self.name.encode("utf_16_le"),
             self.name_size(),
             self._type,
-            0 if self.is_red() else 1,
+            color,
             self._previous_directory_id,
             self._next_directory_id,
             self._subdirectory_id,

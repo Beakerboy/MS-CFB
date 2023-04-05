@@ -101,6 +101,7 @@ class Directory(Node):
         color = 0 if self.is_red() else 1
         if self._type == 5 and len(self.directories) > 2:
             color = 0
+        right = 0xFFFFFFFF if self.right.is_null() else self.right._flattened_index
         dir = struct.pack(
             format,
             self.name.encode("utf_16_le"),
@@ -108,7 +109,7 @@ class Directory(Node):
             self._type,
             color,
             self._previous_directory_id,
-            self._next_directory_id,
+            right
             self._subdirectory_id,
             self._class_id.bytes_le,
             self._user_flags,

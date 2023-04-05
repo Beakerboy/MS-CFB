@@ -29,10 +29,11 @@ class StorageDirectory(Directory):
     def flatten(self: T) -> list:
         self.flat = [self]
         for child in self.directories:
+            if child._type != 2:
+                self.flat.extend(child.flatten())
+        for child in self.directories:
             if child._type == 2:
                 self.flat.append(child)
-            else:
-                self.flat.extend(child.flatten())
         i = 0
         for dir in self.flat:
             dir._flattened_index = i

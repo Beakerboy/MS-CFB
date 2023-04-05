@@ -13,6 +13,8 @@ class Directory(Node):
 
     def __init__(self: T) -> None:
         Node.__init__(self)
+        self.left = Node.null()
+        self.right = Node.null()
         self.name = ""
 
         self._previous_directory_id = 0xFFFFFFFF

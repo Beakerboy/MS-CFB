@@ -109,7 +109,7 @@ class Directory(Node):
             self._type,
             color,
             self._previous_directory_id,
-            right
+            right,
             self._subdirectory_id,
             self._class_id.bytes_le,
             self._user_flags,

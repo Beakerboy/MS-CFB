@@ -18,6 +18,7 @@ classifiers = [
 ]
 dependencies = [
   'PyYAML',
+  'python-red-black-trees @ git+https://github.com/Beakerboy/python-red-black-trees@dev'
 ]
 
 [project.urls]

@@ -20,7 +20,15 @@ dependencies = [
   'PyYAML',
   'python-red-black-trees @ git+https://github.com/Beakerboy/python-red-black-trees@dev'
 ]
-
+[project.optional-dependencies]
+tests = [
+  'pytest',
+  'pytest-cov',
+  'pytest-mock',
+  'coveralls',
+  'pep8-naming',
+  'flake8-annotations'
+]
 [project.urls]
 "Homepage" = "https://github.com/Beakerboy/MS-CFB"
 "Bug Tracker" = "https://github.com/Beakerboy/MS-CFB/issues"

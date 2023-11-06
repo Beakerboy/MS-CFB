@@ -42,17 +42,19 @@ Root Entry
 ```
 To run the program
 ```
-python ole_file.py [-h] [-v {3,4}] [-o OUTPUT] [-x EXTRA] directory
+python ole_file.py [-h] [-v {3,4}] [-o OUTPUT] [-X EXTRA] directory
 positional arguments:
   directory             The directory that contains your files.
 
 optional arguments:
   -h, --help            show this help message and exit
+  -c, --create          Create an OLE container from a directory
+  -x, --extract         Extract files from an OLE container
   -v {3,4}, --version {3,4}
                         The OLE version to use.
-  -o OUTPUT, --output OUTPUT
-                        The output file name.
-  -x EXTRA, --extra EXTRA
+  -f OUTPUT, --output OUTPUT
+                        The OLE file name.
+  -X EXTRA, --extra EXTRA
                         Path to exta directory settings yml file.
 ```
 

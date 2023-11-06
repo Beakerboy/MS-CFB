@@ -211,3 +211,13 @@ class OleFile:
         """
         self.build_file()
         self.write_file(path)
+
+    @classmethod
+    def create_from_file(cls: Type[T], path: str) -> T:
+        obj = cls()
+        # open file
+        # read header
+        # set header values
+        # read directory
+        # read Fat and minifat chains
+        return obj

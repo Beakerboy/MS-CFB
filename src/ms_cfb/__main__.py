@@ -26,7 +26,13 @@ def main() -> None:
     parser.add_argument("-X", "--extra",
                         help="Path to exta settings yml file.")
     args = parser.parse_args()
+    if args.create:
+        main_create(args)
+    else:
+        main_extract(args)
     ole_file = OleFile()
+
+def main_create(args: argparse.Namespace) -> None:
     if args.version == 4:
         ole_file.set_version(4)
     config = {"directories": {}}
@@ -50,8 +56,11 @@ def main() -> None:
         dir_config = new_config["."]
         update_attributes(root, dir_config)
     ole_file.set_root_directory(root)
-    ole_file.create_file(args.output)
+    ole_file.create_file(args.file)
 
+
+def main_extract(args: argparse.Namespace) -> None:
+    pass
 
 def update_attributes(dir: 'Directory', conf: dict) -> None:
     if "modified" in conf:

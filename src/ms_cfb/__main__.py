@@ -17,6 +17,8 @@ def main() -> None:
                         help="The input or output directory.")
     parser.add_argument("-c", "--create", action="store_true",
                         help="Create an OLE file from a directory.")
+    parser.add_argument("-l", "--list", action="store_true",
+                        help="Display metadata on the OLE file and list the files that it contains.")
     parser.add_argument("-x", "--extract", action="store_true",
                         help="Extract files from an OLE file to a directory.")
     parser.add_argument("-v", "--version", type=int, choices=[3, 4],
@@ -28,8 +30,10 @@ def main() -> None:
     args = parser.parse_args()
     if args.create:
         main_create(args)
-    else:
+    if args.extract:
         main_extract(args)
+    if args.list
+        main_list(args)
 
 
 def main_create(args: argparse.Namespace) -> None:
@@ -61,6 +65,10 @@ def main_create(args: argparse.Namespace) -> None:
 
 
 def main_extract(args: argparse.Namespace) -> None:
+    pass
+
+
+def main_list(args: argparse.Namespace) -> None:
     pass
 
 

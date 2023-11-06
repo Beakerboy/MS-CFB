@@ -218,22 +218,3 @@ class OleFile:
         """
         self.build_file()
         self.write_file(path)
-
-
-def create_storage(direntry: os.DirEntry,
-                   directories: dict) -> StorageDirectory:
-    dir = StorageDirectory(direntry.name)
-    obj = os.scandir(direntry.path)
-    for entry in obj:
-        if entry.is_dir():
-            dir.add_directory(create_storage(entry, directories))
-        else:
-            stem = Path(entry.name).stem
-            stream = StreamDirectory(stem, entry.path)
-            dir.add_directory(stream)
-    mod_time = Filetime.fromtimestamp(os.stat(direntry.path).st_mtime)
-    dir.set_modified(mod_time)
-    if direntry.name in directories:
-        dir_config = directories[direntry.name]
-        update_attributes(dir, dir_config)
-    return dir

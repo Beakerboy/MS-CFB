@@ -1,7 +1,7 @@
 import os
 import pytest
 import shutil
-from ms_cfb.ole_file import main
+from ms_cfb.__main__ import main
 from ms_dtyp.filetime import Filetime
 from pytest_mock import MockerFixture
 

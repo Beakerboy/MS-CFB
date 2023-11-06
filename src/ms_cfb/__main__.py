@@ -2,6 +2,7 @@ import argparse
 import os
 import yaml
 from ms_cfb.ole_file import OleFile
+from ms_dtyp.filetime import Filetime
 
 
 def main() -> None:
@@ -44,6 +45,19 @@ def main() -> None:
         update_attributes(root, dir_config)
     ole_file.set_root_directory(root)
     ole_file.create_file(args.output)
+
+
+def update_attributes(dir: 'Directory', conf: dict) -> None:
+    if "modified" in conf:
+        datetime = Filetime.fromisoformat(conf["modified"])
+        dir.set_modified(datetime)
+    if "created" in conf:
+        datetime = Filetime.fromisoformat(conf["created"])
+        dir.set_created(datetime)
+    if "clsid" in conf:
+        dir.set_clsid(uuid.UUID(conf["clsid"]))
+    if "flags" in conf:
+        dir.set_flags(conf["flags"])
 
 
 if __name__ == '__main__':

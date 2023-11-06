@@ -63,6 +63,7 @@ def main_create(args: argparse.Namespace) -> None:
 def main_extract(args: argparse.Namespace) -> None:
     pass
 
+
 def update_attributes(dir: 'Directory', conf: dict) -> None:
     if "modified" in conf:
         datetime = Filetime.fromisoformat(conf["modified"])

@@ -30,9 +30,10 @@ def main() -> None:
         main_create(args)
     else:
         main_extract(args)
-    ole_file = OleFile()
+
 
 def main_create(args: argparse.Namespace) -> None:
+    ole_file = OleFile()
     if args.version == 4:
         ole_file.set_version(4)
     config = {"directories": {}}

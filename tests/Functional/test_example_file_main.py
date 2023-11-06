@@ -42,9 +42,10 @@ def test_example_file(mocker: MockerFixture) -> None:
         "sys.argv",
         [
             "ole_file.py",
-            "-o",
+            "-c",
+            "-f",
             filename,
-            "-x",
+            "-X",
             "tests/example.yml",
             "./files",
         ],

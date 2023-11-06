@@ -4,6 +4,7 @@ import uuid
 import yaml
 from pathlib import Path
 from ms_cfb.ole_file import OleFile
+from ms_cfb.Models.Directories.root_directory import RootDirectory
 from ms_cfb.Models.Directories.storage_directory import StorageDirectory
 from ms_cfb.Models.Directories.stream_directory import StreamDirectory
 from ms_dtyp.filetime import Filetime

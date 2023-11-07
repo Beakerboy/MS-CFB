@@ -32,7 +32,7 @@ def main() -> None:
         main_create(args)
     if args.extract:
         main_extract(args)
-    if args.list
+    if args.list:
         main_list(args)
 
 

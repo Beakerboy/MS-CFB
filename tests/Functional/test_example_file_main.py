@@ -116,3 +116,14 @@ def test_example_file(mocker: MockerFixture) -> None:
     sector6 = (bytes.fromhex(string)
                + b'\x00' * 480)
     assert f.read(512) == sector6
+
+    mocker.patch(
+        "sys.argv",
+        [
+            "ole_file.py",
+            "-l",
+            "-f",
+            filename
+        ],
+    )
+    main()

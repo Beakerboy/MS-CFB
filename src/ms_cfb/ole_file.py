@@ -277,9 +277,10 @@ class OleFile:
         i = 0
         sector = fat_sector_list[i]
         while not sector == 0xFFFFFFFF:
-            fat = f.seek(sector * 2 ** sector_shift, 0)
-            fat.extend(memoryview(f.read(2 ** sector_shift)))
-            fat.cast('I')
+            f.seek(sector * 2 ** sector_shift, 0)
+            next_fat = memoryview(f.read(2 ** sector_shift))
+            next_fat.cast('I')
+            fat.extend(next_fat)
             i = i + 1
             sector = fat_sector_list[i]
         # Assemble directory

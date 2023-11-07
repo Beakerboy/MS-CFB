@@ -1,6 +1,8 @@
 import struct
 from ms_cfb.Models.Directories.directory import Directory
 from ms_cfb.Models.Directories.root_directory import RootDirectory
+from ms_cfb.Models.Directories.storage_directory import StorageDirectory
+from ms_cfb.Models.Directories.stream_directory import StreamDirectory
 from ms_dtyp.filetime import Filetime
 from typing import TypeVar
 
@@ -12,7 +14,6 @@ class DirectoryFactory:
 
     @classmethod
     def from_binary(cls: T, data: bytes) -> 'Directory':
-        obj = cls()
         format = "<64shbb3I16sIQQIII"
         (name,
          name_size,
@@ -28,7 +29,12 @@ class DirectoryFactory:
          start_sector,
          file_size,
          zero) = struct.unpack(format, data)
-        if type == 5:
+        if type == 1:
+            obj = StorageDirectory()
+        elif type == 2:
+            obj == StreamDirectory()
+        elif type == 5:
             obj = RootDirectory()
             modified = Filetime.from_msfiletime(modified)
+        
         return obj

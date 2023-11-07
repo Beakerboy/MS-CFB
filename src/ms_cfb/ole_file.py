@@ -278,11 +278,13 @@ class OleFile:
         # read fat sectors and assemble into sector list
         fat = []
         i = 0
+        num = 2 ** (sector_shift - 2)
+        format = "<" + str(num) + "I"
         sector = fat_sector_list[i]
         while not sector == 0xFFFFFFFF:
             f.seek((sector + 1) * 2 ** sector_shift, 0)
-            next_fat = memoryview(f.read(2 ** sector_shift))
-            next_fat.cast('I')
+            next_fat_bytes = f.read(2 ** sector_shift)
+            next_fat = struct.unpack(format, next_fat_bytes)
             fat.extend(next_fat)
             i = i + 1
             sector = fat_sector_list[i]

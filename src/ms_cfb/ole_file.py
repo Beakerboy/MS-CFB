@@ -219,7 +219,7 @@ class OleFile:
     def create_from_file(cls: Type[T], path: str) -> T:
         obj = cls()
         f = open(path, 'rb')
-        header = f.read(30)
+        header = f.read(36)
         f.close()
         format = "<8s16s6H"
         (

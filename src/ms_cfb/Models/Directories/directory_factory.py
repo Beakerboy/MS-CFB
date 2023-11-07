@@ -29,5 +29,7 @@ class DirectoryFactory:
         elif type == 5:
             obj = RootDirectory()
             modified = Filetime.from_msfiletime(modified)
+        else:
+            obj = Directory()
         
         return obj

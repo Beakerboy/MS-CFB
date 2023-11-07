@@ -257,7 +257,7 @@ class OleFile:
         if not signature == 0:
             raise Exception('Signature must be zero.')
         if not mini_sector_cutoff == 4096:
-            raise Exceptio('Mini-sector cuttoff is not correct.')
+            raise Exception('Mini-sector cuttoff is not correct.')
         obj._first_minichain_sector = minichain_sector
         
         # minifat_sectors, fat_chain_sectors, dif_start_sector

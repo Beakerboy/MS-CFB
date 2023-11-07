@@ -219,12 +219,17 @@ class OleFile:
     def create_from_file(cls: Type[T], path: str) -> T:
         obj = cls()
         f = open(path, 'rb')
-        header = f.read(36)
-        f.close()
-        format = "<8s16s6H"
+        header = f.read(76)
+        
+        # Read, validate, and set header values.
+        format = "<8s16s6H10I"
         (
             absig, guid_le, minor_version, major_version,
-            bom, sector_shift, mini_sector_shift, us_reserved
+            bom, sector_shift, mini_sector_shift, us_reserved,
+            ul_reserved1, csect_dir, fat_chain_sectors,
+            directory_list_sector, signature, mini_sector_cutoff,
+            minichain_sector, minifat_sectors, dif_start_sector,
+            dif_sectors
         ) = struct.unpack(format, header)
         if not absig == b"\xd0\xcf\x11\xe0\xa1\xb1\x1a\xe1":
             raise Exception('Incorrect signature.')
@@ -236,11 +241,28 @@ class OleFile:
             raise Exception('Version not supported.')
         if not bom == 65534:
             raise Exception('Incorrect Byte Order Mark.')
-        obj._sector_shift = sector_shift
-        obj._mini_sector_shift = mini_sector_shift
-        if not us_reserved == 0:
+        if ((major_version == 3 and sector_shift == 9) or
+            (major_version == 4 and sector_shift == 12)):
+            obj._sector_shift = sector_shift
+        else:
+            raise Exception('Sector shift is not correct.')
+        if not mini_sector_shift == 6:
+            raise Exception('Mini-sector shift is not correct.')
+        if not (us_reserved == 0 and ul_eserved1 == 0):
             raise Exception('usReserved must be zero.')
-        # Read, validate, and set header values.
+        if not csect_dir == 0:
+            raise Exception('csectDir must be zero.')
+        
+        self._first_directory_list_sector = directory_list_sector
+        if not signature == 0:
+            raise Exception('Signature must be zero.')
+        if not mini_sector_cutoff == 4096:
+            raise Exceptio('Mini-sector cuttoff is not correct.')
+        self._first_minichain_sector = minichain_sector
+        
+        # minifat_sectors, fat_chain_sectors, dif_start_sector
+        # dif_sectors
+        f.close()
         # read directory
         # read Fat and minifat chains
         return obj

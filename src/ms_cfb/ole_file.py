@@ -223,7 +223,7 @@ class OleFile:
         obj = cls()
         f = open(path, 'rb')
         header = f.read(76)
-        
+
         # Read, validate, and set header values.
         format = "<8s16s6H10I"
         (
@@ -244,8 +244,10 @@ class OleFile:
             raise Exception('Version not supported.')
         if not bom == 65534:
             raise Exception('Incorrect Byte Order Mark.')
-        if ((major_version == 3 and sector_shift == 9) or
-            (major_version == 4 and sector_shift == 12)):
+        if (
+            (major_version == 3 and sector_shift == 9) or
+            (major_version == 4 and sector_shift == 12)
+           ):
             obj._sector_shift = sector_shift
         else:
             raise Exception('Sector shift is not correct.')
@@ -261,7 +263,6 @@ class OleFile:
         if not mini_sector_cutoff == 4096:
             raise Exception('Mini-sector cuttoff is not correct.')
         obj._first_minichain_sector = minichain_sector
-        
         # minifat_sectors, fat_chain_sectors, dif_start_sector
         # dif_sectors
         f.close()

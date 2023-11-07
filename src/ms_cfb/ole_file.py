@@ -222,7 +222,6 @@ class OleFile:
         header = f.read(30)
         f.close()
         format = "<8s16s6H"
-        
         (
             absig, guid_le, minor_version, major_version,
             bom, sector_shift, mini_sector_shift, usReserved

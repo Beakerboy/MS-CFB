@@ -252,7 +252,6 @@ class OleFile:
             raise Exception('usReserved must be zero.')
         if not csect_dir == 0:
             raise Exception('csectDir must be zero.')
-        
         obj._first_directory_list_sector = directory_list_sector
         if not signature == 0:
             raise Exception('Signature must be zero.')

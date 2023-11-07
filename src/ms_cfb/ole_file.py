@@ -269,7 +269,8 @@ class OleFile:
         # dif_sectors
 
         # Read FAT sector list.
-        fat_sector_list = memoryview(f.read(3584 * (major_version - 3) + 436), '<I')
+        fat_sector_list = memoryview(f.read(3584 * (major_version - 3) + 436))
+        fat_sector_list.cast('<I')
 
         # read fat sectors and assemble into sector list
         fat = []
@@ -277,7 +278,8 @@ class OleFile:
         sector = fat_sector_list[i]
         while not sector == 0xFFFFFFFF:
             fat = f.seek(sector * 2 ** sector_shift, 0)
-            fat.extend(memoryview(f.read(2 ** sector_shift)), '<I')
+            fat.extend(memoryview(f.read(2 ** sector_shift)))
+            fat.cast('<I')
             i = i + 1
             sector = fat_sector_list[i]
         # Assemble directory

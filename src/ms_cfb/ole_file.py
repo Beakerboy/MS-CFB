@@ -224,7 +224,7 @@ class OleFile:
         format = "<8s16s6H"
         (
             absig, guid_le, minor_version, major_version,
-            bom, sector_shift, mini_sector_shift, usReserved
+            bom, sector_shift, mini_sector_shift, us_reserved
         ) = struct.unpack(format, header)
         if not absig == b"\xd0\xcf\x11\xe0\xa1\xb1\x1a\xe1":
             raise Exception('Incorrect signature.')
@@ -238,7 +238,7 @@ class OleFile:
             raise Exception('Incorrect Byte Order Mark.')
         obj._sector_shift = sector_shift
         obj._mini_sector_shift = mini_sector_shift
-        if not usReserved == 0:
+        if not us_reserved == 0:
             raise Exception('usReserved must be zero.')
         # Read, validate, and set header values.
         # read directory

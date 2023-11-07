@@ -30,9 +30,9 @@ class DirectoryFactory:
          file_size,
          zero) = struct.unpack(format, data)
         if type == 1:
-            obj = StorageDirectory()
+            obj = StorageDirectory(name)
         elif type == 2:
-            obj == StreamDirectory()
+            obj == StreamDirectory(name, '')
         elif type == 5:
             obj = RootDirectory()
             modified = Filetime.from_msfiletime(modified)

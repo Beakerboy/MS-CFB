@@ -229,16 +229,16 @@ class OleFile:
         ) = struct.unpack(format, header)
         if not absig == b"\xd0\xcf\x11\xe0\xa1\xb1\x1a\xe1":
             raise Exception('Incorrect signature.')
-        self._guid = uuid.UUID(bytes_le=guid_le)
-        self._minor_version = minor_version
+        obj._guid = uuid.UUID(bytes_le=guid_le)
+        obj._minor_version = minor_version
         if major_version == 3 or major_version == 4:
-            self._major_version = major_version
+            obj._major_version = major_version
         else:
             raise Exception('Version not supported.')
         if not BOM == 65534:
             raise Exception('Incorrect Byte Order Mark.')
-        self._sector_shift = sector_shift
-        self._mini_sector_shift = mini_sector_shift
+        obj._sector_shift = sector_shift
+        obj._mini_sector_shift = mini_sector_shift
         if not usReserved == 0:
             raise Exception('usReserved must be zero.')
         # Read, validate, and set header values.

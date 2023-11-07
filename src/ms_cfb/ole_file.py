@@ -248,17 +248,17 @@ class OleFile:
             raise Exception('Sector shift is not correct.')
         if not mini_sector_shift == 6:
             raise Exception('Mini-sector shift is not correct.')
-        if not (us_reserved == 0 and ul_eserved1 == 0):
+        if not (us_reserved == 0 and ul_reserved1 == 0):
             raise Exception('usReserved must be zero.')
         if not csect_dir == 0:
             raise Exception('csectDir must be zero.')
         
-        self._first_directory_list_sector = directory_list_sector
+        obj._first_directory_list_sector = directory_list_sector
         if not signature == 0:
             raise Exception('Signature must be zero.')
         if not mini_sector_cutoff == 4096:
             raise Exceptio('Mini-sector cuttoff is not correct.')
-        self._first_minichain_sector = minichain_sector
+        obj._first_minichain_sector = minichain_sector
         
         # minifat_sectors, fat_chain_sectors, dif_start_sector
         # dif_sectors

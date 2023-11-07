@@ -3,6 +3,7 @@ import uuid
 from ms_cfb.Models.DataStreams.directory_stream import DirectoryStream
 from ms_cfb.Models.Directories.directory import Directory
 from ms_cfb.Models.Directories.root_directory import RootDirectory
+from ms_cfb.Models.Directories.directory_factory import DirectoryFactory
 from ms_cfb.Models.Filesystems.fat_filesystem import FatFilesystem
 from ms_cfb.Models.Filesystems.minifat_filesystem import MinifatFilesystem
 from typing import Type, TypeVar

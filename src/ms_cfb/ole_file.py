@@ -263,18 +263,34 @@ class OleFile:
         if not mini_sector_cutoff == 4096:
             raise Exception('Mini-sector cuttoff is not correct.')
         obj._first_minichain_sector = minichain_sector
+        # Eventually check validity of...
         # minifat_sectors, fat_chain_sectors, dif_start_sector
         # dif_sectors
 
         # Read FAT sector list.
-        fat_sector_list = b''
-        if (major_version == 3):
-            fat_sector_list = f.read(436)
-        else:
-            fat_sector_list = f.read(4020)
-        
-        # read fat sectors
-        # read directory sectors
+        fat_sector_list = memoryview(f.read(3584 * (major_version - 3) + 436), '<I')
+
+        # read fat sectors and assemble into sector list
+        fat = []
+        i = 0
+        sector = fat_sector_list[i]
+        while not sector == 0xFFFFFFFF:
+            fat = f.seek(sector * 2 ** sector_shift, 0)
+            fat.extend(memoryview(f.read(2 ** sector_shift)), '<I')
+            i = i + 1
+            sector = fat_sector_list[i]
+        # Assemble directory
+        dir_list = []
+        while not directory_list_sector == 0xFFFFFFFE:
+            f.seek(directory_list_sector * 2 ** sector_shift, 0)
+            
+            for i in range(2 ** (sector_shift - 7)):
+                directory_bytes = f.read(128)
+                directory = DirectoryFactory.from_binary(directory_bytes)
+                dir_list.append(directory.get_name())
+            directory_list_sector = fat[directory_list_sector]
+        # This is Bad
+        self.dirlist = dir_list
+
         # extract minifat chain
-        # 
         return obj

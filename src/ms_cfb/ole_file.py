@@ -270,7 +270,7 @@ class OleFile:
 
         # Read FAT sector list.
         num_bytes = 3584 * (major_version - 3) + 436
-        fat_sector_list_bytes = memoryview(f.read(num_bytes))
+        fat_sector_list_bytes = f.read(num_bytes)
         num = num_bytes // 4
         format = "<" + str(num) + "I"
         fat_sector_list = struct.unpack(format, fat_sector_list_bytes)
@@ -280,7 +280,7 @@ class OleFile:
         i = 0
         sector = fat_sector_list[i]
         while not sector == 0xFFFFFFFF:
-            f.seek(sector * 2 ** sector_shift, 0)
+            f.seek((sector + 1) * 2 ** sector_shift, 0)
             next_fat = memoryview(f.read(2 ** sector_shift))
             next_fat.cast('I')
             fat.extend(next_fat)

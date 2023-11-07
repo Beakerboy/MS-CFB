@@ -1,7 +1,7 @@
 import os
 import pytest
 import shutil
-from ms_cfb.ole_file import main
+from ms_cfb.__main__ import main
 from ms_dtyp.filetime import Filetime
 from pytest_mock import MockerFixture
 
@@ -42,9 +42,10 @@ def test_example_file(mocker: MockerFixture) -> None:
         "sys.argv",
         [
             "ole_file.py",
-            "-o",
+            "-c",
+            "-f",
             filename,
-            "-x",
+            "-X",
             "tests/example.yml",
             "./files",
         ],
@@ -115,3 +116,14 @@ def test_example_file(mocker: MockerFixture) -> None:
     sector6 = (bytes.fromhex(string)
                + b'\x00' * 480)
     assert f.read(512) == sector6
+
+    mocker.patch(
+        "sys.argv",
+        [
+            "ole_file.py",
+            "-l",
+            "-f",
+            filename
+        ],
+    )
+    main()

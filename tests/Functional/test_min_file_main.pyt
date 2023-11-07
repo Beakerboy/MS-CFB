@@ -1,7 +1,7 @@
 import os
 import pytest
 import shutil
-from ms_cfb.ole_file import main
+from ms_cfb.__main__ import main
 
 
 @pytest.fixture(autouse=True)
@@ -27,7 +27,8 @@ def test_min_file(mocker) -> None:
         "sys.argv",
         [
             "ole_file.py",
-            "-o",
+            "-c",
+            "-f",
             "Test123.bin",
             "./files",
         ],

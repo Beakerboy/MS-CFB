@@ -27,7 +27,8 @@ def test_min_file(mocker) -> None:
         "sys.argv",
         [
             "ole_file.py",
-            "-o",
+            "-c",
+            "-f",
             "Testv4.bin",
             "-v",
             "4",

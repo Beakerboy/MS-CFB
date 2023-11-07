@@ -1,18 +1,11 @@
-import argparse
-import os
 import struct
 import uuid
-import yaml
-from pathlib import Path
 from ms_cfb.Models.DataStreams.directory_stream import DirectoryStream
 from ms_cfb.Models.Directories.directory import Directory
 from ms_cfb.Models.Directories.root_directory import RootDirectory
-from ms_cfb.Models.Directories.storage_directory import StorageDirectory
-from ms_cfb.Models.Directories.stream_directory import StreamDirectory
 from ms_cfb.Models.Filesystems.fat_filesystem import FatFilesystem
 from ms_cfb.Models.Filesystems.minifat_filesystem import MinifatFilesystem
-from ms_dtyp.filetime import Filetime
-from typing import TypeVar
+from typing import Type, TypeVar
 
 
 T = TypeVar('T', bound='OleFile')
@@ -58,6 +51,9 @@ class OleFile:
 
     def get_version(self: T) -> int:
         return self._major_version
+
+    def get_version_string(self: T) -> str:
+        return str(self._major_version) + '.' + str(self._minor_version)
 
     def set_root_directory(self: T, dir: RootDirectory) -> None:
         self._directory = dir
@@ -219,76 +215,32 @@ class OleFile:
         self.build_file()
         self.write_file(path)
 
-
-def main() -> None:
-    parser = argparse.ArgumentParser()
-    parser.add_argument("directory",
-                        help="The directory that contains your files.")
-    parser.add_argument("-v", "--version", type=int, choices=[3, 4],
-                        help="The OLE version to use.")
-    parser.add_argument("-o", "--output",
-                        help="The output file name.")
-    parser.add_argument("-x", "--extra",
-                        help="Path to exta directory settings yml file.")
-    args = parser.parse_args()
-    ole_file = OleFile()
-    if args.version == 4:
-        ole_file.set_version(4)
-    config = {"directories": {}}
-    if args.extra is not None and os.path.isfile(args.extra):
-        stream = open(args.extra, 'r')
-        config = yaml.safe_load(stream)
-    new_config = config["directories"]
-
-    root = RootDirectory()
-    obj = os.scandir(args.directory)
-    for entry in obj:
-        if entry.is_dir():
-            root.add_directory(create_storage(entry, new_config))
+    @classmethod
+    def create_from_file(cls: Type[T], path: str) -> T:
+        obj = cls()
+        f = open(path, 'rb')
+        header = f.read(36)
+        f.close()
+        format = "<8s16s6H"
+        (
+            absig, guid_le, minor_version, major_version,
+            bom, sector_shift, mini_sector_shift, us_reserved
+        ) = struct.unpack(format, header)
+        if not absig == b"\xd0\xcf\x11\xe0\xa1\xb1\x1a\xe1":
+            raise Exception('Incorrect signature.')
+        obj._guid = uuid.UUID(bytes_le=guid_le)
+        obj._minor_version = minor_version
+        if major_version == 3 or major_version == 4:
+            obj._major_version = major_version
         else:
-            dir = StreamDirectory(entry.name, entry.path)
-            root.add_directory(dir)
-    mod_time = os.stat(args.directory).st_mtime
-    ft = Filetime.fromtimestamp(mod_time)
-    root.set_modified(ft)
-    if "." in new_config:
-        dir_config = new_config["."]
-        update_attributes(root, dir_config)
-    ole_file.set_root_directory(root)
-    ole_file.create_file(args.output)
-
-
-def update_attributes(dir: 'Directory', conf: dict) -> None:
-    if "modified" in conf:
-        datetime = Filetime.fromisoformat(conf["modified"])
-        dir.set_modified(datetime)
-    if "created" in conf:
-        datetime = Filetime.fromisoformat(conf["created"])
-        dir.set_created(datetime)
-    if "clsid" in conf:
-        dir.set_clsid(uuid.UUID(conf["clsid"]))
-    if "flags" in conf:
-        dir.set_flags(conf["flags"])
-
-
-def create_storage(direntry: os.DirEntry,
-                   directories: dict) -> StorageDirectory:
-    dir = StorageDirectory(direntry.name)
-    obj = os.scandir(direntry.path)
-    for entry in obj:
-        if entry.is_dir():
-            dir.add_directory(create_storage(entry, directories))
-        else:
-            stem = Path(entry.name).stem
-            stream = StreamDirectory(stem, entry.path)
-            dir.add_directory(stream)
-    mod_time = Filetime.fromtimestamp(os.stat(direntry.path).st_mtime)
-    dir.set_modified(mod_time)
-    if direntry.name in directories:
-        dir_config = directories[direntry.name]
-        update_attributes(dir, dir_config)
-    return dir
-
-
-if __name__ == '__main__':
-    main()
+            raise Exception('Version not supported.')
+        if not bom == 65534:
+            raise Exception('Incorrect Byte Order Mark.')
+        obj._sector_shift = sector_shift
+        obj._mini_sector_shift = mini_sector_shift
+        if not us_reserved == 0:
+            raise Exception('usReserved must be zero.')
+        # Read, validate, and set header values.
+        # read directory
+        # read Fat and minifat chains
+        return obj

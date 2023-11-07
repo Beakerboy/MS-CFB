@@ -289,7 +289,7 @@ class OleFile:
         # Assemble directory
         dir_list = []
         while not directory_list_sector == 0xFFFFFFFE:
-            f.seek(directory_list_sector * 2 ** sector_shift, 0)
+            f.seek((directory_list_sector + 1) * 2 ** sector_shift, 0)
             
             for i in range(2 ** (sector_shift - 7)):
                 directory_bytes = f.read(128)

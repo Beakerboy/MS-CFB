@@ -265,7 +265,16 @@ class OleFile:
         obj._first_minichain_sector = minichain_sector
         # minifat_sectors, fat_chain_sectors, dif_start_sector
         # dif_sectors
-        f.close()
-        # read directory
-        # read Fat and minifat chains
+
+        # Read FAT sector list.
+        fat_sector_list = b''
+        if (major_version == 3):
+            fat_sector_list = f.read(436)
+        else:
+            fat_sector_list = f.read(4020)
+        
+        # read fat sectors
+        # read directory sectors
+        # extract minifat chain
+        # 
         return obj

@@ -18,7 +18,8 @@ def main() -> None:
     parser.add_argument("-c", "--create", action="store_true",
                         help="Create an OLE file from a directory.")
     parser.add_argument("-l", "--list", action="store_true",
-                        help="Display metadata on the OLE file and list the files that it contains.")
+                        help="Display metadata on the OLE file and list the
+                        files that it contains.")
     parser.add_argument("-x", "--extract", action="store_true",
                         help="Extract files from an OLE file to a directory.")
     parser.add_argument("-v", "--version", type=int, choices=[3, 4],

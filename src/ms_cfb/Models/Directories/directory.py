@@ -88,7 +88,7 @@ class Directory(Node):
     def set_clsid(self: T, clsid: uuid.UUID) -> None:
         self._class_id = clsid
 
-    def get_name(self:T) -> str:
+    def get_name(self: T) -> str:
         return self.name
 
     def name_size(self: T) -> int:

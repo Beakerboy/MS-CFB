@@ -62,7 +62,7 @@ examples:
 
   python -m ole_file -x -f vbaProject.bin ./project
 
-  python -m ole_file -l vbaProject.bin
+  python -m ole_file -l -f vbaProject.bin
 ```
 
 Some directory settings can be specified from a YAML file. Directory paths are relative to the project root. Users can specify creation and modification date in ISO format, class id as a UUID string, and user flags as a four byte integer.

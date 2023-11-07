@@ -291,7 +291,7 @@ class OleFile:
                 dir_list.append(directory.get_name())
             directory_list_sector = fat[directory_list_sector]
         # This is Bad
-        self.dirlist = dir_list
+        obj.dirlist = dir_list
 
         # extract minifat chain
         return obj

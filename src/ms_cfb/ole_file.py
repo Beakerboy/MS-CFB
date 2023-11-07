@@ -215,8 +215,9 @@ class OleFile:
     @classmethod
     def create_from_file(cls: Type[T], path: str) -> T:
         obj = cls()
-        # open file
-        # read header
+        f = open(path, 'rb')
+        header = f.read(512)
+        f.close()
         # set header values
         # read directory
         # read Fat and minifat chains

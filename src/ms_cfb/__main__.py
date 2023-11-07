@@ -70,7 +70,9 @@ def main_extract(args: argparse.Namespace) -> None:
 
 
 def main_list(args: argparse.Namespace) -> None:
-    pass
+    ole_file = OleFile.create_from_file(args.file)
+    version = ole_file.get_version_string()
+    print('Version ' + version + ' OLE file')
 
 
 def update_attributes(dir: 'Directory', conf: dict) -> None:

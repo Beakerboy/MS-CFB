@@ -269,8 +269,11 @@ class OleFile:
         # dif_sectors
 
         # Read FAT sector list.
-        fat_sector_list = memoryview(f.read(3584 * (major_version - 3) + 436))
-        fat_sector_list.cast('I')
+        num_bytes = 3584 * (major_version - 3) + 436
+        fat_sector_list_bytes = memoryview(f.read(num_bytes))
+        num = num_bytes // 4
+        format = "<" + str(num) + "I"
+        fat_sector_list = struct.unpack(format, fat_sector_list_bytes)
 
         # read fat sectors and assemble into sector list
         fat = []

@@ -25,7 +25,7 @@ class DirectoryFactory:
         if type == 1:
             obj = StorageDirectory(name)
         elif type == 2:
-            obj == StreamDirectory(name, '')
+            obj = StreamDirectory(name, '')
         elif type == 5:
             obj = RootDirectory()
             modified = Filetime.from_msfiletime(modified)

@@ -55,7 +55,7 @@ class OleFile:
     def get_version_string(self: T) -> str:
         return str(self._major_version) + '.' + str(self._minor_version)
 
-    def get_guid(self: T) -> UUID:
+    def get_guid(self: T) -> uuid.UUID:
         return self._guid
 
     def set_root_directory(self: T, dir: RootDirectory) -> None:

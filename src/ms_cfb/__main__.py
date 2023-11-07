@@ -13,7 +13,7 @@ from ms_dtyp.filetime import Filetime
 
 def main() -> None:
     parser = argparse.ArgumentParser()
-    parser.add_argument("directory",
+    parser.add_argument("directory", nargs='?'
                         help="The input or output directory.")
     parser.add_argument("-c", "--create", action="store_true",
                         help="Create an OLE file from a directory.")

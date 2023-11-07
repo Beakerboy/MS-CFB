@@ -225,7 +225,7 @@ class OleFile:
         
         (
             absig, guid_le, minor_version, major_version,
-            BOM, sector_shift, mini_sector_shift, usReserved
+            bom, sector_shift, mini_sector_shift, usReserved
         ) = struct.unpack(format, header)
         if not absig == b"\xd0\xcf\x11\xe0\xa1\xb1\x1a\xe1":
             raise Exception('Incorrect signature.')
@@ -235,7 +235,7 @@ class OleFile:
             obj._major_version = major_version
         else:
             raise Exception('Version not supported.')
-        if not BOM == 65534:
+        if not bom == 65534:
             raise Exception('Incorrect Byte Order Mark.')
         obj._sector_shift = sector_shift
         obj._mini_sector_shift = mini_sector_shift

@@ -7,9 +7,13 @@ from typing import TypeVar
 
 T = TypeVar('T', bound='FilesystemBase')
 
-
+12345678901234567890123456789012345678901234567890123456789012345678901234567890
 class FilesystemBase:
-
+    """
+    A Filesystem consists of a file chain and series of streams. The file chain,
+    or allocation table indicated where the pieces for each stream are located
+    in the data, and in what order.
+    """
     def __init__(self: T, size: int) -> None:
         # The number of bytes in each sector
         self._sector_size = size
@@ -69,7 +73,7 @@ class FilesystemBase:
 
     def request_new_sectors(self: T, stream: 'StreamBase') -> None:
         """
-        the size of the stream has changed, based on the new size, are
+        The size of the stream has changed, based on the new size, are
         additional sectors needed?
         """
         size = stream.stream_size()
@@ -77,6 +81,9 @@ class FilesystemBase:
         if (have * self._sector_size) < size:
             needed = (size - 1) // self._sector_size + 1
             self.extend_chain(stream, needed - have)
+            start = str(stream.get_start_sector())
+            num = str(needed - have)
+            print("Extended length of stream" + start + " by " + num + " sectors")
 
     def add_stream(self: T, stream: 'StreamBase') -> None:
         sector = self._start_new_chain()

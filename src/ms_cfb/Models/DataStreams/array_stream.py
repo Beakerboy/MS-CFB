@@ -8,7 +8,9 @@ T = TypeVar('T', bound='ArrayStream')
 
 
 class ArrayStream(StreamBase):
-
+    """
+    An ArrayStream is a stream that is a list of renderable elements.
+    """
     def __init__(self: T) -> None:
         super(ArrayStream, self).__init__()
         self._data = []

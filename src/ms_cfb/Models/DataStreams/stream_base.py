@@ -56,7 +56,7 @@ class StreamBase:
 
     def stream_size(self: T) -> int:
         """
-        The size the stream will be when rendered
+        The size the stream will be when rendered in bytes.
         """
         return len(self._data)
 

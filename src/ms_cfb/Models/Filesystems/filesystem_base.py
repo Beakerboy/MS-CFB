@@ -10,9 +10,9 @@ T = TypeVar('T', bound='FilesystemBase')
 
 class FilesystemBase:
     """
-    A Filesystem consists of a file chain and series of streams. The file chain,
-    or allocation table indicated where the pieces for each stream are located
-    in the data, and in what order.
+    A Filesystem consists of a file chain and series of streams. The file
+    chain, or allocation table, indicates where the pieces for each stream are
+    located in the data, and in what order.
     """
     def __init__(self: T, size: int) -> None:
         # The number of bytes in each sector
@@ -83,7 +83,8 @@ class FilesystemBase:
             self.extend_chain(stream, needed - have)
             start = str(stream.get_start_sector())
             num = str(needed - have)
-            print("Extended length of stream" + start + " by " + num + " sectors")
+            print("Extended length of stream" + start + " by " + num +
+                  " sectors")
 
     def add_stream(self: T, stream: 'StreamBase') -> None:
         sector = self._start_new_chain()

@@ -35,12 +35,15 @@ class ArrayStream(StreamBase):
         f.close()
 
     def stream_size(self: T) -> int:
+        """
+        From StreamBase
+        """
         sum = 0
         for stream in self._data:
             sectors = ((stream.stream_size() - 1)
-                       // self._storage_sector_size
+                       // 64
                        + 1)
-            sum += sectors * self._storage_sector_size
+            sum += sectors * 64
         return sum
 
     def _extend_data(self: T, data: Any) -> None:

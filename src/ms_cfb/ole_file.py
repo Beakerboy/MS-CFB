@@ -292,7 +292,6 @@ class OleFile:
         dir_list = []
         while not directory_list_sector == 0xFFFFFFFE:
             f.seek((directory_list_sector + 1) * 2 ** sector_shift, 0)
-            
             for i in range(2 ** (sector_shift - 7)):
                 directory_bytes = f.read(128)
                 if not directory_bytes[0] == b'\x00':

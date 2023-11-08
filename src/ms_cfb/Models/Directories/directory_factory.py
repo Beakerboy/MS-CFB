@@ -31,5 +31,5 @@ class DirectoryFactory:
             modified = Filetime.from_msfiletime(modified)
         else:
             obj = Directory()
-        
+
         return obj

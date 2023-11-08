@@ -294,7 +294,7 @@ class OleFile:
             f.seek((directory_list_sector + 1) * 2 ** sector_shift, 0)
             for i in range(2 ** (sector_shift - 7)):
                 directory_bytes = f.read(128)
-                if not directory_bytes[0] == b'\x00':
+                if not directory_bytes[0] == 0:
                     directory = DirectoryFactory.from_binary(directory_bytes)
                     dir_list.append(directory.get_name())
             directory_list_sector = fat[directory_list_sector]

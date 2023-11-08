@@ -22,6 +22,7 @@ class DirectoryFactory:
          modified, start_sector,
          file_size,
          zero) = struct.unpack(format, data)
+        name = str(name, encoding='utf_16_le')
         if type == 1:
             obj = StorageDirectory(name)
         elif type == 2:

@@ -14,10 +14,10 @@ class MinifatFilesystem(FilesystemBase, StreamBase):
         FilesystemBase.__init__(self, 64)
         StreamBase.__init__(self)
         self._streams = FileArray()
-        self._streams.set_storage_sector_size(64)
 
     def set_storage_sector_size(self: T, size: int) -> None:
         self._storage_sector_size = size
+        self._streams.set_storage_sector_size(size)
 
     def get_streams(self: T) -> FileArray:
         return self._streams

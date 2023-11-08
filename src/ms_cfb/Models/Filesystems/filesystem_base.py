@@ -7,7 +7,7 @@ from typing import TypeVar
 
 T = TypeVar('T', bound='FilesystemBase')
 
-12345678901234567890123456789012345678901234567890123456789012345678901234567890
+
 class FilesystemBase:
     """
     A Filesystem consists of a file chain and series of streams. The file chain,

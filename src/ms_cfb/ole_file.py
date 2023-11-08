@@ -3,6 +3,7 @@ import uuid
 from ms_cfb.Models.DataStreams.directory_stream import DirectoryStream
 from ms_cfb.Models.Directories.directory import Directory
 from ms_cfb.Models.Directories.root_directory import RootDirectory
+from ms_cfb.Models.Directories.directory_factory import DirectoryFactory
 from ms_cfb.Models.Filesystems.fat_filesystem import FatFilesystem
 from ms_cfb.Models.Filesystems.minifat_filesystem import MinifatFilesystem
 from typing import Type, TypeVar
@@ -263,18 +264,42 @@ class OleFile:
         if not mini_sector_cutoff == 4096:
             raise Exception('Mini-sector cuttoff is not correct.')
         obj._first_minichain_sector = minichain_sector
+        # Eventually check validity of...
         # minifat_sectors, fat_chain_sectors, dif_start_sector
         # dif_sectors
 
         # Read FAT sector list.
-        fat_sector_list = b''
-        if (major_version == 3):
-            fat_sector_list = f.read(436)
-        else:
-            fat_sector_list = f.read(4020)
-        
-        # read fat sectors
-        # read directory sectors
+        num_bytes = 3584 * (major_version - 3) + 436
+        fat_sector_list_bytes = f.read(num_bytes)
+        num = num_bytes // 4
+        format = "<" + str(num) + "I"
+        fat_sector_list = struct.unpack(format, fat_sector_list_bytes)
+
+        # read fat sectors and assemble into sector list
+        fat = []
+        i = 0
+        num = 2 ** (sector_shift - 2)
+        format = "<" + str(num) + "I"
+        sector = fat_sector_list[i]
+        while not sector == 0xFFFFFFFF:
+            f.seek((sector + 1) * 2 ** sector_shift, 0)
+            next_fat_bytes = f.read(2 ** sector_shift)
+            next_fat = struct.unpack(format, next_fat_bytes)
+            fat.extend(next_fat)
+            i = i + 1
+            sector = fat_sector_list[i]
+        # Assemble directory
+        dir_list = []
+        while not directory_list_sector == 0xFFFFFFFE:
+            f.seek((directory_list_sector + 1) * 2 ** sector_shift, 0)
+            for i in range(2 ** (sector_shift - 7)):
+                directory_bytes = f.read(128)
+                if not directory_bytes[0] == b'\x00':
+                    directory = DirectoryFactory.from_binary(directory_bytes)
+                    dir_list.append(directory.get_name())
+            directory_list_sector = fat[directory_list_sector]
+        # This is Bad
+        obj.dirlist = dir_list
+
         # extract minifat chain
-        # 
         return obj

@@ -73,8 +73,11 @@ def main_extract(args: argparse.Namespace) -> None:
 def main_list(args: argparse.Namespace) -> None:
     ole_file = OleFile.create_from_file(args.file)
     version = ole_file.get_version_string()
-    print('Version ' + version + ' OLE file\n')
-    print('GUID: ' + str(ole_file.get_guid()) + '\n')
+    print('Version ' + version + ' OLE file')
+    print('GUID: ' + str(ole_file.get_guid()))
+    print('Directories:')
+    for directory in ole_file.dirlist:
+        print(directory)
 
 
 def update_attributes(dir: 'Directory', conf: dict) -> None:

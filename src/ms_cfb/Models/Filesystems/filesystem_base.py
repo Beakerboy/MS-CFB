@@ -88,10 +88,7 @@ class FilesystemBase:
     def add_stream(self: T, stream: 'StreamBase') -> None:
         sector = self._start_new_chain()
         stream.set_start_sector(sector)
-        sectors_needed = (stream.stream_size() - 1) // self._sector_size
-        sectors_needed = max(sectors_needed, 0)
-        if sectors_needed > 0:
-            self.extend_chain(stream, sectors_needed)
+        self.request_new_sectors(stream)
         self._streams.append(stream)
 
     def _start_new_chain(self: T) -> int:

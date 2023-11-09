@@ -21,11 +21,13 @@ class StreamDirectory(FileStream, Directory):
         self.bytesUsed = 0
         self._file_path = path
 
-    def set_created(self: T, datetime: Filetime) -> None:
-        raise Exception("File Directory must have created date of zero.")
+    def set_created(self: T, created: Filetime) -> None:
+        if not created.to_msfiletime() == 0:
+            raise Exception("File Directory must have created date of zero.")
 
-    def set_modified(self: T, datetime: Filetime) -> None:
-        raise Exception("File Directory must have modified date of zero.")
+    def set_modified(self: T, modified: Filetime) -> None:
+        if not modified.to_msfiletime() == 0:
+            raise Exception("File Directory must have modified date of zero.")
 
     def set_clsid(self: T, clsid: uuid.UUID) -> None:
         raise Exception("clsid must be zero.")

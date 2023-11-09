@@ -14,5 +14,5 @@ def test_from_binary() -> None:
           + b'\x00\x00\x00\x00\x03\x00\x00\x00@\x02\x00\x00\x00\x00\x00\x00')
     root = DirectoryFactory.from_binary(da)
     assert isinstance(root, RootDirectory)
-    expected = "Root Entry\n\tCreated: 1601-01-01 00:00:00\n\tModified: 1601-01-01 00:00:00"
+    expected = "Root Entry\n\tCreated: 1601-01-01 00:00:00\n\tModified: 1601-01-01 00:00:00\n\tStart Sector: 3\n\tSize: 576"
     assert str(root) == expected

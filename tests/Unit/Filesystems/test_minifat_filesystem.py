@@ -14,7 +14,7 @@ def test_adding_chain() -> None:
     Add description. why is chain storage sector 16?
     """
     chain = MinifatFilesystem()
-    chain.set_storage_sector_size(16)
+    chain.set_storage_sector_size(512)
     stream = StreamStub()
     stream.set_stream_size(1)
     stream.set_storage_sector_size(64)
@@ -46,7 +46,7 @@ def test_adding_chain_longer_storage() -> None:
     Add description. Why is chain storage sector 24?
     """
     chain = MinifatFilesystem()
-    chain.set_storage_sector_size(24)
+    chain.set_storage_sector_size(512)
     stream = StreamStub()
     stream.set_stream_size(1)
     stream.set_storage_sector_size(64)

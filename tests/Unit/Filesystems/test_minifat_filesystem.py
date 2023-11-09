@@ -64,7 +64,9 @@ def test_adding_chain_longer_storage() -> None:
 
 
 def test_start_sector() -> None:
-    
+    pass
+
+
 T = TypeVar('T', bound='StreamStub')
 
 

@@ -23,7 +23,7 @@ class RootDirectory(StorageDirectory):
         """
         The number of bytes allocated in the minifat storage.
         """
-        if len(dir) == 0 and self.bytes_used > 0:
+        if len(self.directories) == 0 and self.bytes_used > 0:
             return self.bytes_used
         minifat_sector_size = 64
         size = 0

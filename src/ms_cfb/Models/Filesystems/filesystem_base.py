@@ -81,7 +81,7 @@ class FilesystemBase:
         if (have * self._sector_size) < size:
             needed = (size - 1) // self._sector_size + 1
             self.extend_chain(stream, needed - have)
-            
+
     def add_stream(self: T, stream: 'StreamBase') -> None:
         sector = self._start_new_chain()
         stream.set_start_sector(sector)

@@ -7,9 +7,9 @@ from typing import Any
 T = TypeVar('T', bound='ArrayStream')
 
 
-class ArrayStream(StreamBase, child_sector_size: int):
+class ArrayStream(StreamBase):
 
-    def __init__(self: T) -> None:
+    def __init__(self: T, child_sector_size: int) -> None:
         super(ArrayStream, self).__init__()
         self._data = []
         self._child_sector_size = child_sector_size

@@ -296,8 +296,8 @@ class OleFile:
                 directory_bytes = f.read(128)
                 if not directory_bytes[0] == 0:
                     directory = DirectoryFactory.from_binary(directory_bytes)
-                    dir_list.append(directory.get_name() + "C: " +
-                                    str(directory.get_created()) + " M: " +
+                    dir_list.append(directory.get_name() + "\n\tC: " +
+                                    str(directory.get_created()) + "\n\tM: " +
                                     str(directory.get_modified()))
 
             directory_list_sector = fat[directory_list_sector]

@@ -39,6 +39,10 @@ class StreamBase:
         return self._sectors[0]
 
     def set_storage_sector_size(self: T, size: int) -> None:
+        """
+        The size in bytes of each sector that will hold this
+        object
+        """
         self._storage_sector_size = size
 
     def set_additional_sectors(self: T, sectors: list) -> None:

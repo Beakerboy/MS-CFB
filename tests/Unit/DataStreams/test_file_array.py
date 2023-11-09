@@ -25,14 +25,14 @@ def test_constructor() -> None:
 def test_stream_size() -> None:
     stream = FileArray()
     stream.set_storage_sector_size(512)
-    # The array will cover an entire sector
+    # The array will cover an 64 bytes
     # when even a small amount of data is added.
     mock = FakeStream(5)
     stream.append(mock)
-    assert stream.stream_size() == 512
-    # if another small amount is added, it still
-    # takes up one sector
-    mock2 = FakeStream(5)
+    assert stream.stream_size() == 64
+    # if another small amount is added, it increases
+    # by multiples of 64
+    mock2 = FakeStream(65)
     stream.append(mock2)
-    assert stream.stream_size() == 512
+    assert stream.stream_size() == 192
 

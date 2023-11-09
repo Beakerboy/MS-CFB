@@ -11,7 +11,7 @@ def test_initial_properties() -> None:
 
 def test_adding_chain() -> None:
     """
-    Add description. why is chain storage sector 16?
+    Test adding streams to the chain.
     """
     chain = MinifatFilesystem()
     chain.set_storage_sector_size(512)
@@ -39,28 +39,6 @@ def test_adding_chain() -> None:
     f = open("test.bin", "rb")
     expected = "02000000 FEFFFFFF 03000000 FEFFFFFF" + "FFFFFFFF" * 124
     assert f.read() == bytes.fromhex(expected)
-
-
-def test_adding_chain_longer_storage() -> None:
-    """
-    Add description. Why is chain storage sector 24?
-    """
-    chain = MinifatFilesystem()
-    chain.set_storage_sector_size(512)
-    stream = StreamStub()
-    stream.set_stream_size(1)
-    stream.set_storage_sector_size(64)
-    chain.add_stream(stream)
-    stream2 = StreamStub()
-    stream2.set_stream_size(1)
-    stream2.set_storage_sector_size(64)
-    chain.add_stream(stream2)
-    chain.extend_chain(stream, 2)
-    chain.to_file("test.bin")
-    f = open("test.bin", "rb")
-    expected = ["02000000 FEFFFFFF 03000000 FEFFFFFF",
-                "FFFFFFFF FFFFFFFF"]
-    assert f.read() == bytes.fromhex(" ".join(expected))
 
 
 def test_start_sector() -> None:

@@ -36,6 +36,11 @@ class Directory(Node):
 
         self._flattened_index = 0
 
+    def __str__(self: T) -> str:
+        return (self.get_name() +
+                "\n\tC: " + str(self.get_created()) +
+                "\n\tM: " + str(self.get_modified()))
+
     def __lt__(self: T, other: T) -> bool:
         return ((len(self.name), self.name.upper())
                 < (len(other.name), other.name.upper()))

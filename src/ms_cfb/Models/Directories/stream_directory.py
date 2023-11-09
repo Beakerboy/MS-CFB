@@ -48,6 +48,8 @@ class StreamDirectory(FileStream, Directory):
         """
         Size in bytes of the file
         """
+        if self._file_path == "":
+            return self.bytes_used
         return os.stat(self._file_path).st_size
 
     def minifat_sectors_used(self: T) -> int:

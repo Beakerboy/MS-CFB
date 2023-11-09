@@ -3,6 +3,9 @@ from ms_cfb.Models.DataStreams.stream_base import StreamBase
 from typing import TypeVar
 
 
+T = TypeVar('T', bound='FakeStream')
+
+
 class FakeStream(StreamBase):
 
     def __init__(self: T, stream_size: int) -> None:

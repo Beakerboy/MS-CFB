@@ -20,7 +20,7 @@ def test_adding_chain() -> None:
     stream.set_storage_sector_size(64)
     chain.add_stream(stream)
     assert len(chain) == 1
-    assert chain.get_chain() == [0xfffffffe] + [0xfffffffe] * 508
+    assert chain.get_chain() == [0xfffffffe]
     assert stream.get_sectors() == [0]
 
     stream2 = StreamStub()
@@ -37,7 +37,7 @@ def test_adding_chain() -> None:
 
     chain.to_file("test.bin")
     f = open("test.bin", "rb")
-    expected = "02000000 FEFFFFFF 03000000 FEFFFFFF"
+    expected = "02000000 FEFFFFFF 03000000 FEFFFFFF" + "FFFFFFFF" * 496
     assert f.read() == bytes.fromhex(expected)
 
 

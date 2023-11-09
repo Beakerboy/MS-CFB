@@ -1,15 +1,13 @@
 from ms_cfb.Models.DataStreams.file_array import FileArray
-from ms_cfb.Models.DataStreams.stream_base import StreamBase
 from typing import TypeVar
 
 
 T = TypeVar('T', bound='FakeStream')
 
 
-class FakeStream(StreamBase):
+class FakeStream():
 
     def __init__(self: T, stream_size: int) -> None:
-        super(FakeStream, self).__init__()
         self._stream_size = stream_size
 
     def stream_size(self: T) -> int:

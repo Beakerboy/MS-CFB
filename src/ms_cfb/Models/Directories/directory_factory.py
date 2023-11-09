@@ -34,8 +34,7 @@ class DirectoryFactory:
             obj.bytes_used = file_size
         elif type == 5:
             obj = RootDirectory()
-        else:
-            obj = Directory()
+            obj.bytes_used = file_size
         obj.set_modified(modified)
         obj.set_created(created)
         obj.set_start_sector(start_sector)

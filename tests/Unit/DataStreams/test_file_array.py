@@ -8,7 +8,7 @@ def test_constructor() -> None:
 
 def test_stream_size() -> None:
     stream = FileArray()
-    stream.set_storage_size(512)
+    stream.set_storage_sector_size(512)
     file1 = open('file1.bin', 'ab')
     file1.write(b'\x01')
     file1.close()

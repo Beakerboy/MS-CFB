@@ -11,9 +11,10 @@ T = TypeVar('T', bound='MinifatFilesystem')
 class MinifatFilesystem(FilesystemBase, StreamBase):
 
     def __init__(self: T) -> None:
-        FilesystemBase.__init__(self, 64)
+        minifat_sector_size = 64
+        FilesystemBase.__init__(self, minifat_sector_size)
         StreamBase.__init__(self)
-        self._streams = FileArray()
+        self._streams = FileArray(minifat_sector_size)
 
     def set_storage_sector_size(self: T, size: int) -> None:
         self._storage_sector_size = size

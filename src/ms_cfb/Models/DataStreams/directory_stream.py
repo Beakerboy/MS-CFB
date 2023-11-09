@@ -9,7 +9,7 @@ T = TypeVar('T', bound='DirectoryStream')
 class DirectoryStream(ArrayStream):
 
     def __init__(self: T) -> None:
-        ArrayStream.__init__(self)
+        ArrayStream.__init__(self, 128)
         self._padding = (b'\x00' * (16 * 4 + 4) + b'\xff' * 12
                          + b'\x00' * 16 * 3)
 

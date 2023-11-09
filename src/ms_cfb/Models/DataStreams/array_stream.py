@@ -9,9 +9,10 @@ T = TypeVar('T', bound='ArrayStream')
 
 class ArrayStream(StreamBase):
 
-    def __init__(self: T) -> None:
+    def __init__(self: T, child_sector_size: int) -> None:
         super(ArrayStream, self).__init__()
         self._data = []
+        self._child_sector_size = child_sector_size
 
     def __iter__(self: T) -> Iterator:
         return iter(self._data)
@@ -36,9 +37,9 @@ class ArrayStream(StreamBase):
         sum = 0
         for stream in self._data:
             sectors = ((stream.stream_size() - 1)
-                       // self._storage_sector_size
+                       // self._child_sector_size
                        + 1)
-            sum += sectors * self._storage_sector_size
+            sum += sectors * self._child_sector_size
         return sum
 
     def _extend_data(self: T, data: Any) -> None:

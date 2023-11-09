@@ -18,12 +18,12 @@ class FakeStream():
 
 
 def test_constructor() -> None:
-    stream = FileArray()
+    stream = FileArray(64)
     assert isinstance(stream, FileArray)
 
 
 def test_stream_size() -> None:
-    stream = FileArray()
+    stream = FileArray(64)
     stream.set_storage_sector_size(512)
     # The array will cover an 64 bytes
     # when even a small amount of data is added.

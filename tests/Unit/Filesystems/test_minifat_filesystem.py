@@ -28,6 +28,7 @@ def test_adding_chain() -> None:
     stream2.set_storage_sector_size(64)
     chain.add_stream(stream2)
     assert stream2.get_start_sector() == 1
+    assert stream.get_sectors() == [1]
     assert len(chain) == 2
     assert chain.get_chain() == [0xfffffffe, 0xfffffffe]
 

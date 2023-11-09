@@ -37,7 +37,7 @@ def test_adding_chain() -> None:
 
     chain.to_file("test.bin")
     f = open("test.bin", "rb")
-    expected = "02000000 FEFFFFFF 03000000 FEFFFFFF" + "FFFFFFFF" * 496
+    expected = "02000000 FEFFFFFF 03000000 FEFFFFFF" + "FFFFFFFF" * 124
     assert f.read() == bytes.fromhex(expected)
 
 

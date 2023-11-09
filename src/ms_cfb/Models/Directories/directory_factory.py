@@ -35,4 +35,5 @@ class DirectoryFactory:
             obj = Directory()
         obj.set_modified(modified)
         obj.set_created(created)
+        obj.set_start_sector(start_sector)
         return obj

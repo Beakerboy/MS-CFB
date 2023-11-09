@@ -9,6 +9,13 @@ T = TypeVar('T', bound='FileArray')
 
 class FileArray(ArrayStream):
 
+    def stream_size(self: T) -> int:
+        sum = 0
+        for stream in self._data:
+            sectors = ((stream.stream_size() - 1) // 64 + 1)
+            sum += sectors * 64
+        return sum
+
     def _render_element(self: T, dir: 'FileStream') -> bytes:
         dir.to_file("temp.bin")
         f = open("temp.bin", "rb")

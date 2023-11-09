@@ -12,6 +12,8 @@ class RootDirectory(StorageDirectory):
         super(RootDirectory, self).__init__("Root Entry")
         self._type = 5
         self._start_sector = 0xFFFFFFFE
+        # The value from the factory method.
+        self.bytes_used = 0
 
     def set_created(self: T, created: Filetime) -> None:
         if not created.to_msfiletime() == 0:
@@ -21,6 +23,8 @@ class RootDirectory(StorageDirectory):
         """
         The number of bytes allocated in the minifat storage.
         """
+        if len(dir) == 0 and self.bytes_used > 0:
+            return self.bytes_used
         minifat_sector_size = 64
         size = 0
         for dir in self.directories:

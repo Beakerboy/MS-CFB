@@ -18,7 +18,7 @@ class FakeStream():
 
 
 def test_constructor() -> None:
-    stream = FileArray()
+    stream = FileArray(64)
     assert isinstance(stream, FileArray)
 
 

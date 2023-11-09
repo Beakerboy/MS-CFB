@@ -10,9 +10,13 @@ def test_initial_properties() -> None:
 
 
 def test_adding_chain() -> None:
+    """
+    Add description. why is chain storage sector 16?
+    """
     chain = MinifatFilesystem()
     chain.set_storage_sector_size(16)
     stream = StreamStub()
+    stream.set_stream_size(1)
     stream.set_storage_sector_size(64)
     chain.add_stream(stream)
     assert len(chain) == 1
@@ -20,6 +24,7 @@ def test_adding_chain() -> None:
     assert stream.get_sectors() == [0]
 
     stream2 = StreamStub()
+    stream2.set_stream_size(1)
     stream2.set_storage_sector_size(64)
     chain.add_stream(stream2)
     assert len(chain) == 2
@@ -37,12 +42,17 @@ def test_adding_chain() -> None:
 
 
 def test_adding_chain_longer_storage() -> None:
+    """
+    Add description. Why is chain storage sector 24?
+    """
     chain = MinifatFilesystem()
     chain.set_storage_sector_size(24)
     stream = StreamStub()
+    stream.set_stream_size(1)
     stream.set_storage_sector_size(64)
     chain.add_stream(stream)
     stream2 = StreamStub()
+    stream2.set_stream_size(1)
     stream2.set_storage_sector_size(64)
     chain.add_stream(stream2)
     chain.extend_chain(stream, 2)
@@ -53,9 +63,14 @@ def test_adding_chain_longer_storage() -> None:
     assert f.read() == bytes.fromhex(" ".join(expected))
 
 
+def test_start_sector() -> None:
+    
 T = TypeVar('T', bound='StreamStub')
 
 
 class StreamStub(StreamBase):
+    def set_stream_size(size: int) -> None:
+        self._size = size
+
     def stream_size(self: T) -> int:
-        return 1
+        return self._size

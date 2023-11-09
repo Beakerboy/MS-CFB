@@ -17,6 +17,9 @@ class MinifatFilesystem(FilesystemBase, StreamBase):
         self._streams = FileArray(minifat_sector_size)
 
     def set_storage_sector_size(self: T, size: int) -> None:
+        """
+        From StreamBase
+        """
         self._storage_sector_size = size
         self._streams.set_storage_sector_size(size)
 

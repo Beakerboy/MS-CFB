@@ -83,8 +83,7 @@ class FilesystemBase:
             self.extend_chain(stream, needed - have)
             start = str(stream.get_start_sector())
             num = str(needed - have)
-            print("Extended length of stream" + start + " by " + num + " sectors")
-
+            
     def add_stream(self: T, stream: 'StreamBase') -> None:
         sector = self._start_new_chain()
         stream.set_start_sector(sector)

@@ -20,7 +20,7 @@ def test_adding_chain() -> None:
     stream.set_storage_sector_size(64)
     chain.add_stream(stream)
     assert len(chain) == 1
-    assert chain.get_chain() == [0xfffffffe]
+    assert chain.get_chain() == [0xfffffffe] + [0xfffffffe] * 511
     assert stream.get_sectors() == [0]
 
     stream2 = StreamStub()

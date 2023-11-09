@@ -27,6 +27,7 @@ def test_adding_chain() -> None:
     stream2.set_stream_size(1)
     stream2.set_storage_sector_size(64)
     chain.add_stream(stream2)
+    assert stream2.get_start_sector() == 1
     assert len(chain) == 2
     assert chain.get_chain() == [0xfffffffe, 0xfffffffe]
 
@@ -34,6 +35,7 @@ def test_adding_chain() -> None:
     assert len(chain) == 4
     assert chain.get_chain() == [2, 0xfffffffe, 3, 0xfffffffe]
     assert stream.get_sectors() == [0, 2, 3]
+    assert stream.get_start_sector() == 0
 
     chain.to_file("test.bin")
     f = open("test.bin", "rb")

@@ -17,7 +17,8 @@ class FakeStream(StreamBase):
         From StreamBase
         """
         return self._stream_size
-    
+
+
 def test_constructor() -> None:
     stream = FileArray()
     assert isinstance(stream, FileArray)
@@ -29,5 +30,3 @@ def test_stream_size() -> None:
     mock = FakeStream(5)
     stream.append(mock)
     assert stream.stream_size() == 512
-    
-    

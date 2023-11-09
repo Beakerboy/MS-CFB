@@ -35,4 +35,3 @@ def test_stream_size() -> None:
     mock2 = FakeStream(65)
     stream.append(mock2)
     assert stream.stream_size() == 192
-

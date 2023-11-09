@@ -23,14 +23,16 @@ class DirectoryFactory:
          file_size,
          zero) = struct.unpack(format, data)
         name = str(name, encoding='utf_16_le')
+        modified = Filetime.from_msfiletime(modified)
+        created = Filetime.from_msfiletime(created)
         if type == 1:
             obj = StorageDirectory(name)
         elif type == 2:
             obj = StreamDirectory(name, '')
         elif type == 5:
             obj = RootDirectory()
-            modified = Filetime.from_msfiletime(modified)
         else:
             obj = Directory()
-
+        obj.set_modified(modified)
+        obj.set_created(created)
         return obj

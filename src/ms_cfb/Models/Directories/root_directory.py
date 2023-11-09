@@ -14,7 +14,8 @@ class RootDirectory(StorageDirectory):
         self._start_sector = 0xFFFFFFFE
 
     def set_created(self: T, created: Filetime) -> None:
-        raise Exception("Root Directory must have created date of zero.")
+        if not created.to_msfiletime() == 0:
+            raise Exception("Root Directory must have created date of zero.")
 
     def file_size(self: T) -> int:
         """

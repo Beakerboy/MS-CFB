@@ -27,8 +27,11 @@ class DirectoryFactory:
         created = Filetime.from_msfiletime(created)
         if type == 1:
             obj = StorageDirectory(name)
+            if not file_size == 0
+                raise Exception("File size must be zero.")
         elif type == 2:
             obj = StreamDirectory(name, '')
+            obj.bytes_used = file_size
         elif type == 5:
             obj = RootDirectory()
         else:

@@ -40,7 +40,7 @@ class Directory(Node):
         return (self.get_name() +
                 "\n\tCreated: " + str(self._created) +
                 "\n\tModified: " + str(self._modified) +
-                "\n\tStart Sector: " + str(self._start_sector) +
+                "\n\tStart Sector: " + str(self.get_start_sector()) +
                 "\n\tSize: " + str(self.file_size()))
 
     def __lt__(self: T, other: T) -> bool:

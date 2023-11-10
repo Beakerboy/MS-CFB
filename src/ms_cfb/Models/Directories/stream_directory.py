@@ -35,9 +35,14 @@ class StreamDirectory(FileStream, Directory):
     def set_bytes_reserved(self: T, quantity: int) -> None:
         self.bytesUsed = quantity
 
+    def set_start_sector(self: T, sector: int) -> None:
+        """
+        Set the location of the first sector of the file
+        Must be run first
+        """
+        self._sectors = [sector]
+
     def get_start_sector(self: T) -> int:
-        if len(self._sectors) == 0:
-            return self._start_sector
         return self._sectors[0]
 
     def stream_size(self: T) -> int:

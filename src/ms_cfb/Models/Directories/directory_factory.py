@@ -22,7 +22,7 @@ class DirectoryFactory:
          modified, start_sector,
          file_size,
          zero) = struct.unpack(format, data)
-        name = str(name, encoding='utf_16_le')
+        name = str(name, encoding='utf_16_le').rstrip('\x00')
         modified = Filetime.from_msfiletime(modified)
         created = Filetime.from_msfiletime(created)
         if type == 1:
@@ -33,6 +33,8 @@ class DirectoryFactory:
             obj = StreamDirectory(name, '')
             obj.bytes_used = file_size
         elif type == 5:
+            if not name == "Root Entry":
+                raise Exception('Root name is not correct.')
             obj = RootDirectory()
             obj.bytes_used = file_size
         obj.set_modified(modified)

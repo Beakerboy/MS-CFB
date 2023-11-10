@@ -15,8 +15,10 @@ class StorageDirectory(Directory):
         self.directories = RedBlackTree()
         self._flat = []
 
-    def file_size(self: T) -> int:
-        return 0
+    def __str__(self: T) -> str:
+        return (self.get_name() +
+                "\n\tCreated: " + str(self._created) +
+                "\n\tModified: " + str(self._modified))
 
     def minifat_sectors_used(self: T) -> int:
         size = 0

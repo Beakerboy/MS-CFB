@@ -21,6 +21,11 @@ class StreamDirectory(FileStream, Directory):
         self.bytesUsed = 0
         self._file_path = path
 
+    def __str__(self: T) -> str:
+        return (self.get_name() +
+                "\n\tStart Sector: " + str(self.get_start_sector()) +
+                "\n\tSize: " + str(self.file_size()))
+
     def set_created(self: T, created: Filetime) -> None:
         if not created.to_msfiletime() == 0:
             raise Exception("File Directory must have created date of zero.")

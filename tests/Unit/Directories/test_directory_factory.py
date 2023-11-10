@@ -34,7 +34,7 @@ def test_storage_from_binary() -> None:
     storage = DirectoryFactory.from_binary(bytes.fromhex(da))
     assert isinstance(storage, StorageDirectory)
     expected = ("VBA\n\tCreated: 2023-01-09 14:07:51.292000\n\tModified: "
-                + "2023-01-09 14:07:51.292000\n\tStart Sector: 0\n\tSize: 0")
+                + "2023-01-09 14:07:51.292000")
     assert str(storage) == expected
 
 
@@ -50,6 +50,5 @@ def test_stream_from_binary() -> None:
           + "0000 0000 1000 0000 DF03 0000 0000 0000")
     stream = DirectoryFactory.from_binary(bytes.fromhex(da))
     assert isinstance(stream, StreamDirectory)
-    expected = ("Sheet1\n\tCreated: 1601-01-01 00:00:00\n\tModified: "
-                + "1601-01-01 00:00:00\n\tStart Sector: 16\n\tSize: 991")
+    expected = ("Sheet1\n\tStart Sector: 16\n\tSize: 991")
     assert str(stream) == expected

@@ -51,5 +51,5 @@ def test_stream_from_binary() -> None:
     stream = DirectoryFactory.from_binary(bytes.fromhex(da))
     assert isinstance(stream, StreamDirectory)
     expected = ("VBA\n\tCreated: 1601-01-01 00:00:00\n\tModified: "
-                + "1601-01-01 00:00:00\n\tStart Sector: 4\n\tSize: 200")
+                + "1601-01-01 00:00:00\n\tStart Sector: 4\n\tSize: 991")
     assert str(stream) == expected

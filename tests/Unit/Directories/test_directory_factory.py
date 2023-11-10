@@ -1,6 +1,7 @@
 from ms_cfb.Models.Directories.directory_factory import DirectoryFactory
 from ms_cfb.Models.Directories.root_directory import RootDirectory
 from ms_cfb.Models.Directories.storage_directory import StorageDirectory
+from ms_cfb.Models.Directories.stream_directory import StreamDirectory
 
 
 def test_root_from_binary() -> None:
@@ -35,3 +36,20 @@ def test_storage_from_binary() -> None:
     expected = ("VBA\n\tCreated: 2023-01-09 14:07:51.292000\n\tModified: "
                 + "2023-01-09 14:07:51.292000\n\tStart Sector: 0\n\tSize: 0")
     assert str(storage) == expected
+
+
+def test_stream_from_binary() -> None:
+    da = (""
+          + "5300 6800 6500 6500 7400 3100 0000 0000"
+          + "0000 0000 0000 0000 0000 0000 0000 0000"
+          + "0000 0000 0000 0000 0000 0000 0000 0000"
+          + "0000 0000 0000 0000 0000 0000 0000 0000"
+          + "0E00 0201 0600 0000 FFFF FFFF FFFF FFFF"
+          + "0000 0000 0000 0000 0000 0000 0000 0000"
+          + "0000 0000 0000 0000 0000 0000 0000 0000"
+          + "0000 0000 1000 0000 DF03 0000 0000 0000")
+    stream = DirectoryFactory.from_binary(bytes.fromhex(da))
+    assert isinstance(stream, StreamDirectory)
+    expected = ("VBA\n\tCreated: 1601-01-01 00:00:00\n\tModified: "
+                + "1601-01-01 00:00:00\n\tStart Sector: 4\n\tSize: 200")
+    assert str(stream) == expected

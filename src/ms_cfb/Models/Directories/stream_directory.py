@@ -35,6 +35,15 @@ class StreamDirectory(FileStream, Directory):
     def set_bytes_reserved(self: T, quantity: int) -> None:
         self.bytesUsed = quantity
 
+    def set_start_sector(self: T, sector: int) -> None:
+        """
+        Copied feom StreamBase since Directory has a
+        funcrion with the same name.
+        Set the location of the first sector of the file
+        Must be run first
+        """
+        self._sectors = [sector]
+
     def get_start_sector(self: T) -> int:
         return self._sectors[0]
 

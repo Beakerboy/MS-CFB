@@ -36,6 +36,8 @@ class StreamDirectory(FileStream, Directory):
         self.bytesUsed = quantity
 
     def get_start_sector(self: T) -> int:
+        if len(self._sectors) == 0:
+            return self._start_sector
         return self._sectors[0]
 
     def stream_size(self: T) -> int:

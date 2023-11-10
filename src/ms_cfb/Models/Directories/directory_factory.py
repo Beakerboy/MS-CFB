@@ -23,6 +23,8 @@ class DirectoryFactory:
          file_size,
          zero) = struct.unpack(format, data)
         name = str(name, encoding='utf_16_le').rstrip('\x00')
+        if not (len(name) + 1) * 2 == name_size:
+            raise Exception("Name / Size mismatch.")
         modified = Filetime.from_msfiletime(modified)
         created = Filetime.from_msfiletime(created)
         if type == 1:

@@ -33,4 +33,4 @@ def test_storage_from_binary() -> None:
     assert isinstance(storage, StorageDirectory)
     expected = ("VBA\n\tCreated: 2023-01-09 14:07:51.292000\n\tModified: "
         + "2023-01-09 14:07:51.292000\n\tStart Sector: 0\n\tSize: 0")
-    assert str(root) == expected
+    assert str(storage) == expected

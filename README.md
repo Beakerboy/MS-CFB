@@ -50,7 +50,7 @@ optional arguments:
   -h, --help            show this help message and exit
   -c, --create          Create an OLE container from a directory
   -x, --extract         Extract files from an OLE container
-  -l, --list.           List the contents and information about the OLE container.
+  -l, --list            List the contents and information about the OLE container.
   -v {3,4}, --version {3,4}
                         The OLE version to use.
   -f FILE, --file FILE

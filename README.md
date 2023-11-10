@@ -50,6 +50,7 @@ optional arguments:
   -h, --help            show this help message and exit
   -c, --create          Create an OLE container from a directory
   -x, --extract         Extract files from an OLE container
+  -l, --list.           List the contents and information about the OLE container.
   -v {3,4}, --version {3,4}
                         The OLE version to use.
   -f FILE, --file FILE
@@ -58,11 +59,11 @@ optional arguments:
                         Path to exta directory settings yml file.
 
 examples:
-  python -m ole_file -c -f vbaProject.bin -v 3 -X info.yml ./project
+  python -m ms_cfb -c -f vbaProject.bin -v 3 -X info.yml ./project
 
-  python -m ole_file -x -f vbaProject.bin ./project
+  python -m ms_cfb -x -f vbaProject.bin ./project
 
-  python -m ole_file -l -f vbaProject.bin
+  python -m ms_cfb -l -f vbaProject.bin
 ```
 
 Some directory settings can be specified from a YAML file. Directory paths are relative to the project root. Users can specify creation and modification date in ISO format, class id as a UUID string, and user flags as a four byte integer.

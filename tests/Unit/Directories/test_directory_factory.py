@@ -1,8 +1,9 @@
 from ms_cfb.Models.Directories.directory_factory import DirectoryFactory
 from ms_cfb.Models.Directories.root_directory import RootDirectory
+from ms_cfb.Models.Directories.storage_directory import StorageDirectory
 
 
-def test_from_binary() -> None:
+def test_root_from_binary() -> None:
     da = (b''
           + b'R\x00o\x00o\x00t\x00 \x00E\x00n\x00t\x00'
           + b'r\x00y\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00'
@@ -17,3 +18,18 @@ def test_from_binary() -> None:
     expected = ("Root Entry\n\tCreated: 1601-01-01 00:00:00\n\tModified: " +
                 "2023-01-09 14:07:51.292000\n\tStart Sector: 3\n\tSize: 576")
     assert str(root) == expected
+
+def test_storage_from_binary() -> None:
+    da = bytes.fromhex(""
+        + "5600 4200 4100 0000 0000 0000 0000 0000"
+        + "0000 0000 0000 0000 0000 0000 0000 0000"
+        + "0000 0000 0000 0000 0000 0000 0000 0000"
+        + "0000 0000 0000 0000 0000 0000 0000 0000"
+        + "0800 0100 FFFF FFFF FFFF FFFF 0400 0000"
+        + "0000 0000 0000 0000 0000 0000 0000 0000"
+        + "0000 0000 C023 B8C2 3324 D901 C023 B8C2"
+        + "3324 D901 0000 0000 0000 0000 0000 0000")
+    storage = DirectoryFactory.from_binary(da)
+    assert isinstance(root, StorageDirectory)
+    expected = ("VBA\n\tCreated: 2023-01-09 14:07:51.292000\n\tModified: "
+        + "2023-01-09 14:07:51.292000\n\tStart Sector: 0\n\tSize: 0")

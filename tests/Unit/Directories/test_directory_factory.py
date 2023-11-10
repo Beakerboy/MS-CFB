@@ -19,6 +19,7 @@ def test_root_from_binary() -> None:
                 "2023-01-09 14:07:51.292000\n\tStart Sector: 3\n\tSize: 576")
     assert str(root) == expected
 
+
 def test_storage_from_binary() -> None:
     da = (""
           + "5600 4200 4100 0000 0000 0000 0000 0000"
@@ -32,5 +33,5 @@ def test_storage_from_binary() -> None:
     storage = DirectoryFactory.from_binary(bytes.fromhex(da))
     assert isinstance(storage, StorageDirectory)
     expected = ("VBA\n\tCreated: 2023-01-09 14:07:51.292000\n\tModified: "
-        + "2023-01-09 14:07:51.292000\n\tStart Sector: 0\n\tSize: 0")
+                + "2023-01-09 14:07:51.292000\n\tStart Sector: 0\n\tSize: 0")
     assert str(storage) == expected

@@ -15,6 +15,12 @@ class RootDirectory(StorageDirectory):
         # The value from the factory method.
         self.bytes_used = 0
 
+    def __str__(self: T) -> str:
+        return (self.get_name() +
+                "\n\tModified: " + str(self._modified) +
+                "\n\tStart Sector: " + str(self.get_start_sector()) +
+                "\n\tSize: " + str(self.file_size()))
+
     def set_created(self: T, created: Filetime) -> None:
         if not created.to_msfiletime() == 0:
             raise Exception("Root Directory must have created date of zero.")

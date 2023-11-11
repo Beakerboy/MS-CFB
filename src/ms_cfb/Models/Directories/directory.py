@@ -12,19 +12,32 @@ class Directory(Node):
     """An OLE directory object"""
 
     def __init__(self: T) -> None:
+        # This object is a node in a red-black tree.
         Node.__init__(self)
+
+        # The directory to the left on the tree.
         self.left = Node()
+
+        # The directory to the right on the tree.
         self.right = Node()
+
+        # The object's name.
         self.name = ""
 
         self._previous_directory_id = 0xFFFFFFFF
         self._next_directory_id = 0xFFFFFFFF
+
+        # The the root node of the red-black tree which organizes the streams
+        # within this storage directory.
         self._subdirectory_id = 0xFFFFFFFF
 
+        # A GUID for this object.
         self._class_id = uuid.UUID(int=0x00)
 
+        # todo:
         self._user_flags = 0
 
+        # Creation and Modification dates.
         self._created = Filetime(1601, 1, 1)
         self._modified = Filetime(1601, 1, 1)
 
@@ -32,8 +45,12 @@ class Directory(Node):
         # This can either be a minifat sector number or a Fat sector
         # depending on the stream size.
         self._start_sector = 0
+
+        # The directory type.
+        # probably can be removed.
         self._type = 0
 
+        # This objext's index in the flattened representation of the tree.
         self._flattened_index = 0
 
     def __str__(self: T) -> str:

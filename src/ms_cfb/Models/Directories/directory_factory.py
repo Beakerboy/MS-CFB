@@ -27,6 +27,7 @@ class DirectoryFactory:
             raise Exception("Name / Size mismatch.")
         modified = Filetime.from_msfiletime(modified)
         created = Filetime.from_msfiletime(created)
+        # Set Class_id (GUID)
         if type == 1:
             obj = StorageDirectory(name)
             if not file_size == 0:

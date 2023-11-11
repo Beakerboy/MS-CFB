@@ -12,6 +12,10 @@ from ms_dtyp.filetime import Filetime
 
 
 def main() -> None:
+    """
+    Collect the command line arguments and pass them on to the appropriate
+    subroutine.
+    """
     parser = argparse.ArgumentParser()
     parser.add_argument("directory", nargs='?',
                         help="The input or output directory.")
@@ -39,6 +43,11 @@ def main() -> None:
 
 
 def main_create(args: argparse.Namespace) -> None:
+    """
+    Create the OLE container from files in a directory tree.
+    The created and modified times are pulled from the file system
+    and can be overridden by a configuration file.
+    """
     ole_file = OleFile()
     if args.version == 4:
         ole_file.set_version(4)
@@ -67,10 +76,16 @@ def main_create(args: argparse.Namespace) -> None:
 
 
 def main_extract(args: argparse.Namespace) -> None:
+    """
+    Extract all streams, or a specified stream from the OLE container.
+    """
     pass
 
 
 def main_list(args: argparse.Namespace) -> None:
+    """
+    List metadata from the OLE container.
+    """
     ole_file = OleFile.create_from_file(args.file)
     version = ole_file.get_version_string()
     print('Version ' + version + ' OLE file')
@@ -81,6 +96,10 @@ def main_list(args: argparse.Namespace) -> None:
 
 
 def update_attributes(dir: 'Directory', conf: dict) -> None:
+    """
+    Update metadata of the OLE file streams using information provided in the
+    configuration file.
+    """
     if "modified" in conf:
         datetime = Filetime.fromisoformat(conf["modified"])
         dir.set_modified(datetime)
@@ -95,6 +114,10 @@ def update_attributes(dir: 'Directory', conf: dict) -> None:
 
 def create_storage(direntry: os.DirEntry,
                    directories: dict) -> StorageDirectory:
+    """
+    Traverse the file stricture and cretae a tree of Storage and Stream
+    Directories.
+    """
     dir = StorageDirectory(direntry.name)
     obj = os.scandir(direntry.path)
     for entry in obj:

@@ -24,9 +24,6 @@ class Directory(Node):
         # The object's name.
         self.name = ""
 
-        self._previous_directory_id = 0xFFFFFFFF
-        self._next_directory_id = 0xFFFFFFFF
-
         # The the root node of the red-black tree which organizes the streams
         # within this storage directory.
         self._subdirectory_id = 0xFFFFFFFF
@@ -135,13 +132,18 @@ class Directory(Node):
             right = 0xFFFFFFFF
         else:
             right = self.right._flattened_index
+        left = 0
+        if self.left.is_null():
+            left = 0xFFFFFFFF
+        else:
+            left = self.left._flattened_index
         dir = struct.pack(
             format,
             self.name.encode("utf_16_le"),
             self.name_size(),
             self._type,
             color,
-            self._previous_directory_id,
+            left,
             right,
             self._subdirectory_id,
             self._class_id.bytes_le,

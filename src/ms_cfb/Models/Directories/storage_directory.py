@@ -56,11 +56,3 @@ class StorageDirectory(Directory):
             dir._flattened_index = i
             i += 1
         return flat
-
-    def set_child(self: T) -> None:
-        child_root = self.directories.get_root()
-        if not child_root.is_null():
-            self._subdirectory_id = child_root._flattened_index
-        for child in self.directories:
-            if child._type == 1:
-                child.set_child()

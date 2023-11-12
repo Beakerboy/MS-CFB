@@ -285,10 +285,11 @@ class OleFile:
             next_fat_bytes = f.read(2 ** sector_shift)
             next_fat = struct.unpack(format, next_fat_bytes)
             fat.extend(next_fat)
-            i = i + 1
+            i += 1
             sector = fat_sector_list[i]
         # Assemble directory
         dir_list = []
+        j = 0
         while not directory_list_sector == 0xFFFFFFFE:
             f.seek((directory_list_sector + 1) * 2 ** sector_shift, 0)
             for i in range(2 ** (sector_shift - 7)):
@@ -296,6 +297,8 @@ class OleFile:
                 if not directory_bytes[0] == 0:
                     directory = DirectoryFactory.from_binary(directory_bytes)
                     dir_list.append(str(directory))
+                    directory.set_flattened_index(j)
+                    j += 1
 
             directory_list_sector = fat[directory_list_sector]
         # This is Bad

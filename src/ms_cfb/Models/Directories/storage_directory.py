@@ -5,7 +5,7 @@ from typing import TypeVar
 
 T = TypeVar('T', bound='StorageDirectory')
 
-12345678901234567890123456789012345678901234567890123456789012345678901234567890
+
 class StorageDirectory(Directory):
     """
     A StorageDirectory represents a file system diresctory. It adds a red-black
@@ -24,6 +24,16 @@ class StorageDirectory(Directory):
                 "\n\tCreated: " + str(self._created) +
                 "\n\tModified: " + str(self._modified))
 
+    def get_subdirectory_index(self: T) -> int:
+        """
+        Overriding Directory.get_subdirectory_index()
+        If the red-black tree has a root, return its flattened index.
+        """
+        node = self.directories.get_root()
+        if node.is_null():
+            return = 0xFFFFFFFF
+        return node.get_flattened_index()
+        
     def minifat_sectors_used(self: T) -> int:
         size = 0
         for dir in self.directories:

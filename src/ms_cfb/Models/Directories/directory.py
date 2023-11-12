@@ -47,7 +47,7 @@ class Directory(Node):
         # probably can be removed.
         self._type = 0
 
-        # This objext's index in the flattened representation of the tree.
+        # This object's index in the flattened representation of the tree.
         self._flattened_index = 0
 
     def __str__(self: T) -> str:

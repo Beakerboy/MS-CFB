@@ -32,7 +32,7 @@ class StorageDirectory(Directory):
         node = self.directories.get_root()
         if node.is_null():
             return 0xFFFFFFFF
-        return node.get_flattened_index()
+        return node._flattened_index
         
     def minifat_sectors_used(self: T) -> int:
         size = 0

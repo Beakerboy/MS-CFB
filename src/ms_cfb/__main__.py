@@ -91,10 +91,13 @@ def main_list(args: argparse.Namespace) -> None:
     print('Version ' + version + ' OLE file')
     print('GUID: ' + str(ole_file.get_guid()))
     print('Directories:')
+    i = 0
     for directory in ole_file.dirlist:
         print(directory)
+        directory.set_flattened_index(i)
+        i += 1
     file_structure = flat_to_tree(ole_file.dirlist)
-    for directory in file_steucture:
+    for directory in file_structure:
         print("\t" * directory['level'] + directory["name"])
 
 

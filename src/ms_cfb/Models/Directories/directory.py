@@ -126,7 +126,7 @@ class Directory(Node):
         The the root node of the red-black tree which organizes the streams
         within a storage directory.
         """
-        return = 0xFFFFFFFF
+        return 0xFFFFFFFF
 
     def to_bytes(self: T) -> bytes:
         format = "<64shbb3I16sIQQIII"

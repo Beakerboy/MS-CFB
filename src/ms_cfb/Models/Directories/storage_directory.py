@@ -5,8 +5,12 @@ from typing import TypeVar
 
 T = TypeVar('T', bound='StorageDirectory')
 
-
+12345678901234567890123456789012345678901234567890123456789012345678901234567890
 class StorageDirectory(Directory):
+    """
+    A StorageDirectory represents a file system diresctory. It adds a red-black
+    tree to the parent class as a way to organize its contents.
+    """
 
     def __init__(self: T, name: str) -> None:
         super(StorageDirectory, self).__init__()

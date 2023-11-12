@@ -134,5 +134,6 @@ def create_storage(direntry: os.DirEntry,
         update_attributes(dir, dir_config)
     return dir
 
+
 if __name__ == '__main__':
     main()

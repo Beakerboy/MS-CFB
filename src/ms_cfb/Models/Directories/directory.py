@@ -122,6 +122,9 @@ class Directory(Node):
     def file_size(self: T) -> int:
         return 0
 
+    def set_flattened_index(self: T, index: int) -> None:
+        self._flattened_index = index
+
     def to_bytes(self: T) -> bytes:
         format = "<64shbb3I16sIQQIII"
         color = 0 if self.is_red() else 1

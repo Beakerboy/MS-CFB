@@ -94,11 +94,6 @@ def main_list(args: argparse.Namespace) -> None:
     i = 0
     for directory in ole_file.dirlist:
         print(directory)
-        directory.set_flattened_index(i)
-        i += 1
-    file_structure = flat_to_tree(ole_file.dirlist)
-    for directory in file_structure:
-        print("\t" * directory['level'] + directory["name"])
 
 
 def update_attributes(dir: 'Directory', conf: dict) -> None:
@@ -139,11 +134,6 @@ def create_storage(direntry: os.DirEntry,
         dir_config = directories[direntry.name]
         update_attributes(dir, dir_config)
     return dir
-
-
-def flat_to_tree(dir: list) -> list:
-    pass
-
 
 if __name__ == '__main__':
     main()

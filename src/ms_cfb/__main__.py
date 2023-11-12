@@ -91,7 +91,6 @@ def main_list(args: argparse.Namespace) -> None:
     print('Version ' + version + ' OLE file')
     print('GUID: ' + str(ole_file.get_guid()))
     print('Directories:')
-    i = 0
     for directory in ole_file.dirlist:
         print(directory)
 

@@ -299,17 +299,16 @@ class OleFile:
             fat.extend(next_fat)
             i += 1
             sector = fat_sector_list[i]
-        # Assemble directory
+        # Assemble directory.
         flat_directories = []
         j = 0
         while directory_list_sector != 0xFFFFFFFE:
             f.seek((directory_list_sector + 1) * 2 ** sector_shift)
             for i in range(2 ** (sector_shift - 7)):
-                # Read the 128 byte direntory entry.
+                # Read the 128 byte directory entry.
                 directory_bytes = f.read(128)
                 if directory_bytes[0] != 0:
                     directory = DirectoryFactory.from_binary(directory_bytes)
-                    print('Created Directory')
                     directory.set_flattened_index(j)
                     j += 1
                     flat_directories.append(directory)
@@ -319,16 +318,13 @@ class OleFile:
                 left = flat_directories[directory.prev_index]
                 directory.left = left
                 left.parent = directory
-                print('Added Left')
             if directory.next_index != 0xFFFFFFFF:
                 right = flat_directories[directory.next_index]
                 directory.right = right
                 right.parent = directory
-                print('Added Right')
             if directory.sub_index != 0xFFFFFFFF:
                 child = flat_directories[directory.sub_index]
                 directory.directories.root = child
-                print('Added Sub')
         obj.set_root_directory(flat_directories[0])
 
         # extract minifat chain

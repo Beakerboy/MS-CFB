@@ -56,3 +56,11 @@ class StorageDirectory(Directory):
             dir._flattened_index = i
             i += 1
         return flat
+
+    def create_file_tree(self: T, depth: int) -> list:
+        tree = [(depth, self.name)]
+        for child in self.directories:
+            if child._type != 2:
+                tree.extend(child.create_file_tree(depth + 1))
+            else tree.append((depth + 1, child.name))
+        return tree

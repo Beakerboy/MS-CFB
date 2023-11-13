@@ -50,6 +50,7 @@ class OleFile:
         output += 'Directories:\n'
         for directory in self._directory.flatten():
             output += str(directory) + '\n'
+        return output
 
     def set_version(self: T, version: int) -> None:
         if version > 4 or version < 3:

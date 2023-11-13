@@ -41,11 +41,14 @@ class OleFile:
         self._directory = RootDirectory()
 
     def __str__(self: T) -> str:
-        version = ole_file.get_version_string()
+        version = self.get_version_string()
         output = ('Version ' + version + ' OLE file\n')
         output += ('GUID: ' + str(ole_file.get_guid()) + '\n')
+        output += 'File Structure:\n'
+        for directory in self._directory.create_file_tree(0):
+            output += '\t' * directory[0] + directory.get_name() + '\n'
         output += 'Directories:\n'
-        for directory in ole_file.dirlist:
+        for directory in self._directory.flatten():
             output += directory + '\n'
 
     def set_version(self: T, version: int) -> None:

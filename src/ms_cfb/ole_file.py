@@ -41,6 +41,7 @@ class OleFile:
         self._directory = RootDirectory()
 
     def __str__(self: T) -> str:
+        version = ole_file.get_version_string()
         output = ('Version ' + version + ' OLE file\n')
         output += ('GUID: ' + str(ole_file.get_guid()) + '\n')
         output += 'Directories:\n'

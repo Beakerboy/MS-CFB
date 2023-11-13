@@ -40,6 +40,18 @@ class OleFile:
         # A list of directories
         self._directory = RootDirectory()
 
+    def __str__(self: T) -> str:
+        version = self.get_version_string()
+        output = ('Version ' + version + ' OLE file\n')
+        output += ('GUID: ' + str(self.get_guid()) + '\n')
+        output += 'File Structure:\n'
+        for directory in self._directory.create_file_tree(0):
+            output += '\t' * directory[0] + directory[1] + '\n'
+        output += 'Directories:\n'
+        for directory in self._directory.flatten():
+            output += str(directory) + '\n'
+        return output
+
     def set_version(self: T, version: int) -> None:
         if version > 4 or version < 3:
             raise Exception("Version must be 3 or 4")
@@ -157,7 +169,6 @@ class OleFile:
         """
 
         directory_array = self._directory.flatten()
-        self._directory.set_child()
         directory_stream = DirectoryStream()
         fat_sec_size = self._fat_chain.get_sector_size()
         directory_stream.set_storage_sector_size(fat_sec_size)
@@ -286,10 +297,12 @@ class OleFile:
             next_fat_bytes = f.read(2 ** sector_shift)
             next_fat = struct.unpack(format, next_fat_bytes)
             fat.extend(next_fat)
-            i = i + 1
+            i += 1
             sector = fat_sector_list[i]
         # Assemble directory
         dir_list = []
+        flat_directories = []
+        j = 0
         while not directory_list_sector == 0xFFFFFFFE:
             f.seek((directory_list_sector + 1) * 2 ** sector_shift, 0)
             for i in range(2 ** (sector_shift - 7)):
@@ -297,8 +310,18 @@ class OleFile:
                 if not directory_bytes[0] == 0:
                     directory = DirectoryFactory.from_binary(directory_bytes)
                     dir_list.append(str(directory))
+                    directory.set_flattened_index(j)
+                    j += 1
+                    flat_directories.append(directory)
 
             directory_list_sector = fat[directory_list_sector]
+        for directory in flat_directories:
+            if not directory.prev_index == 0xFFFFFFFF:
+                directory.left = flat_directories[directory.prev_index]
+            if not directory.next_index == 0xFFFFFFFF:
+                directory.right = flat_directories[directory.next_index]
+            if not directory.sub_index == 0xFFFFFFFF:
+                directory.add_directory(flat_directories[directory.sub_index])
         # This is Bad
         obj.dirlist = dir_list
 

@@ -24,10 +24,6 @@ class Directory(Node):
         # The object's name.
         self.name = ""
 
-        # The the root node of the red-black tree which organizes the streams
-        # within this storage directory.
-        self._subdirectory_id = 0xFFFFFFFF
-
         # A GUID for this object.
         self._class_id = uuid.UUID(int=0x00)
 
@@ -122,6 +118,16 @@ class Directory(Node):
     def file_size(self: T) -> int:
         return 0
 
+    def set_flattened_index(self: T, index: int) -> None:
+        self._flattened_index = index
+
+    def get_subdirectory_index(self: T) -> int:
+        """
+        The the root node of the red-black tree which organizes the streams
+        within a storage directory.
+        """
+        return 0xFFFFFFFF
+
     def to_bytes(self: T) -> bytes:
         format = "<64shbb3I16sIQQIII"
         color = 0 if self.is_red() else 1
@@ -145,7 +151,7 @@ class Directory(Node):
             color,
             left,
             right,
-            self._subdirectory_id,
+            self.get_subdirectory_index(),
             self._class_id.bytes_le,
             self._user_flags,
             self._created.to_msfiletime(),

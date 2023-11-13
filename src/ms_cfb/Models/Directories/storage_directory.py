@@ -7,6 +7,10 @@ T = TypeVar('T', bound='StorageDirectory')
 
 
 class StorageDirectory(Directory):
+    """
+    A StorageDirectory represents a file system diresctory. It adds a red-black
+    tree to the parent class as a way to organize its contents.
+    """
 
     def __init__(self: T, name: str) -> None:
         super(StorageDirectory, self).__init__()
@@ -19,6 +23,16 @@ class StorageDirectory(Directory):
         return (self.get_name() +
                 "\n\tCreated: " + str(self._created) +
                 "\n\tModified: " + str(self._modified))
+
+    def get_subdirectory_index(self: T) -> int:
+        """
+        Overriding Directory.get_subdirectory_index()
+        If the red-black tree has a root, return its flattened index.
+        """
+        node = self.directories.get_root()
+        if node.is_null():
+            return 0xFFFFFFFF
+        return node._flattened_index
 
     def minifat_sectors_used(self: T) -> int:
         size = 0
@@ -43,10 +57,11 @@ class StorageDirectory(Directory):
             i += 1
         return flat
 
-    def set_child(self: T) -> None:
-        child_root = self.directories.get_root()
-        if not child_root.is_null():
-            self._subdirectory_id = child_root._flattened_index
+    def create_file_tree(self: T, depth: int) -> list:
+        tree = [(depth, self.name)]
         for child in self.directories:
-            if child._type == 1:
-                child.set_child()
+            if child._type != 2:
+                tree.extend(child.create_file_tree(depth + 1))
+            else:
+                tree.append((depth + 1, child.name))
+        return tree

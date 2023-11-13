@@ -326,7 +326,7 @@ class OleFile:
                 right.parent = directory
                 print('Added Right')
             if directory.sub_index != 0xFFFFFFFF:
-                directory.directory.root = flat_directories[directory.sub_index]
+                directory.directories.root = flat_directories[directory.sub_index]
                 print('Added Sub')
         obj.set_root_directory(flat_directories[0])
 

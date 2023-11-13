@@ -49,5 +49,6 @@ class DirectoryFactory:
             obj.set_color("red")
         else:
             obj.set_color("black")
-        
+        obj.prev_index = previous_directory_id
+        obj.next_index = next_directory_id
         return obj

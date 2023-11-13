@@ -17,7 +17,6 @@ class StorageDirectory(Directory):
         self.name = name
         self._type = 1
         self.directories = RedBlackTree()
-        self._flat = []
 
     def __str__(self: T) -> str:
         return (self.get_name() +
@@ -42,15 +41,14 @@ class StorageDirectory(Directory):
 
     def add_directory(self: T, dir: 'Directory') -> None:
         self.directories.insert(dir)
-        if dir._type == 2:
-            self._flat.append(dir)
 
     def flatten(self: T) -> list:
         flat = [self]
         for child in self.directories:
             if child._type != 2:
                 flat.extend(child.flatten())
-        flat.extend(self._flat)
+            else:
+                flat.append(child)
         i = 0
         for dir in flat:
             dir._flattened_index = i

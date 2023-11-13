@@ -46,7 +46,7 @@ class OleFile:
         output += ('GUID: ' + str(self.get_guid()) + '\n')
         output += 'File Structure:\n'
         for directory in self._directory.create_file_tree(0):
-            output += '\t' * directory[0] + directory.get_name() + '\n'
+            output += '\t' * directory[0] + directory[1] + '\n'
         output += 'Directories:\n'
         for directory in self._directory.flatten():
             output += directory + '\n'

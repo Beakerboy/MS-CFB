@@ -316,10 +316,14 @@ class OleFile:
             directory_list_sector = fat[directory_list_sector]
         for directory in flat_directories:
             if directory.prev_index != 0xFFFFFFFF:
-                directory.left = flat_directories[directory.prev_index]
+                left = flat_directories[directory.prev_index]
+                directory.left = left
+                left.parent = directory
                 print('Added Left')
             if directory.next_index != 0xFFFFFFFF:
-                directory.right = flat_directories[directory.next_index]
+                right = flat_directories[directory.next_index]
+                directory.right = right
+                right.parent = directory
                 print('Added Right')
             if directory.sub_index != 0xFFFFFFFF:
                 directory.root = flat_directories[directory.sub_index]

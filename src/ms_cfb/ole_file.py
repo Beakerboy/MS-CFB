@@ -300,20 +300,18 @@ class OleFile:
             i += 1
             sector = fat_sector_list[i]
         # Assemble directory
-        dir_list = []
         flat_directories = []
         j = 0
         while not directory_list_sector == 0xFFFFFFFE:
-            f.seek((directory_list_sector + 1) * 2 ** sector_shift, 0)
+            f.seek((directory_list_sector + 1) * 2 ** sector_shift)
             for i in range(2 ** (sector_shift - 7)):
+                # Read the 128 byte direntory entry.
                 directory_bytes = f.read(128)
                 if not directory_bytes[0] == 0:
                     directory = DirectoryFactory.from_binary(directory_bytes)
-                    dir_list.append(str(directory))
                     directory.set_flattened_index(j)
                     j += 1
                     flat_directories.append(directory)
-
             directory_list_sector = fat[directory_list_sector]
         for directory in flat_directories:
             if not directory.prev_index == 0xFFFFFFFF:

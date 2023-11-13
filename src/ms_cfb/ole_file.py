@@ -246,7 +246,7 @@ class OleFile:
             minichain_sector, minifat_sectors, dif_start_sector,
             dif_sectors
         ) = struct.unpack(format, header)
-        if not absig == b"\xd0\xcf\x11\xe0\xa1\xb1\x1a\xe1":
+        if absig != b"\xd0\xcf\x11\xe0\xa1\xb1\x1a\xe1":
             raise Exception('Incorrect signature.')
         obj._guid = uuid.UUID(bytes_le=guid_le)
         obj._minor_version = minor_version
@@ -254,7 +254,7 @@ class OleFile:
             obj._major_version = major_version
         else:
             raise Exception('Version not supported.')
-        if not bom == 65534:
+        if bom != 65534:
             raise Exception('Incorrect Byte Order Mark.')
         if (
             (major_version == 3 and sector_shift == 9) or
@@ -263,16 +263,16 @@ class OleFile:
             obj._sector_shift = sector_shift
         else:
             raise Exception('Sector shift is not correct.')
-        if not mini_sector_shift == 6:
+        if mini_sector_shift != 6:
             raise Exception('Mini-sector shift is not correct.')
         if not (us_reserved == 0 and ul_reserved1 == 0):
             raise Exception('usReserved must be zero.')
-        if not csect_dir == 0:
+        if csect_dir != 0:
             raise Exception('csectDir must be zero.')
         obj._first_directory_list_sector = directory_list_sector
-        if not signature == 0:
+        if signature != 0:
             raise Exception('Signature must be zero.')
-        if not mini_sector_cutoff == 4096:
+        if mini_sector_cutoff != 4096:
             raise Exception('Mini-sector cuttoff is not correct.')
         obj._first_minichain_sector = minichain_sector
         # Eventually check validity of...
@@ -292,7 +292,7 @@ class OleFile:
         num = 2 ** (sector_shift - 2)
         format = "<" + str(num) + "I"
         sector = fat_sector_list[i]
-        while not sector == 0xFFFFFFFF:
+        while sector != 0xFFFFFFFF:
             f.seek((sector + 1) * 2 ** sector_shift, 0)
             next_fat_bytes = f.read(2 ** sector_shift)
             next_fat = struct.unpack(format, next_fat_bytes)
@@ -302,23 +302,23 @@ class OleFile:
         # Assemble directory
         flat_directories = []
         j = 0
-        while not directory_list_sector == 0xFFFFFFFE:
+        while directory_list_sector != 0xFFFFFFFE:
             f.seek((directory_list_sector + 1) * 2 ** sector_shift)
             for i in range(2 ** (sector_shift - 7)):
                 # Read the 128 byte direntory entry.
                 directory_bytes = f.read(128)
-                if not directory_bytes[0] == 0:
+                if directory_bytes[0] != 0:
                     directory = DirectoryFactory.from_binary(directory_bytes)
                     directory.set_flattened_index(j)
                     j += 1
                     flat_directories.append(directory)
             directory_list_sector = fat[directory_list_sector]
         for directory in flat_directories:
-            if not directory.prev_index == 0xFFFFFFFF:
+            if directory.prev_index != 0xFFFFFFFF:
                 directory.left = flat_directories[directory.prev_index]
-            if not directory.next_index == 0xFFFFFFFF:
+            if directory.next_index != 0xFFFFFFFF:
                 directory.right = flat_directories[directory.next_index]
-            if not directory.sub_index == 0xFFFFFFFF:
+            if directory.sub_index != 0xFFFFFFFF:
                 directory.add_directory(flat_directories[directory.sub_index])
         obj.set_root_directory(flat_directories[0])
 

@@ -289,6 +289,7 @@ class OleFile:
             sector = fat_sector_list[i]
         # Assemble directory
         dir_list = []
+        flat_directories = []
         j = 0
         while not directory_list_sector == 0xFFFFFFFE:
             f.seek((directory_list_sector + 1) * 2 ** sector_shift, 0)
@@ -299,8 +300,16 @@ class OleFile:
                     dir_list.append(str(directory))
                     directory.set_flattened_index(j)
                     j += 1
+                    flat_directories.append(directory)
 
             directory_list_sector = fat[directory_list_sector]
+        for directory in flat_directories:
+            if not directory.prev_index == 0xFFFFFFFF:
+                directory.left = flat_directories[directory.prev_index]
+            if not directory.next_index == 0xFFFFFFFF:
+                directory.right = flat_directories[directory.next_index]
+            if not directory.sub_index == 0xFFFFFFFF:
+                directory.add_directory(flat_directories[directory.sub_index])
         # This is Bad
         obj.dirlist = dir_list
 

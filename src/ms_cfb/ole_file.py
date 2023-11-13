@@ -49,7 +49,7 @@ class OleFile:
             output += '\t' * directory[0] + directory[1] + '\n'
         output += 'Directories:\n'
         for directory in self._directory.flatten():
-            output += directory + '\n'
+            output += str(directory) + '\n'
 
     def set_version(self: T, version: int) -> None:
         if version > 4 or version < 3:

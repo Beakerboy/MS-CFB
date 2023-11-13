@@ -23,7 +23,7 @@ class DirectoryFactory:
          file_size,
          zero) = struct.unpack(format, data)
         name = str(name, encoding='utf_16_le').rstrip('\x00')
-        if not (len(name) + 1) * 2 == name_size:
+        if (len(name) + 1) * 2 != name_size:
             raise Exception("Name / Size mismatch.")
         modified = Filetime.from_msfiletime(modified)
         created = Filetime.from_msfiletime(created)
@@ -32,13 +32,13 @@ class DirectoryFactory:
         # set flattened_id
         if type == 1:
             obj = StorageDirectory(name)
-            if not file_size == 0:
+            if file_size != 0:
                 raise Exception("File size must be zero.")
         elif type == 2:
             obj = StreamDirectory(name, '')
             obj.bytes_used = file_size
         elif type == 5:
-            if not name == "Root Entry":
+            if name != "Root Entry":
                 raise Exception('Root name is not correct.')
             obj = RootDirectory()
             obj.bytes_used = file_size

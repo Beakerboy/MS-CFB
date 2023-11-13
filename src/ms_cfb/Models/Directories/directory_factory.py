@@ -29,7 +29,6 @@ class DirectoryFactory:
         created = Filetime.from_msfiletime(created)
 
         # Set Class_id (GUID)
-        # set flattened_id
         if type == 1:
             obj = StorageDirectory(name)
             if file_size != 0:

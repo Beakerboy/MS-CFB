@@ -40,6 +40,13 @@ class OleFile:
         # A list of directories
         self._directory = RootDirectory()
 
+    def __str__(self: T) -> str:
+        output = ('Version ' + version + ' OLE file\n')
+        output += ('GUID: ' + str(ole_file.get_guid()) + '\n')
+        output += 'Directories:\n'
+        for directory in ole_file.dirlist:
+            output += directory + '\n'
+
     def set_version(self: T, version: int) -> None:
         if version > 4 or version < 3:
             raise Exception("Version must be 3 or 4")

@@ -62,5 +62,6 @@ class StorageDirectory(Directory):
         for child in self.directories:
             if child._type != 2:
                 tree.extend(child.create_file_tree(depth + 1))
-            else tree.append((depth + 1, child.name))
+            else:
+                tree.append((depth + 1, child.name))
         return tree

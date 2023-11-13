@@ -309,6 +309,7 @@ class OleFile:
                 directory_bytes = f.read(128)
                 if directory_bytes[0] != 0:
                     directory = DirectoryFactory.from_binary(directory_bytes)
+                    print('Created Directory')
                     directory.set_flattened_index(j)
                     j += 1
                     flat_directories.append(directory)
@@ -316,10 +317,13 @@ class OleFile:
         for directory in flat_directories:
             if directory.prev_index != 0xFFFFFFFF:
                 directory.left = flat_directories[directory.prev_index]
+                print('Added Left')
             if directory.next_index != 0xFFFFFFFF:
                 directory.right = flat_directories[directory.next_index]
+                print('Added Right')
             if directory.sub_index != 0xFFFFFFFF:
                 directory.add_directory(flat_directories[directory.sub_index])
+                print('Added Sub')
         obj.set_root_directory(flat_directories[0])
 
         # extract minifat chain

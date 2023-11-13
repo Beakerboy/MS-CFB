@@ -322,8 +322,7 @@ class OleFile:
                 directory.right = flat_directories[directory.next_index]
             if not directory.sub_index == 0xFFFFFFFF:
                 directory.add_directory(flat_directories[directory.sub_index])
-        # This is Bad
-        obj.dirlist = dir_list
+        self._directory = flat_directories[0]
 
         # extract minifat chain
         return obj

@@ -27,6 +27,7 @@ class DirectoryFactory:
             raise Exception("Name / Size mismatch.")
         modified = Filetime.from_msfiletime(modified)
         created = Filetime.from_msfiletime(created)
+
         # Set Class_id (GUID)
         # set flattened_id
         if type == 1:
@@ -44,4 +45,9 @@ class DirectoryFactory:
         obj.set_modified(modified)
         obj.set_created(created)
         obj.set_start_sector(start_sector)
+        if color == 0:
+            obj.set_color("red")
+        else:
+            obj.set_color("black")
+        
         return obj

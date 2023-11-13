@@ -43,7 +43,7 @@ class OleFile:
     def __str__(self: T) -> str:
         version = self.get_version_string()
         output = ('Version ' + version + ' OLE file\n')
-        output += ('GUID: ' + str(ole_file.get_guid()) + '\n')
+        output += ('GUID: ' + str(self.get_guid()) + '\n')
         output += 'File Structure:\n'
         for directory in self._directory.create_file_tree(0):
             output += '\t' * directory[0] + directory.get_name() + '\n'

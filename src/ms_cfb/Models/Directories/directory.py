@@ -50,6 +50,7 @@ class Directory(Node):
         return (self.get_name() +
                 "\n\tCreated: " + str(self._created) +
                 "\n\tModified: " + str(self._modified) +
+                "\n\tGUID: " + str(self._class_id) +
                 "\n\tStart Sector: " + str(self.get_start_sector()) +
                 "\n\tSize: " + str(self.file_size()))
 
@@ -104,6 +105,9 @@ class Directory(Node):
 
     def set_clsid(self: T, clsid: uuid.UUID) -> None:
         self._class_id = clsid
+
+    def get_clsid(self: T) -> uuid.UUID:
+        return self._class_id
 
     def get_name(self: T) -> str:
         return self.name

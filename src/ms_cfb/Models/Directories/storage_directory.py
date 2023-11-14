@@ -21,7 +21,8 @@ class StorageDirectory(Directory):
     def __str__(self: T) -> str:
         return (self.get_name() +
                 "\n\tCreated: " + str(self._created) +
-                "\n\tModified: " + str(self._modified))
+                "\n\tModified: " + str(self._modified) +
+                "\n\tGUID: " + str(self._class_id))
 
     def get_subdirectory_index(self: T) -> int:
         """

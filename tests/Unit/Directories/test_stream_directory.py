@@ -32,7 +32,7 @@ def test_sectors_used() -> None:
     assert dir.minifat_sectors_used() == 1
 
 
-def test_class_id_exception() -> None
+def test_class_id_exception() -> None:
     dir = StreamDirectory("name", "/path")
     guid = uuid.uuid1()
     with pytest.raises(Exception):

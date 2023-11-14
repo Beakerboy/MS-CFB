@@ -106,6 +106,9 @@ class Directory(Node):
     def set_clsid(self: T, clsid: uuid.UUID) -> None:
         self._class_id = clsid
 
+    def get_clsid(self: T) -> uuid.UUID:
+        return self._class_id
+
     def get_name(self: T) -> str:
         return self.name
 

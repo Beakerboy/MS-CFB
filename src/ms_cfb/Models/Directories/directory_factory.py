@@ -28,7 +28,7 @@ class DirectoryFactory:
         modified = Filetime.from_msfiletime(modified)
         created = Filetime.from_msfiletime(created)
 
-        # Set Class_id (GUID)
+        guid = uuid.UUID(bytes_le=class_id)
         if type == 1:
             obj = StorageDirectory(name)
             if file_size != 0:
@@ -52,4 +52,5 @@ class DirectoryFactory:
         obj.next_index = next_directory_id
         obj.sub_index = subdirectory_id
         obj.key = name
+        obj.set_clsid(guid)
         return obj

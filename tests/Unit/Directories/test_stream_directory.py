@@ -44,4 +44,4 @@ def test_class_id() -> None:
     assert dir.get_clsid().int == 0x00
     guid = uuid.UUID(int=0x00)
     dir.set_clsid(guid)
-    assert dir.get_clsid().int == 0x00 
+    assert dir.get_clsid().int == 0x00

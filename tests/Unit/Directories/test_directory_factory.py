@@ -34,7 +34,8 @@ def test_storage_from_binary() -> None:
     storage = DirectoryFactory.from_binary(bytes.fromhex(da))
     assert isinstance(storage, StorageDirectory)
     expected = ("VBA\n\tCreated: 2023-01-09 14:07:51.292000\n\tModified: "
-                + "2023-01-09 14:07:51.292000")
+                + "2023-01-09 14:07:51.292000"
+                + "\n\tGUID: 00000000-0000-0000-0000-000000000000")
     assert str(storage) == expected
 
 

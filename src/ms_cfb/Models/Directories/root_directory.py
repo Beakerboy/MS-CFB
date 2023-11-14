@@ -18,6 +18,7 @@ class RootDirectory(StorageDirectory):
     def __str__(self: T) -> str:
         return (self.get_name() +
                 "\n\tModified: " + str(self._modified) +
+                "\n\tGUID: " + str(self._class_id) +
                 "\n\tStart Sector: " + str(self.get_start_sector()) +
                 "\n\tSize: " + str(self.file_size()))
 

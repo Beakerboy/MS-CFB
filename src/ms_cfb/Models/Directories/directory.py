@@ -50,6 +50,7 @@ class Directory(Node):
         return (self.get_name() +
                 "\n\tCreated: " + str(self._created) +
                 "\n\tModified: " + str(self._modified) +
+                "\n\tGUID: " + str(self._class_id) +
                 "\n\tStart Sector: " + str(self.get_start_sector()) +
                 "\n\tSize: " + str(self.file_size()))
 

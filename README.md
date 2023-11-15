@@ -42,21 +42,30 @@ Root Entry
 ```
 To run the program
 ```
-python ole_file.py [-h] [-v {3,4}] [-o OUTPUT] [-X EXTRA] directory
-positional arguments:
-  directory             The directory that contains your files.
+python ole_file.py [-h] [-c] [-l] [-x] [-v {3,4}]
+                   [-f FILE] [-X EXTRA]
+                   [directory]
 
-optional arguments:
-  -h, --help            show this help message and exit
-  -c, --create          Create an OLE container from a directory
-  -x, --extract         Extract files from an OLE container
-  -l, --list            List the contents and information about the OLE container.
+positional arguments:
+  directory             The input or output directory.
+
+options:
+  -h, --help            show this help message and
+                        exit
+  -c, --create          Create an OLE file from a
+                        directory.
+  -l, --list            Display metadata on the OLE
+                        file and list the files that
+                        it contains.
+  -x, --extract         Extract files from an OLE file
+                        to a directory.
   -v {3,4}, --version {3,4}
                         The OLE version to use.
-  -f FILE, --file FILE
-                        The OLE file name.
+  -f FILE, --file FILE  The input or output bin file
+                        name
   -X EXTRA, --extra EXTRA
-                        Path to exta directory settings yml file.
+                        Path to exta settings yml
+                        file.
 
 examples:
   python -m ms_cfb -c -f vbaProject.bin -v 3 -X info.yml ./project

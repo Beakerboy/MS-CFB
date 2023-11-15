@@ -230,9 +230,47 @@ class OleFile:
         self.build_file()
         self.write_file(path)
 
+    def extract_stream(self: T, name: str) -> None:
+        found = False
+        for directory in self._directory.flatten():
+            if directory.get_name() == name:
+                if directory.get_type() == 2:
+                    found = True
+                    fo = open(name + '.bin', 'wb')
+                    fi = open(self.path, 'rb')
+                    sectors = directory.get_sectors()
+                    remaining = directory.file_size()
+                    bytes_per_sector = 2 ** self._sector_shift
+                    if remaining > 4096:
+                        # Stream in fat
+                        for sector in sectors:
+                            offset = (sector + 1) * bytes_per_sector
+                            fi.seek(offset)
+                            buffer = min(bytes_per_sector, remaining)
+                            fo.write(fi.read(buffer))
+                            remaining -= buffer
+                    else:
+                        # Stream in minifat
+                        for sector in sectors:
+                            mf_sectors_per_sector = bytes_per_sector // 64
+                            chain_index = sector // mf_sectors_per_sector
+                            extra_bytes = chain_index * 1
+                            fat_sector = self._minifat_chain.get_sectors()[chain_index]
+                            offset = (fat_sector + 1) * bytes_per_sector + 
+                            fi.seek(offset)
+                            buffer = min(64, remaining)
+                            fo.write(fi.read(buffer))
+                            remaining -= buffer
+                    fo.close()
+                else:
+                    raise Exception('Stream is not a file.')
+        if not found:
+            raise Exception('No stream found.')
+    
     @classmethod
     def create_from_file(cls: Type[T], path: str) -> T:
         obj = cls()
+        obj.path = path
         f = open(path, 'rb')
         header = f.read(76)
 

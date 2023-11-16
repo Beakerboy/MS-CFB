@@ -31,4 +31,4 @@ def test_extract() -> None:
     fe = open('tests/vbaProject.bin', 'rb')
     fe.seek(0x2100)
     expected = fe.read(86)
-    assert actual ==expected
+    assert actual == expected

@@ -259,7 +259,7 @@ class OleFile:
         """
         found = False
         if not os.path.exists(dest):
-            os.makedirs(dest) 
+            os.makedirs(dest)
 
         for directory in self._directory.flatten():
             if directory.get_name() == name:

@@ -16,6 +16,7 @@ def test_get_version() -> None:
     ole_file.set_version(3)
     assert ole_file.get_version() == 3
 
+
 def test_extract() -> None:
     ole_file = OleFile.create_from_file('tests/vbaProject.bin')
     ole_file.extract_stream('PROJECTwm')

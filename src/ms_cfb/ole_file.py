@@ -382,7 +382,7 @@ class OleFile:
                     flat_directories.append(directory)
                     # Set the reserved data sectors on each stream.
                     if directory.get_type() == 2:
-                        if directory.get_file_size() <= mini_sector_cutoff:
+                        if directory.file_size() <= mini_sector_cutoff:
                             mini_sector = minifat[directory.get_start_sector()]
                             extra_sectors = []
                             while mini_sector != 0xFFFFFFFE:

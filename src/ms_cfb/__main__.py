@@ -80,6 +80,7 @@ def main_extract(args: argparse.Namespace) -> None:
     Extract all streams, or a specified stream from the OLE container.
     """
     ole_file = OleFile.create_from_file(args.file)
+    old_file.extract_all()
 
 
 def main_list(args: argparse.Namespace) -> None:

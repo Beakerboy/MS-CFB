@@ -1,3 +1,4 @@
+import os
 import struct
 import uuid
 from ms_cfb.Models.DataStreams.directory_stream import DirectoryStream
@@ -257,6 +258,9 @@ class OleFile:
         Extract the stream with the given name to a file.
         """
         found = False
+        if not os.path.exists(dest) 
+            os.makedirs(dest) 
+
         for directory in self._directory.flatten():
             if directory.get_name() == name:
                 if directory.get_type() == 2:

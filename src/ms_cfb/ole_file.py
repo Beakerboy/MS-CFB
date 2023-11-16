@@ -374,11 +374,21 @@ class OleFile:
             for i in range(2 ** (sector_shift - 7)):
                 # Read the 128 byte directory entry.
                 directory_bytes = f.read(128)
+                # A directory name cannot begin with '\x00'.
                 if directory_bytes[0] != 0:
                     directory = DirectoryFactory.from_binary(directory_bytes)
                     directory.set_flattened_index(j)
                     j += 1
                     flat_directories.append(directory)
+                    # Set the reserved data sectors on each stream.
+                    if directory.get_type() == 2:
+                        if directory.get_file_size() <= mini_sector_cutoff:
+                            mini_sector = minifat[directory.get_start_sector()]
+                            extra_sectors = []
+                            while mini_sector != 0xFFFFFFFE:
+                                extra_sectors.append(mini_sector)
+                                mini_sector = minifat[mini_sector]
+                            directory.set_additional_sectors(extra_sectors)
             directory_list_sector = fat[directory_list_sector]
         mini_stream_sector = flat_directories[0].get_start_sector()
         mini_sectors = []

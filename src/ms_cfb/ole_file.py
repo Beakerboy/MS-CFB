@@ -233,15 +233,23 @@ class OleFile:
         self.build_file()
         self.write_file(path)
 
-    def extract_all(self: T) -> None:
+    def extract_all(self: T, dest: str) -> None:
         """
         Extract all the StreamDirectory objects to files.
+        dest: str - The destination path
         """
-        for directory in self._directory.flatten():
-            if directory.get_type() == 2:
-                self.extract_stream(directory.get_name())
+        self.extract_from_storage(self._directory, dest)
 
-    def extract_stream(self: T, name: str) -> None:
+    def extract_from_storage(self: T, dir: StorageDirectory, dest: str) -> None:
+        # Create the dest path if it does not exist.
+        for child in dir.directories:
+            if child.get_type() == 1:
+                new_dest = dest + '/' + child.get_name() 
+                self.extract_from_storage(self._directory, new_dest)
+            elif child.get_type() == 2:
+                self.extract_stream(directory.get_name(), dest)
+
+    def extract_stream(self: T, name: str, dest: str) -> None:
         """
         Extract the stream with the given name to a file.
         """
@@ -250,7 +258,7 @@ class OleFile:
             if directory.get_name() == name:
                 if directory.get_type() == 2:
                     found = True
-                    fo = open(name + '.bin', 'wb')
+                    fo = open(dest + '/' + name + '.bin', 'ab')
                     fi = open(self.path, 'rb')
                     sectors = directory.get_sectors()
                     remaining = directory.file_size()

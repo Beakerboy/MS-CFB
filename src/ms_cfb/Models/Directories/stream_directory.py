@@ -44,7 +44,7 @@ class StreamDirectory(FileStream, Directory):
     def set_start_sector(self: T, sector: int) -> None:
         """
         Copied feom StreamBase since Directory has a
-        funcrion with the same name.
+        function with the same name.
         Set the location of the first sector of the file
         Must be run first
         """

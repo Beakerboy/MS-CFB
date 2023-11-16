@@ -81,6 +81,9 @@ class OleFile:
         # verify type of object
         self._directory.add_directory(object)
 
+    def get_minifat_chain(self: T) -> MinifatFilesystem:
+        return self._minifat_chain
+
     def header(self: T) -> bytes:
         """
         Create a 512 byte header sector for a OLE object.
@@ -230,9 +233,61 @@ class OleFile:
         self.build_file()
         self.write_file(path)
 
+    def extract_all(self: T) -> None:
+        """
+        Extract all the StreamDirectory objects to files.
+        """
+        for directory in self._directory.flatten():
+            if directory.get_type() == 2:
+                self.extract_stream(directory.get_name())
+
+    def extract_stream(self: T, name: str) -> None:
+        """
+        Extract the stream with the given name to a file.
+        """
+        found = False
+        for directory in self._directory.flatten():
+            if directory.get_name() == name:
+                if directory.get_type() == 2:
+                    found = True
+                    fo = open(name + '.bin', 'wb')
+                    fi = open(self.path, 'rb')
+                    sectors = directory.get_sectors()
+                    remaining = directory.file_size()
+                    bytes_per_sector = 2 ** self._sector_shift
+                    if remaining > 4096:
+                        # Stream in fat
+                        for sector in sectors:
+                            offset = (sector + 1) * bytes_per_sector
+                            fi.seek(offset)
+                            buffer = min(bytes_per_sector, remaining)
+                            fo.write(fi.read(buffer))
+                            remaining -= buffer
+                    else:
+                        # Stream in minifat
+                        for sector in sectors:
+                            mf_sectors_per_sector = bytes_per_sector // 64
+                            chain_index = sector // mf_sectors_per_sector
+                            extra_bytes = (sector % mf_sectors_per_sector) * 64
+                            mf_chain = self._minifat_chain
+                            fat_sectors = mf_chain.get_streams().get_sectors()
+                            fat_sector = fat_sectors[chain_index]
+                            offset = ((fat_sector + 1) * bytes_per_sector
+                                      + extra_bytes)
+                            fi.seek(offset)
+                            buffer = min(64, remaining)
+                            fo.write(fi.read(buffer))
+                            remaining -= buffer
+                    fo.close()
+                else:
+                    raise Exception('Stream is not a file.')
+        if not found:
+            raise Exception('No stream found.')
+
     @classmethod
     def create_from_file(cls: Type[T], path: str) -> T:
         obj = cls()
+        obj.path = path
         f = open(path, 'rb')
         header = f.read(76)
 
@@ -286,33 +341,61 @@ class OleFile:
         format = "<" + str(num) + "I"
         fat_sector_list = struct.unpack(format, fat_sector_list_bytes)
 
-        # read fat sectors and assemble into sector list
+        # Read fat sectors and assemble into sector list.
         fat = []
         i = 0
         num = 2 ** (sector_shift - 2)
         format = "<" + str(num) + "I"
+        fat_sector_bytes = 2 ** sector_shift
         sector = fat_sector_list[i]
         while sector != 0xFFFFFFFF:
-            f.seek((sector + 1) * 2 ** sector_shift, 0)
-            next_fat_bytes = f.read(2 ** sector_shift)
-            next_fat = struct.unpack(format, next_fat_bytes)
-            fat.extend(next_fat)
+            f.seek((sector + 1) * fat_sector_bytes)
+            sector_data = f.read(fat_sector_bytes)
+            int_list = struct.unpack(format, sector_data)
+            fat.extend(int_list)
             i += 1
             sector = fat_sector_list[i]
+
+        # Read minifat sectors and assemble into sector list.
+        minifat = []
+        sector = obj._first_minichain_sector
+        while sector != 0xFFFFFFFE:
+            f.seek((sector + 1) * fat_sector_bytes)
+            sector_data = f.read(fat_sector_bytes)
+            int_list = struct.unpack(format, sector_data)
+            minifat.extend(int_list)
+            sector = fat[sector]
+
         # Assemble directory.
         flat_directories = []
         j = 0
         while directory_list_sector != 0xFFFFFFFE:
-            f.seek((directory_list_sector + 1) * 2 ** sector_shift)
+            f.seek((directory_list_sector + 1) * fat_sector_bytes)
             for i in range(2 ** (sector_shift - 7)):
                 # Read the 128 byte directory entry.
                 directory_bytes = f.read(128)
+                # A directory name cannot begin with '\x00'.
                 if directory_bytes[0] != 0:
                     directory = DirectoryFactory.from_binary(directory_bytes)
                     directory.set_flattened_index(j)
                     j += 1
                     flat_directories.append(directory)
+                    # Set the reserved data sectors on each stream.
+                    if directory.get_type() == 2:
+                        if directory.file_size() <= mini_sector_cutoff:
+                            mini_sector = minifat[directory.get_start_sector()]
+                            extra_sectors = []
+                            while mini_sector != 0xFFFFFFFE:
+                                extra_sectors.append(mini_sector)
+                                mini_sector = minifat[mini_sector]
+                            directory.set_additional_sectors(extra_sectors)
             directory_list_sector = fat[directory_list_sector]
+        mini_stream_sector = flat_directories[0].get_start_sector()
+        mini_sectors = []
+        while mini_stream_sector != 0xFFFFFFFE:
+            mini_sectors.append(mini_stream_sector)
+            mini_stream_sector = fat[mini_stream_sector]
+        obj._minifat_chain.get_streams().set_additional_sectors(mini_sectors)
         for directory in flat_directories:
             if directory.prev_index != 0xFFFFFFFF:
                 left = flat_directories[directory.prev_index]

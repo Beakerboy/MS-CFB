@@ -366,8 +366,9 @@ class OleFile:
                     flat_directories.append(directory)
             directory_list_sector = fat[directory_list_sector]
         mini_stream_sector = flat_directories[0].get_start_sector()
+        mini_sectors = []
         while directory_list_sector != 0xFFFFFFFE:
-            mini_sectors = [mini_stream_sector]
+            mini_sectors.append(mini_stream_sector)
             mini_stream_sector = fat[mini_stream_sector]
         obj._minifat_chain.get_streams().set_additional_sectors(mini_sectors)
         for directory in flat_directories:

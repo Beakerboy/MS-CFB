@@ -230,7 +230,18 @@ class OleFile:
         self.build_file()
         self.write_file(path)
 
+    def extract_all(self: T) -> None:
+        """
+        Extract all the StreamDirectory objects to files.
+        """
+        for directory in self._directory.flatten():
+            if directory.get_type() == 2:
+                self.extract_stream(directory.get_name())
+
     def extract_stream(self: T, name: str) -> None:
+        """
+        Extract the stream with the given name to a file.
+        """
         found = False
         for directory in self._directory.flatten():
             if directory.get_name() == name:

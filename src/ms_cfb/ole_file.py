@@ -3,6 +3,7 @@ import uuid
 from ms_cfb.Models.DataStreams.directory_stream import DirectoryStream
 from ms_cfb.Models.Directories.directory import Directory
 from ms_cfb.Models.Directories.root_directory import RootDirectory
+from ms_cfb.Models.Directories.storage_directory import StorageDirectory
 from ms_cfb.Models.Directories.directory_factory import DirectoryFactory
 from ms_cfb.Models.Filesystems.fat_filesystem import FatFilesystem
 from ms_cfb.Models.Filesystems.minifat_filesystem import MinifatFilesystem
@@ -247,7 +248,7 @@ class OleFile:
                 new_dest = dest + '/' + child.get_name() 
                 self.extract_from_storage(self._directory, new_dest)
             elif child.get_type() == 2:
-                self.extract_stream(directory.get_name(), dest)
+                self.extract_stream(child.get_name(), dest)
 
     def extract_stream(self: T, name: str, dest: str) -> None:
         """

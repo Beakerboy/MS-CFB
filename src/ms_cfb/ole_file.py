@@ -249,7 +249,7 @@ class OleFile:
         for child in dir.directories:
             if child.get_type() == 1:
                 new_dest = dest + '/' + child.get_name()
-                self.extract_from_storage(self._directory, new_dest)
+                self.extract_from_storage(child, new_dest)
             elif child.get_type() == 2:
                 self.extract_stream(child.get_name(), dest)
 

@@ -17,7 +17,7 @@ def main() -> None:
     subroutine.
     """
     parser = argparse.ArgumentParser()
-    parser.add_argument("directory", nargs='?',
+    parser.add_argument("directory", nargs='?', default='.'
                         help="The input or output directory.")
     parser.add_argument("-c", "--create", action="store_true",
                         help="Create an OLE file from a directory.")
@@ -80,7 +80,7 @@ def main_extract(args: argparse.Namespace) -> None:
     Extract all streams, or a specified stream from the OLE container.
     """
     ole_file = OleFile.create_from_file(args.file)
-    ole_file.extract_all()
+    ole_file.extract_all(args.directory)
 
 
 def main_list(args: argparse.Namespace) -> None:

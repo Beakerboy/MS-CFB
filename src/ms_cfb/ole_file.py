@@ -81,6 +81,9 @@ class OleFile:
         # verify type of object
         self._directory.add_directory(object)
 
+    def get_minifat_chain(self: T) -> MinifatFilesystem:
+        return self._minifat_chain
+
     def header(self: T) -> bytes:
         """
         Create a 512 byte header sector for a OLE object.

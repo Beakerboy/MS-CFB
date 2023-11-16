@@ -18,13 +18,12 @@ MS-CFB will take a specified directory, and combine all directories and files wi
 For example, the following
 ```
 ./project
-├── PROJECT.bin
-├── PROJECTwm.bin
+├── PROJECT.txt
 └───VBA
      ├── Sheet1.bin
      ├── ThisWorkbook.bin
      ├── Module1.bin
-     ├── dir
+     ├── dir.bin
      └── _VBA_PROJECT
 ```
 
@@ -32,7 +31,6 @@ Will be transformed to:
 ```
 Root Entry
 ├── PROJECT
-├── PROJECTwm
 └───VBA
      ├── Sheet1
      ├── ThisWorkbook

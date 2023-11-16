@@ -21,9 +21,10 @@ def test_extract() -> None:
     ole_file = OleFile.create_from_file('tests/vbaProject.bin')
     sectors = ole_file.get_minifat_chain().get_streams().get_sectors()
     assert sectors == [3, 4, 5, 6, 8, 9, 10, 11, 12, 13, 14, 15, 17]
+    
     ole_file.extract_stream('PROJECTwm')
     f = open('PROJECTwm.bin', 'rb')
-    actual = f.read(82)
+    actual = f.read(86)
     expected = (''
                 + '5468 6973 576F 726B 626F 6F6B 0054 0068'
                 + '0069 0073 0057 006F 0072 006B 0062 006F'

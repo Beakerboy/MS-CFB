@@ -17,7 +17,7 @@ def main() -> None:
     subroutine.
     """
     parser = argparse.ArgumentParser()
-    parser.add_argument("directory", nargs='?', default='.'
+    parser.add_argument("directory", nargs='?', default='.',
                         help="The input or output directory.")
     parser.add_argument("-c", "--create", action="store_true",
                         help="Create an OLE file from a directory.")

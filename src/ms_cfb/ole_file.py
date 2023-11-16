@@ -341,24 +341,36 @@ class OleFile:
         format = "<" + str(num) + "I"
         fat_sector_list = struct.unpack(format, fat_sector_list_bytes)
 
-        # read fat sectors and assemble into sector list
+        # Read fat sectors and assemble into sector list.
         fat = []
         i = 0
         num = 2 ** (sector_shift - 2)
         format = "<" + str(num) + "I"
+        fat_sector_bytes = 2 ** sector_shift
         sector = fat_sector_list[i]
         while sector != 0xFFFFFFFF:
-            f.seek((sector + 1) * 2 ** sector_shift, 0)
-            next_fat_bytes = f.read(2 ** sector_shift)
-            next_fat = struct.unpack(format, next_fat_bytes)
-            fat.extend(next_fat)
+            f.seek((sector + 1) * fat_sector_bytes)
+            sector_data = f.read(fat_sector_bytes)
+            int_list = struct.unpack(format, sector_data)
+            fat.extend(int_list)
             i += 1
             sector = fat_sector_list[i]
+
+        # Read minifat sectors and assemble into sector list.
+        minifat = []
+        sector = obj._first_minichain_sector
+        while sector != 0xFFFFFFFE:
+            f.seek((sector + 1) * fat_sector_bytes)
+            sector_data = f.read(fat_sector_bytes)
+            int_list = struct.unpack(format, sector_data)
+            minifat.extend(int_list)
+            sector = fat[sector]
+
         # Assemble directory.
         flat_directories = []
         j = 0
         while directory_list_sector != 0xFFFFFFFE:
-            f.seek((directory_list_sector + 1) * 2 ** sector_shift)
+            f.seek((directory_list_sector + 1) * fat_sector_bytes)
             for i in range(2 ** (sector_shift - 7)):
                 # Read the 128 byte directory entry.
                 directory_bytes = f.read(128)

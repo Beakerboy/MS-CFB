@@ -268,7 +268,8 @@ class OleFile:
                             extra_bytes = (sector % mf_sectors_per_sector) * 64
                             fat_sectors = self._minifat_chain.get_sectors()
                             fat_sector = fat_sectors[chain_index]
-                            offset = (fat_sector + 1) * bytes_per_sector + extra_bytes
+                            offset = ((fat_sector + 1) * bytes_per_sector
+                                      + extra_bytes)
                             fi.seek(offset)
                             buffer = min(64, remaining)
                             fo.write(fi.read(buffer))
@@ -278,7 +279,7 @@ class OleFile:
                     raise Exception('Stream is not a file.')
         if not found:
             raise Exception('No stream found.')
-    
+
     @classmethod
     def create_from_file(cls: Type[T], path: str) -> T:
         obj = cls()

@@ -254,7 +254,7 @@ class OleFile:
                         for sector in sectors:
                             mf_sectors_per_sector = bytes_per_sector // 64
                             chain_index = sector // mf_sectors_per_sector
-                            extra_bytes = chain_index * 1
+                            extra_bytes = (sector % mf_sectors_per_sector) * 64
                             fat_sector = self._minifat_chain.get_sectors()[chain_index]
                             offset = (fat_sector + 1) * bytes_per_sector + 
                             fi.seek(offset)

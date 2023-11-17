@@ -12,7 +12,7 @@ MS-CFB is tested on python 3.7 and higher.
 ## Installation
 Use the package manager [pip](https://pip.pypa.io/en/stable/) to install MS_OVBA_Compression.
 ```
-pip install git+https://github.com/Beakerboy/MS-CFB
+pip install ms_cfb
 ```
 
 ## Getting Started

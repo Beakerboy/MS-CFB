@@ -27,7 +27,7 @@ For example, the following
      ├── ThisWorkbook.bin
      ├── Module1.bin
      ├── dir.bin
-     └── _VBA_PROJECT
+     └── _VBA_PROJECT.bin
 ```
 
 Will be transformed to:

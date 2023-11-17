@@ -10,9 +10,9 @@ This software operates as recommended in the [Microsoft interoperability guideli
 MS-CFB is tested on python 3.7 and higher.
 
 ## Installation
-MS-CFB is currently under development, but can be installed from GitHub using `pip`.
+Use the package manager [pip](https://pip.pypa.io/en/stable/) to install MS_OVBA_Compression.
 ```
-pip install git+https://github.com/Beakerboy/MS-CFB@dev
+pip install git+https://github.com/Beakerboy/MS-CFB
 ```
 
 ## Getting Started

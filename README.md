@@ -1,3 +1,6 @@
+[![Coverage Status](https://coveralls.io/repos/github/Beakerboy/MS-CFB/badge.png?branch=main)](https://coveralls.io/github/Beakerboy/MS-CFB?branch=main) ![Build Status](https://github.com/Beakerboy/MS-CFB/actions/workflows/python-package.yml/badge.svg)
+# MS-CFB
+
 ## About
 MS-CFB allows users to create, modify, and disassemble Microsoft Compound File Binary Files. This software can be used from the command line, or as a library within other projects.
 

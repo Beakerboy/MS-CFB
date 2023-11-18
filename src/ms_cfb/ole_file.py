@@ -54,7 +54,7 @@ class OleFile:
         for directory in self._directory.flatten():
             output += str(directory) + '\n'
             if directory.get_type() != 2:
-                tree.apoend(str(directory.directories))
+                tree.append(str(directory.directories))
         output += 'Tree:\n' + '\n'.join(tree)
         return output
 

@@ -52,6 +52,8 @@ class OleFile:
         output += 'Directories:\n'
         for directory in self._directory.flatten():
             output += str(directory) + '\n'
+        output += 'Tree:\n'
+        output += str(self._directory.directories)
         return output
 
     def set_version(self: T, version: int) -> None:

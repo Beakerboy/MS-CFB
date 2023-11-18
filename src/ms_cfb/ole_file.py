@@ -50,10 +50,12 @@ class OleFile:
         for directory in self._directory.create_file_tree(0):
             output += '\t' * directory[0] + directory[1] + '\n'
         output += 'Directories:\n'
+        tree = ''
         for directory in self._directory.flatten():
             output += str(directory) + '\n'
-        output += 'Tree:\n'
-        output += str(self._directory.directories)
+            if directory.get_type() != 2:
+                tree += str(directory.directories)
+        output += 'Tree:\n' + tree
         return output
 
     def set_version(self: T, version: int) -> None:

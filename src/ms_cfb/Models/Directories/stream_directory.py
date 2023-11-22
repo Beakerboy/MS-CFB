@@ -16,6 +16,7 @@ class StreamDirectory(FileStream, Directory):
         FileStream.__init__(self, path)
         self._type = 2
         self.name = name
+        self._key = (len(self.name), self.name.upper())
         # How many bytes does this item reserve in the file.
         # This includes padding to fill a sector or ministream.
         self.bytesUsed = 0

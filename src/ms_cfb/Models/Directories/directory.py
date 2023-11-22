@@ -11,7 +11,7 @@ T = TypeVar('T', bound='Directory')
 class Directory(Node):
     """An OLE directory object"""
 
-    def __init__(self: T) -> None:
+    def __init__(self: T, (0, '')) -> None:
         # This object is a node in a red-black tree.
         Node.__init__(self)
 

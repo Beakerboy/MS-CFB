@@ -43,5 +43,5 @@ def test_RBT() -> None:
     expected = (""
                 + "(7, 'PROJECT')(BLACK)\n"
                 + "     L----  (3, 'VBA')(RED)\n"
-                + "     L----  (9, 'PROJECTWM')(RED)\n"
+                + "     R----  (9, 'PROJECTWM')(RED)\n"
     assert str(dir.directories) == expected

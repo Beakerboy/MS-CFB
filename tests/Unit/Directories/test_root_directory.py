@@ -34,7 +34,7 @@ def test_add_created() -> None:
         dir.set_created(date)
 
 
-def test_RBT() -> None:
+def test_red_black_tree() -> None:
     dir = RootDirectory()
     dir1 = StorageDirectory('VBA')
     dir2 = StreamDirectory('PROJECT')

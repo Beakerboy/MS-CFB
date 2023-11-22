@@ -13,13 +13,13 @@ class Directory(Node):
 
     def __init__(self: T) -> None:
         # This object is a node in a red-black tree.
-        Node.__init__(self, (0, ''))
+        Node.__init__(self, None)
 
         # The directory to the left on the tree.
-        self.left = Node()
+        self.left = Node(None)
 
         # The directory to the right on the tree.
-        self.right = Node()
+        self.right = Node(None)
 
         # The object's name.
         self.name = ""

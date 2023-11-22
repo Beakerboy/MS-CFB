@@ -15,6 +15,7 @@ class StorageDirectory(Directory):
     def __init__(self: T, name: str) -> None:
         super(StorageDirectory, self).__init__()
         self.name = name
+        self._key = (len(self.name), self.name.upper())
         self._type = 1
         self.directories = RedBlackTree()
 

@@ -30,3 +30,18 @@ def test_add_created() -> None:
     with pytest.raises(Exception):
         date = 0x12345
         dir.set_created(date)
+
+
+def test_RBT() -> None:
+    dir = RootDirectory()
+    dir1 = StorageDirectory('VBA')
+    dir2 = StreamDirectory('PROJECT')
+    dir3 = StreamDirectory('PROJECTwm')
+    dir.add_directory(dir1)
+    dir.add_directory(dir2)
+    dir.add_directory(dir3)
+    expected = (""
+                + "(7, 'PROJECT')(BLACK)\n"
+                + "     L----  (3, 'VBA')(RED)\n"
+                + "     L----  (9, 'PROJECTWM')(RED)\n"
+    assert str(dir.directories) == expected

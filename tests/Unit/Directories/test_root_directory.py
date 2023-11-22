@@ -1,5 +1,7 @@
 import pytest
 from ms_cfb.Models.Directories.root_directory import RootDirectory
+from ms_cfb.Models.Directories.storage_directory import StorageDirectory
+from ms_cfb.Models.Directories.stream_directory import StreamDirectory
 from ms_dtyp.filetime import Filetime
 
 
@@ -43,5 +45,5 @@ def test_RBT() -> None:
     expected = (""
                 + "(7, 'PROJECT')(BLACK)\n"
                 + "     L----  (3, 'VBA')(RED)\n"
-                + "     R----  (9, 'PROJECTWM')(RED)\n"
+                + "     R----  (9, 'PROJECTWM')(RED)\n")
     assert str(dir.directories) == expected

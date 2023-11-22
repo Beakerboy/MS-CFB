@@ -18,7 +18,7 @@ classifiers = [
 ]
 dependencies = [
   'PyYAML',
-  'python-red-black-trees @ git+https://github.com/Beakerboy/python-red-black-trees@dev'
+  'python-red-black-trees @ git+https://github.com/Beakerboy/python-red-black-trees@patch-1'
 ]
 [project.optional-dependencies]
 tests = [

@@ -37,8 +37,8 @@ def test_add_created() -> None:
 def test_red_black_tree() -> None:
     dir = RootDirectory()
     dir1 = StorageDirectory('VBA')
-    dir2 = StreamDirectory('PROJECT')
-    dir3 = StreamDirectory('PROJECTwm')
+    dir2 = StreamDirectory('PROJECT', './foo')
+    dir3 = StreamDirectory('PROJECTwm', './foo')
     dir.add_directory(dir1)
     dir.add_directory(dir2)
     dir.add_directory(dir3)

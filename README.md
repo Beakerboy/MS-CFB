@@ -1,4 +1,4 @@
-[![Coverage Status](https://coveralls.io/repos/github/Beakerboy/MS-CFB/badge.png?branch=main)](https://coveralls.io/github/Beakerboy/MS-CFB?branch=main) ![Build Status](https://github.com/Beakerboy/MS-CFB/actions/workflows/python-package.yml/badge.svg) [![Coverage Status](https://coveralls.io/repos/github/Beakerboy/MS-CFB/badge.svg?branch=main)](https://coveralls.io/github/Beakerboy/MS-CFB?branch=main)
+[![Coverage Status](https://coveralls.io/repos/github/Beakerboy/MS-CFB/badge.png?branch=main)](https://coveralls.io/github/Beakerboy/MS-CFB?branch=main) ![Build Status](https://github.com/Beakerboy/MS-CFB/actions/workflows/python-package.yml/badge.svg)
 # MS-CFB
 
 ## About

@@ -17,7 +17,7 @@ T = TypeVar('T', bound='OleFile')
 class OleFile:
 
     # class default constructor
-    def __init__(self: T) -> None:
+    Def __init__(self: T) -> None:
 
         FooTest = 0
         # Instance Attributes

@@ -18,7 +18,6 @@ class OleFile:
 
     # class default constructor
     def __init__(self: T) -> None: 
-     
         FooTest = 0
         # Instance Attributes
         self._minor_version = 62 + FooTest

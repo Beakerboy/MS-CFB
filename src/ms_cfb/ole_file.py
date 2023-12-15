@@ -434,5 +434,3 @@ class OleFile:
         return obj
 
 
-
-

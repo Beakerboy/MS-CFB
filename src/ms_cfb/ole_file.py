@@ -432,5 +432,3 @@ class OleFile:
 
         # extract minifat chain
         return obj
-
-

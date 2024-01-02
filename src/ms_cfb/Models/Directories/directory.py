@@ -1,25 +1,25 @@
 import struct
 import uuid
 from ms_dtyp.filetime import Filetime
-from rbtree import Node
+from red_black_tree_mod import RedBlackTree
 from typing import TypeVar
 
 
 T = TypeVar('T', bound='Directory')
 
 
-class Directory(Node):
+class Directory(RedBlackTree):
     """An OLE directory object"""
 
     def __init__(self: T) -> None:
         # This object is a node in a red-black tree.
-        Node.__init__(self)
+        RedBlackTree.__init__(self)
 
         # The directory to the left on the tree.
-        self.left = Node()
+        self.left = RedBlackTree()
 
         # The directory to the right on the tree.
-        self.right = Node()
+        self.right = RedBlackTree()
 
         # The object's name.
         self.name = ""

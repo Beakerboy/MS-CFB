@@ -79,8 +79,10 @@ class Directory(RedBlackTree):
     def __ne__(self: T, other: T) -> bool:
         if other.is_null():
             return True
-        return ((len(self.name), self.name.upper())
-                != (len(other.name), other.name.upper()))
+        return self.get_key() != other.get_key()
+
+    def get_key(self: T) -> tuple[int, str]
+        return (len(self.name), self.name.upper())
 
     def set_color(self: T, value: str) -> None:
         is_blk = str == "black"

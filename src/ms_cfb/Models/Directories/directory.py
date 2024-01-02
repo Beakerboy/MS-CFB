@@ -81,7 +81,7 @@ class Directory(RedBlackTree):
             return True
         return self.get_key() != other.get_key()
 
-    def get_key(self: T) -> tuple[int, str]
+    def get_key(self: T) -> tuple[int, str]:
         return (len(self.name), self.name.upper())
 
     def set_color(self: T, value: str) -> None:

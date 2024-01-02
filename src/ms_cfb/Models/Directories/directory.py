@@ -1,7 +1,7 @@
 import struct
 import uuid
 from ms_dtyp.filetime import Filetime
-from red-black-tree_mod import RedBlackTree
+from red_black_dict_mod import RedBlackTree
 from typing import TypeVar
 
 

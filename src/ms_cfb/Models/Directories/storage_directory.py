@@ -24,6 +24,9 @@ class StorageDirectory(Directory):
                 "\n\tModified: " + str(self._modified) +
                 "\n\tGUID: " + str(self._class_id))
 
+    def insert(self: T, node: Directory) -> None:
+        self.directories.add(node.get_key(), node)
+
     def get_subdirectory_index(self: T) -> int:
         """
         Overriding Directory.get_subdirectory_index()

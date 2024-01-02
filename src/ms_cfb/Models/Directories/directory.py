@@ -82,6 +82,9 @@ class Directory(RedBlackTree):
         return ((len(self.name), self.name.upper())
                 != (len(other.name), other.name.upper()))
 
+    def set_color(self: T, value: str) -> None:
+        self.is_red(str == "red")
+        
     def set_created(self: T, value: Filetime) -> None:
         self._created = value
 

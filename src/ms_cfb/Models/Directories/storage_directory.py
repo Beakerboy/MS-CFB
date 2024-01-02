@@ -1,5 +1,5 @@
 from ms_cfb.Models.Directories.directory import Directory
-from rbtree import RedBlackTree
+from red_black_dict_mod import RedBlackTree
 from typing import TypeVar
 
 
@@ -23,6 +23,9 @@ class StorageDirectory(Directory):
                 "\n\tCreated: " + str(self._created) +
                 "\n\tModified: " + str(self._modified) +
                 "\n\tGUID: " + str(self._class_id))
+
+    def insert(self: T, node: Directory) -> None:
+        self.directories.add(node.get_key(), node)
 
     def get_subdirectory_index(self: T) -> int:
         """
@@ -55,6 +58,15 @@ class StorageDirectory(Directory):
             dir._flattened_index = i
             i += 1
         return flat
+
+    def get_tree_data(self: T, dir: Directory) -> tuple[int, int, int]:
+        key = dir.get_key()
+        node = self.directories.find(key)
+        return (
+            (0 if node.is_red else 1),
+            node.right.value._flattened_index,
+            node.left.value._flattened_index
+        )
 
     def create_file_tree(self: T, depth: int) -> list:
         tree = [(depth, self.name)]

@@ -1,26 +1,16 @@
 import struct
 import uuid
 from ms_dtyp.filetime import Filetime
-from rbtree import Node
 from typing import TypeVar
 
 
 T = TypeVar('T', bound='Directory')
 
 
-class Directory(Node):
+class Directory():
     """An OLE directory object"""
 
     def __init__(self: T) -> None:
-        # This object is a node in a red-black tree.
-        Node.__init__(self)
-
-        # The directory to the left on the tree.
-        self.left = Node()
-
-        # The directory to the right on the tree.
-        self.right = Node()
-
         # The object's name.
         self.name = ""
 
@@ -54,33 +44,12 @@ class Directory(Node):
                 "\n\tStart Sector: " + str(self.get_start_sector()) +
                 "\n\tSize: " + str(self.file_size()))
 
-    def __lt__(self: T, other: T) -> bool:
-        return ((len(self.name), self.name.upper())
-                < (len(other.name), other.name.upper()))
+    def get_key(self: T) -> tuple[int, str]:
+        return (len(self.name), self.name.upper())
 
-    def __le__(self: T, other: T) -> bool:
-        return ((len(self.name), self.name.upper())
-                <= (len(other.name), other.name.upper()))
-
-    def __gt__(self: T, other: T) -> bool:
-        return ((len(self.name), self.name.upper())
-                > (len(other.name), other.name.upper()))
-
-    def __ge__(self: T, other: T) -> bool:
-        return ((len(self.name), self.name.upper())
-                >= (len(other.name), other.name.upper()))
-
-    def __eq__(self: T, other: T) -> bool:
-        if other.is_null():
-            return False
-        return ((len(self.name), self.name.upper())
-                == (len(other.name), other.name.upper()))
-
-    def __ne__(self: T, other: T) -> bool:
-        if other.is_null():
-            return True
-        return ((len(self.name), self.name.upper())
-                != (len(other.name), other.name.upper()))
+    def set_color(self: T, value: str) -> None:
+        is_blk = str == "black"
+        self.is_black = is_blk
 
     def set_created(self: T, value: Filetime) -> None:
         self._created = value
@@ -132,21 +101,10 @@ class Directory(Node):
         """
         return 0xFFFFFFFF
 
-    def to_bytes(self: T) -> bytes:
+    def to_bytes(self: T, color:int = 1, left:int = 0xFFFFFFFF, right:int = 0xFFFFFFFF) -> bytes:
         format = "<64shbb3I16sIQQIII"
-        color = 0 if self.is_red() else 1
         if self._type == 5 and len(self.directories) > 2:
             color = 0
-        right = 0
-        if self.right.is_null():
-            right = 0xFFFFFFFF
-        else:
-            right = self.right._flattened_index
-        left = 0
-        if self.left.is_null():
-            left = 0xFFFFFFFF
-        else:
-            left = self.left._flattened_index
         dir = struct.pack(
             format,
             self.name.encode("utf_16_le"),

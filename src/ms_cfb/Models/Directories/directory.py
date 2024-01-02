@@ -142,12 +142,12 @@ class Directory(RedBlackTree):
         if self._type == 5 and len(self.directories) > 2:
             color = 0
         right = 0
-        if self.right.is_null():
+        if self.right == None:
             right = 0xFFFFFFFF
         else:
             right = self.right._flattened_index
         left = 0
-        if self.left.is_null():
+        if self.left == None:
             left = 0xFFFFFFFF
         else:
             left = self.left._flattened_index

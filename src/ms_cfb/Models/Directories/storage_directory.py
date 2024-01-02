@@ -59,6 +59,15 @@ class StorageDirectory(Directory):
             i += 1
         return flat
 
+    def get_tree_data(self: T, dir: Directory) -> tuple[int, int, int]:
+        key = dir.get_key()
+        node = self.directories.find(key)
+        return (
+            node.color,
+            node.right.value._flattened_index
+            node.left.value._flattened_index
+        )
+
     def create_file_tree(self: T, depth: int) -> list:
         tree = [(depth, self.name)]
         for child in self.directories:

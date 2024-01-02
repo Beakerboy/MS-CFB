@@ -138,21 +138,10 @@ class Directory(RedBlackTree):
         """
         return 0xFFFFFFFF
 
-    def to_bytes(self: T) -> bytes:
+    def to_bytes(self: T, color:int = 1, left:int = 0xFFFFFFFF, right:int = 0xFFFFFFFF) -> bytes:
         format = "<64shbb3I16sIQQIII"
-        color = 0 if self.is_red else 1
         if self._type == 5 and len(self.directories) > 2:
             color = 0
-        right = 0
-        if self.right is None:
-            right = 0xFFFFFFFF
-        else:
-            right = self.right._flattened_index
-        left = 0
-        if self.left is None:
-            left = 0xFFFFFFFF
-        else:
-            left = self.left._flattened_index
         dir = struct.pack(
             format,
             self.name.encode("utf_16_le"),

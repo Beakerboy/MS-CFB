@@ -84,7 +84,7 @@ class Directory(RedBlackTree):
 
     def set_color(self: T, value: str) -> None:
         self.is_red(str == "red")
-        
+
     def set_created(self: T, value: Filetime) -> None:
         self._created = value
 

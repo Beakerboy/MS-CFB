@@ -63,8 +63,8 @@ class StorageDirectory(Directory):
         key = dir.get_key()
         node = self.directories.find(key)
         return (
-            node.color,
-            node.right.value._flattened_index
+            (0 if node.is_red else 1),
+            node.right.value._flattened_index,
             node.left.value._flattened_index
         )
 

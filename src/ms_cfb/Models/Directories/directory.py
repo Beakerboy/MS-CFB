@@ -138,7 +138,7 @@ class Directory(RedBlackTree):
 
     def to_bytes(self: T) -> bytes:
         format = "<64shbb3I16sIQQIII"
-        color = 0 if self.is_red() else 1
+        color = 0 if self.is_red else 1
         if self._type == 5 and len(self.directories) > 2:
             color = 0
         right = 0

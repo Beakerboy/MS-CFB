@@ -85,7 +85,7 @@ class OleFile:
     @property
     def root_directory(self: T) -> RootDirectory:
         return self._directory
-        
+
     @root_directory.setter
     def root_directory(self: T, dir: RootDirectory) -> None:
         self._directory = dir

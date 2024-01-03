@@ -7,6 +7,9 @@ T = TypeVar('T', bound='DirectoryStream')
 
 
 class DirectoryStream(ArrayStream):
+"""
+A DirectoryStream is the list of all streams in the OLE file.
+"""
 
     # Constructor
     def __init__(self: T) -> None:
@@ -19,9 +22,11 @@ class DirectoryStream(ArrayStream):
     def stream_size(self: T) -> int:
     """
     Overrides ArrayStream.stream_size()
+    Each Directory is rendered as a 128 byte block of binary data.
     """
         return len(self._data) * 16 * 8
 
     # Private Methods
+
     def _render_element(self: T, dir: 'Directory') -> bytes:
         return dir.to_bytes()

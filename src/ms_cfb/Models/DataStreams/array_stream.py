@@ -9,17 +9,20 @@ T = TypeVar('T', bound='ArrayStream')
 
 class ArrayStream(StreamBase):
 
+    # Constructor
     def __init__(self: T, child_sector_size: int) -> None:
         super(ArrayStream, self).__init__()
         self._data = []
         self._child_sector_size = child_sector_size
 
+    # Dunder Methods
     def __iter__(self: T) -> Iterator:
         return iter(self._data)
 
     def __len__(self: T) -> int:
         return len(self._data)
 
+    # Public Methods
     def to_file(self: T, path: str) -> None:
         f = open(path, "wb")
         for element in self._data:
@@ -42,6 +45,7 @@ class ArrayStream(StreamBase):
             sum += sectors * self._child_sector_size
         return sum
 
+    # Private Methods
     def _extend_data(self: T, data: Any) -> None:
         """
         Add new data to the array

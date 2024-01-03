@@ -43,7 +43,7 @@ class OleFile:
 
     # Dunder Methods
     def __str__(self: T) -> str:
-        version = self.get_version_string()
+        version = self.version_string
         output = ('Version ' + version + ' OLE file\n')
         output += ('GUID: ' + str(self.guid) + '\n')
         output += 'File Structure:\n'

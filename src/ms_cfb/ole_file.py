@@ -439,7 +439,7 @@ class OleFile:
             if directory.sub_index != 0xFFFFFFFF:
                 child = flat_directories[directory.sub_index]
                 directory.directories.root = child
-        obj.set_root_directory(flat_directories[0])
+        obj.root_directory = flat_directories[0]
 
         # extract minifat chain
         return obj

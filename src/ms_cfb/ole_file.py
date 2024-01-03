@@ -36,10 +36,10 @@ class OleFile:
         self._fat_chain = FatFilesystem(2 ** self._sector_shift)
 
         # The list of pointers to the address of the next file piece
-        self._minifat_chain = MinifatFilesystem()
+        self.minifat_chain = MinifatFilesystem()
 
         # A list of directories
-        self._directory = RootDirectory()
+        self.root_directory = RootDirectory()
 
     # Dunder Methods
     def __str__(self: T) -> str:
@@ -78,11 +78,21 @@ class OleFile:
     def guid(self: T) -> uuid.UUID:
         return self._guid
 
-    def get_version_string(self: T) -> str:
+    @property
+    def version_string(self: T) -> str:
         return str(self._major_version) + '.' + str(self._minor_version)
 
-    def set_root_directory(self: T, dir: RootDirectory) -> None:
+    @property
+    def root_directory(self: T) -> RootDirectory:
+        return self._directory
+        
+    @root_directory.setter
+    def root_directory(self: T, dir: RootDirectory) -> None:
         self._directory = dir
+
+    @property
+    def minifat_chain(self: T) -> MinifatFilesystem:
+        return self._minifat_chain
 
     def add_directory_entry(self: T, object: 'Directory') -> None:
         """
@@ -90,9 +100,6 @@ class OleFile:
         """
         # verify type of object
         self._directory.add_directory(object)
-
-    def get_minifat_chain(self: T) -> MinifatFilesystem:
-        return self._minifat_chain
 
     # Methods
     def header(self: T) -> bytes:

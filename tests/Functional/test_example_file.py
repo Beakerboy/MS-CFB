@@ -47,7 +47,7 @@ def test_example_file() -> None:
     storage.add_directory(stream1)
 
     ole_file = OleFile()
-    ole_file.set_root_directory(root)
+    ole_file.root_directory = root
     ole_file.add_directory_entry(storage)
     ole_file.create_file("Test1.bin")
     assert os.stat("Test1.bin").st_size == 512 * 6

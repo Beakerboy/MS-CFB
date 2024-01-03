@@ -7,9 +7,9 @@ T = TypeVar('T', bound='DirectoryStream')
 
 
 class DirectoryStream(ArrayStream):
-"""
-A DirectoryStream is the list of all streams in the OLE file.
-"""
+    """
+    A DirectoryStream is the list of all streams in the OLE file.
+    """
 
     # Constructor
     def __init__(self: T) -> None:

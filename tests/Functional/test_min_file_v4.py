@@ -24,7 +24,7 @@ def test_min_file() -> None:
     header, fat, directory
     """
     ole_file = OleFile()
-    ole_file.set_version(4)
+    ole_file.version = 4
     ole_file.create_file("Test3.bin")
     assert os.stat("Test3.bin").st_size == 4096 * 3
 

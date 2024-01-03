@@ -21,8 +21,7 @@ class OleFile:
 
         # Instance Attributes
         self._minor_version = 62
-        self._major_version = 3
-        self._sector_shift = 9
+        self.version = 3
         self._mini_sector_shift = 6
         self._first_directory_list_sector = 1
         self._guid = uuid.UUID(int=0x00)
@@ -42,10 +41,11 @@ class OleFile:
         # A list of directories
         self._directory = RootDirectory()
 
+    # Dunder Methods
     def __str__(self: T) -> str:
         version = self.get_version_string()
         output = ('Version ' + version + ' OLE file\n')
-        output += ('GUID: ' + str(self.get_guid()) + '\n')
+        output += ('GUID: ' + str(self.guid) + '\n')
         output += 'File Structure:\n'
         for directory in self._directory.create_file_tree(0):
             output += '\t' * directory[0] + directory[1] + '\n'
@@ -58,7 +58,13 @@ class OleFile:
         output += 'Tree:\n' + '\n'.join(tree)
         return output
 
-    def set_version(self: T, version: int) -> None:
+    # Properties, Setters, and Getters
+    @property
+    def version(self: T) -> int:
+        return self._major_version
+
+    @version.setter
+    def version(self: T, version: int) -> None:
         if version > 4 or version < 3:
             raise Exception("Version must be 3 or 4")
         self._major_version = version
@@ -68,14 +74,12 @@ class OleFile:
             self._sector_shift = 12
         self._fat_chain = FatFilesystem(2 ** self._sector_shift)
 
-    def get_version(self: T) -> int:
-        return self._major_version
+    @property
+    def guid(self: T) -> uuid.UUID:
+        return self._guid
 
     def get_version_string(self: T) -> str:
         return str(self._major_version) + '.' + str(self._minor_version)
-
-    def get_guid(self: T) -> uuid.UUID:
-        return self._guid
 
     def set_root_directory(self: T, dir: RootDirectory) -> None:
         self._directory = dir
@@ -90,6 +94,7 @@ class OleFile:
     def get_minifat_chain(self: T) -> MinifatFilesystem:
         return self._minifat_chain
 
+    # Methods
     def header(self: T) -> bytes:
         """
         Create a 512 byte header sector for a OLE object.

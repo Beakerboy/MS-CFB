@@ -13,6 +13,9 @@ class FileArray(ArrayStream):
     """
 
     def _render_element(self: T, dir: 'FileStream') -> bytes:
+        """
+        Implements ArrayStream._render_element()
+        """
         dir.to_file("temp.bin")
         f = open("temp.bin", "rb")
         data = f.read()

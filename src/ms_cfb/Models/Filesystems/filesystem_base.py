@@ -23,7 +23,7 @@ class FilesystemBase:
 
         # Each stream begins at the start of a sector and is padded to fill
         # the end of a sector.
-        self._streams = []
+        self._streams: list = []
 
     def __len__(self: T) -> int:
         return self._next_free_sector

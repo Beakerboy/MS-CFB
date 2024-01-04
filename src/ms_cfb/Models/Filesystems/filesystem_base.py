@@ -98,17 +98,17 @@ class FilesystemBase:
             f.write(address.to_bytes(4, "little"))
 
     def write_streams(self: T, path: str) -> None:
-        sectors = len(self)
+        num_sectors = len(self)
         f = open(path, "wb")
-        f.write(b'\x02' * sectors * self._sector_size)
+        f.write(b'\x02' * num_sectors * self._sector_size)
         i = 0
         for stream in self._streams:
-            sectors = stream.get_sectors()
+            sector_list = stream.get_sectors()
             rand = ''.join([choice(string.ascii_letters) for i in range(5)])
             filename = "stream" + str(i) + rand + ".bin"
             stream.to_file(filename)
             s = open(filename, "rb")
-            for sector in sectors:
+            for sector in sector_list:
                 sector_data = s.read(self._sector_size)
                 f.seek(sector * self._sector_size)
                 f.write(sector_data)

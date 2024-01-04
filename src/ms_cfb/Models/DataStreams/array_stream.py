@@ -54,3 +54,6 @@ class ArrayStream(StreamBase):
         Add new data to the array
         """
         self._data.append(data)
+
+    def _render_element(self: T, data: Any) -> bytes:
+        raise Exception("must be implemented bu child")

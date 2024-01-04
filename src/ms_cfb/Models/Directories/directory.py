@@ -55,31 +55,31 @@ class Directory(Node):
                 "\n\tSize: " + str(self.file_size()))
 
     def __lt__(self: T, other: object) -> bool:
-        if isInstance(object, Directory):
+        if isinstance(object, Directory):
             return ((len(self.name), self.name.upper())
                     < (len(other.name), other.name.upper()))
         raise Exception()
 
     def __le__(self: T, other: object) -> bool:
-        if isInstance(object, Directory):
+        if isinstance(object, Directory):
             return ((len(self.name), self.name.upper())
                     <= (len(other.name), other.name.upper()))
         raise Exception()
 
     def __gt__(self: T, other: object) -> bool:
-        if isInstance(object, Directory):
+        if isinstance(object, Directory):
             return ((len(self.name), self.name.upper())
                     > (len(other.name), other.name.upper()))
         raise Exception()
 
     def __ge__(self: T, other: object) -> bool:
-        if isInstance(object, Directory):
+        if isinstance(object, Directory):
             return ((len(self.name), self.name.upper())
                     >= (len(other.name), other.name.upper()))
         raise Exception()
 
     def __eq__(self: T, other: object) -> bool:
-        if isInstance(object, Directory):
+        if isinstance(object, Directory):
             if other.is_null():
                 return False
             return ((len(self.name), self.name.upper())
@@ -87,7 +87,7 @@ class Directory(Node):
         raise Exception()
 
     def __ne__(self: T, other: object) -> bool:
-        if isInstance(object, Directory):
+        if isinstance(object, Directory):
             if other.is_null():
                 return True
             return ((len(self.name), self.name.upper())

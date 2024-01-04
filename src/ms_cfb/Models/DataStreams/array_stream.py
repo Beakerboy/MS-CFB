@@ -62,4 +62,5 @@ class ArrayStream(StreamBase):
         Create the binary form of the object.
         This method must be implemented by each child.
         """
-        raise Exception('_render_element() must be implemmted by child classes.')
+        str = '_render_element() must be implemmted by child classes.'
+        raise Exception(str)

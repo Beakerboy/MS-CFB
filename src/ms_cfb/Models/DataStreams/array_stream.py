@@ -60,7 +60,8 @@ class ArrayStream(StreamBase):
     def _render_element(self: T, index: int) -> bytes:
         """
         Create the binary form of the object.
-        This method must be implemented by each child.
+        This method must be implemented by each child
+        if the object contained in the array does not
+        have a to_bytes() method.
         """
-        str = '_render_element() must be implemmted by child classes.'
-        raise Exception(str)
+        return self._data[index].to_bytes()

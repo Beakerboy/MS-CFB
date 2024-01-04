@@ -28,5 +28,8 @@ class DirectoryStream(ArrayStream):
 
     # Private Methods
 
-    def _render_element(self: T, dir: 'Directory') -> bytes:
-        return dir.to_bytes()
+    def _render_element(self: T, index: int) -> bytes:
+        """
+        Implements ArrayStream._render_element()
+        """
+        return self._data[index].to_bytes()

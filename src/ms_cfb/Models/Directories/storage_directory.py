@@ -30,7 +30,7 @@ class StorageDirectory(Directory):
         If the red-black tree has a root, return its flattened index.
         """
         dir = self.directories
-        node = dir.get_root()
+        node = dir.root
         if node.is_null():
             return 0xFFFFFFFF
         assert isinstance(node, Directory)

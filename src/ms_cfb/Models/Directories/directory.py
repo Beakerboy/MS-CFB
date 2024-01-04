@@ -16,10 +16,10 @@ class Directory(Node):
         Node.__init__(self)
 
         # The directory to the left on the tree.
-        self.left: Directory = Node()
+        # self.left: Directory = Node()
 
         # The directory to the right on the tree.
-        self.right: Directory = Node()
+        # self.right: Directory = Node()
 
         # The object's name.
         self.name = ""
@@ -118,12 +118,12 @@ class Directory(Node):
         if self._type == 5 and len(self.directories) > 2:
             color = 0
         right = 0
-        if self.right.is_null():
+        if self.right is None:
             right = 0xFFFFFFFF
         else:
             right = self.right._flattened_index
         left = 0
-        if self.left.is_null():
+        if self.left is None:
             left = 0xFFFFFFFF
         else:
             left = self.left._flattened_index

@@ -10,3 +10,12 @@ class FileArray(ArrayStream):
     """
     A FileArray is an array of FileStream objects.
     """
+
+    def _render_element(self: T, index: int) -> bytes:
+        dir = self._data[index]
+        dir.to_file("temp.bin")
+        f = open("temp.bin", "rb")
+        data = f.read()
+        f.close()
+        os.remove("temp.bin")
+        return data

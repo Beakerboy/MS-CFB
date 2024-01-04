@@ -58,6 +58,10 @@ class Directory(Node):
     def key(self: T) -> tuple:
         return (len(self.name), self.name.upper())
 
+    @key.setter
+    def key(self:T, value: None = None) -> None:
+        pass
+
     def set_created(self: T, value: Filetime) -> None:
         self._created = value
 

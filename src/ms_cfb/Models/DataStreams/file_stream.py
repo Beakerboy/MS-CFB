@@ -37,14 +37,3 @@ class FileStream(StreamBase):
         fill = (self._storage_sector_size - mod) // len(self._padding)
         c = open(path, "ab")
         c.write(self._padding * fill)
-
-    def to_bytes(self: T) -> bytes:
-        """
-        Return the padded file as bytes.
-        """
-        self.to_file("temp.bin")
-        f = open("temp.bin", "rb")
-        data = f.read()
-        f.close()
-        os.remove("temp.bin")
-        return data

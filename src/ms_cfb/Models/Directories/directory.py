@@ -1,7 +1,7 @@
 import struct
 import uuid
 from ms_dtyp.filetime import Filetime
-import ms_cfb.Models.Directories.root_directory
+import ms_cfb.Models.Directories.root_directory as root_directory
 from rbtree.rbtree import Node
 from typing import TypeVar
 

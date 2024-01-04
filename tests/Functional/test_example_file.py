@@ -59,6 +59,7 @@ def test_example_file() -> None:
     f = open("Test1.bin", "rb")
 
     # Create an array whith each sector as an element.
+    expected = []
     sector1 = ("D0CF 11E0 A1B1 1AE1 0000 0000 0000 0000",
                "0000 0000 0000 0000 3E00 0300 FEFF 0900",
                "0600 0000 0000 0000 0000 0000 0100 0000",

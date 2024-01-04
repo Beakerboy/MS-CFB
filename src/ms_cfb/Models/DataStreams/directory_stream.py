@@ -24,11 +24,3 @@ class DirectoryStream(ArrayStream):
         Each Directory is rendered as a 128 byte block of binary data.
         """
         return len(self._data) * 16 * 8
-
-    # Private Methods
-
-    def _render_element(self: T, index: int) -> bytes:
-        """
-        Implements ArrayStream._render_element()
-        """
-        return self._data[index].to_bytes()

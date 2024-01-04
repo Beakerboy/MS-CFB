@@ -18,8 +18,8 @@ class Filetime(datetime):
         """
         Convert to MS Filetime
         """
-        self.__class__ = datetime
-        dif = self - datetime(1601, 1, 1, 0, 0, 0)
+        reself = datetime(self.year, self.month, self.day, self.hour,
+                          self.minute, self.second, self.microsecond)
+        dif = reself - datetime(1601, 1, 1, 0, 0, 0)
         filetime = dif / timedelta(microseconds=1) * 10
-        self.__class__ = Filetime
         return int(filetime)

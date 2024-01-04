@@ -30,8 +30,8 @@ class ArrayStream(StreamBase):
     # Public Methods
     def to_file(self: T, path: str) -> None:
         f = open(path, "wb")
-        for element in self._data:
-            f.write(self._render_element(element))
+        for i in range(len(self)):
+            f.write(self._render_element(i))
         length = f.tell()
         if length % self._storage_sector_size == 0:
             mod = self._storage_sector_size
@@ -56,3 +56,10 @@ class ArrayStream(StreamBase):
         Add new data to the array
         """
         self._data.append(data)
+
+    def _render_element(self: T, index: int) -> bytes:
+        """
+        Create the binary form of the object.
+        This method must be implemented by each child.
+        """
+        raise Exception('_render_element() must be implemmted by child classes.")

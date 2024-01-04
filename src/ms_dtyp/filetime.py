@@ -18,6 +18,6 @@ class Filetime(datetime):
         """
         Convert to MS Filetime
         """
-        dif = self - T(1601, 1, 1, 0, 0, 0)
+        dif = self - datetime(1601, 1, 1, 0, 0, 0)
         filetime = dif / timedelta(microseconds=1) * 10
         return int(filetime)

@@ -5,7 +5,7 @@ from ms_cfb.Models.Directories.root_directory import RootDirectory
 from ms_cfb.Models.Directories.storage_directory import StorageDirectory
 from ms_cfb.Models.Directories.stream_directory import StreamDirectory
 from ms_dtyp.filetime import Filetime
-from typing import TypeVar
+from typing import Type, TypeVar
 
 
 T = TypeVar('T', bound='DirectoryFactory')
@@ -14,7 +14,7 @@ T = TypeVar('T', bound='DirectoryFactory')
 class DirectoryFactory:
 
     @classmethod
-    def from_binary(cls: T, data: bytes) -> 'Directory':
+    def from_binary(cls: Type[T], data: bytes) -> 'Directory':
         format = "<64shbb3I16sIQQIII"
         (name, name_size, type, color,
          previous_directory_id, next_directory_id,

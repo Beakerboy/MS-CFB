@@ -1,4 +1,5 @@
 from ms_cfb.Models.DataStreams.array_stream import ArrayStream
+from ms_cfb.Models.Directories.directory import Directory
 from typing import TypeVar
 
 
@@ -25,6 +26,5 @@ class DirectoryStream(ArrayStream):
         """
         return len(self._data) * 16 * 8
 
-    def _render_element(self: T, index: int) -> bytes:
-        dir = self._data[index]
+    def _render_element(self: T, dir: 'Directory') -> bytes:
         return dir.to_bytes()

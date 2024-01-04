@@ -54,29 +54,29 @@ class Directory(Node):
                 "\n\tStart Sector: " + str(self.get_start_sector()) +
                 "\n\tSize: " + str(self.file_size()))
 
-    def __lt__(self: T, other: T) -> bool:
+    def __lt__(self: T, other: object) -> bool:
         return ((len(self.name), self.name.upper())
                 < (len(other.name), other.name.upper()))
 
-    def __le__(self: T, other: T) -> bool:
+    def __le__(self: T, other: object) -> bool:
         return ((len(self.name), self.name.upper())
                 <= (len(other.name), other.name.upper()))
 
-    def __gt__(self: T, other: T) -> bool:
+    def __gt__(self: T, other: object) -> bool:
         return ((len(self.name), self.name.upper())
                 > (len(other.name), other.name.upper()))
 
-    def __ge__(self: T, other: T) -> bool:
+    def __ge__(self: T, other: object) -> bool:
         return ((len(self.name), self.name.upper())
                 >= (len(other.name), other.name.upper()))
 
-    def __eq__(self: T, other: T) -> bool:
+    def __eq__(self: T, other: object) -> bool:
         if other.is_null():
             return False
         return ((len(self.name), self.name.upper())
                 == (len(other.name), other.name.upper()))
 
-    def __ne__(self: T, other: T) -> bool:
+    def __ne__(self: T, other: object) -> bool:
         if other.is_null():
             return True
         return ((len(self.name), self.name.upper())

@@ -1,7 +1,7 @@
 import struct
 import uuid
 from ms_dtyp.filetime import Filetime
-from ms_cfb.Models.Directories.root_directory import RootDirectory
+import ms_cfb.Models.Directories.root_directory
 from rbtree.rbtree import Node
 from typing import TypeVar
 
@@ -116,7 +116,7 @@ class Directory(Node):
     def to_bytes(self: T) -> bytes:
         format = "<64shbb3I16sIQQIII"
         color = 0 if self.is_red() else 1
-        if isinstance(self, RootDirectory) and len(self.directories) > 2:
+        if isinstance(self, root_directory.RootDirectory) and len(self.directories) > 2:
             color = 0
         right = 0
         if self.right.is_null():

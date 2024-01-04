@@ -1,5 +1,5 @@
 from datetime import datetime, timedelta
-from typing import TypeVar
+from typing import Type, TypeVar
 
 
 T = TypeVar('T', bound='Filetime')
@@ -8,7 +8,7 @@ T = TypeVar('T', bound='Filetime')
 class Filetime(datetime):
 
     @classmethod
-    def from_msfiletime(cls: T, filetime: int) -> 'Filetime':
+    def from_msfiletime(cls: Type[T], filetime: int) -> 'Filetime':
         null_date = datetime(1601, 1, 1, 0, 0, 0)
         date_time = null_date + timedelta(microseconds=filetime//10)
         timestamp = date_time.timestamp()

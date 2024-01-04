@@ -48,7 +48,7 @@ class MinifatFilesystem(FilesystemBase, StreamBase):
         """
         return 4 * len(self)
 
-    def _extend_data(self: T, number: int) -> None:
+    def _extend_data(self: T, number: bytes) -> None:
         """
         implementation of StreamBase._extend_data()
         """

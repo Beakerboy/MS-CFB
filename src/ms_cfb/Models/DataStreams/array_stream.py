@@ -11,6 +11,8 @@ class ArrayStream(StreamBase):
     """
     An array stream is a stream in which renderable data is
     saved in an array.
+    This class is a base class. Child classes must implement
+    the _render_element() method.
     """
     # Constructor
     def __init__(self: T, child_sector_size: int) -> None:

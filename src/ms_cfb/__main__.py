@@ -50,8 +50,8 @@ def main_create(args: argparse.Namespace) -> None:
     """
     ole_file = OleFile()
     if args.version == 4:
-        ole_file.set_version(4)
-    config = {"directories": {}}
+        ole_file.version = 4
+    config: dict = {"directories": {}}
     if args.extra is not None and os.path.isfile(args.extra):
         stream = open(args.extra, 'r')
         config = yaml.safe_load(stream)

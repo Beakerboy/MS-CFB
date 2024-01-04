@@ -61,6 +61,7 @@ class FilesystemBase:
 
     def extend_chain(self: T, stream: 'StreamBase', number: int) -> None:
         """
+        Reserve the provided number of sectors for the specified stream.
         """
         sector_list = []
         for i in range(number):

@@ -54,45 +54,13 @@ class Directory(Node):
                 "\n\tStart Sector: " + str(self.get_start_sector()) +
                 "\n\tSize: " + str(self.file_size()))
 
-    def __lt__(self: T, other: object) -> bool:
-        if isinstance(object, Directory):
-            return ((len(self.name), self.name.upper())
-                    < (len(other.name), other.name.upper()))
-        raise Exception()
+    @property
+    def key(self: T) -> tuple:
+        return (len(self.name), self.name.upper())
 
-    def __le__(self: T, other: object) -> bool:
-        if isinstance(object, Directory):
-            return ((len(self.name), self.name.upper())
-                    <= (len(other.name), other.name.upper()))
-        raise Exception()
-
-    def __gt__(self: T, other: object) -> bool:
-        if isinstance(object, Directory):
-            return ((len(self.name), self.name.upper())
-                    > (len(other.name), other.name.upper()))
-        raise Exception()
-
-    def __ge__(self: T, other: object) -> bool:
-        if isinstance(object, Directory):
-            return ((len(self.name), self.name.upper())
-                    >= (len(other.name), other.name.upper()))
-        raise Exception()
-
-    def __eq__(self: T, other: object) -> bool:
-        if isinstance(object, Directory):
-            if other.is_null():
-                return False
-            return ((len(self.name), self.name.upper())
-                    == (len(other.name), other.name.upper()))
-        raise Exception()
-
-    def __ne__(self: T, other: object) -> bool:
-        if isinstance(object, Directory):
-            if other.is_null():
-                return True
-            return ((len(self.name), self.name.upper())
-                    != (len(other.name), other.name.upper()))
-        raise Exception()
+    @key.setter
+    def key(self: T, value: None = None) -> None:
+        pass
 
     def set_created(self: T, value: Filetime) -> None:
         self._created = value

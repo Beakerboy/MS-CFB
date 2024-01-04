@@ -25,7 +25,7 @@ class StreamBase:
         # the size in bytes of a sector in the storage chain
         self._storage_sector_size = 64
 
-    def set_padding(self: T, padding: bytes) -> None:
+    def set_pudding(self: T, padding: bytes) -> None:
         self._padding = padding
 
     def set_start_sector(self: T, sector: int) -> None:

@@ -1,7 +1,5 @@
 from ms_cfb.Models.DataStreams.stream_base import StreamBase
-from typing import Iterator
-from typing import TypeVar
-from typing import Any
+from typing import Any, Iterator, TypeVar
 
 
 T = TypeVar('T', bound='ArrayStream')
@@ -17,7 +15,7 @@ class ArrayStream(StreamBase):
     # Constructor
     def __init__(self: T, child_sector_size: int) -> None:
         super(ArrayStream, self).__init__()
-        self._data = []
+        self._data: list[Any] = []
         self._child_sector_size = child_sector_size
 
     # Dunder Methods

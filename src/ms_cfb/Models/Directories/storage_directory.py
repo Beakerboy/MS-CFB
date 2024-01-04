@@ -29,9 +29,11 @@ class StorageDirectory(Directory):
         Overriding Directory.get_subdirectory_index()
         If the red-black tree has a root, return its flattened index.
         """
-        node = self.directories.get_root()
+        dir = self.directories
+        node = dir.get_root()
         if node.is_null():
             return 0xFFFFFFFF
+        assert isinstance(node, Directory)
         return node._flattened_index
 
     def minifat_sectors_used(self: T) -> int:

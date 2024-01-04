@@ -41,6 +41,9 @@ class OleFile:
         # A list of directories
         self.root_directory = RootDirectory()
 
+        # The path to the file
+        self.path = ""
+
     # Dunder Methods
     def __str__(self: T) -> str:
         version = self.version_string
@@ -159,7 +162,7 @@ class OleFile:
             return 0
         return (count - 109 - 1) // (2 ** (self._sector_shift - 2)) + 1
 
-    def write_header_fat_sector_list(self: T) -> None:
+    def write_header_fat_sector_list(self: T) -> bytes:
         """
         Create a 436 byte stream of the first 109 FAT sectors, padded with
         \\xFF.
@@ -373,7 +376,7 @@ class OleFile:
         fat_sector_list = struct.unpack(format, fat_sector_list_bytes)
 
         # Read fat sectors and assemble into sector list.
-        fat = []
+        fat: list = []
         i = 0
         num = 2 ** (sector_shift - 2)
         format = "<" + str(num) + "I"
@@ -388,7 +391,7 @@ class OleFile:
             sector = fat_sector_list[i]
 
         # Read minifat sectors and assemble into sector list.
-        minifat = []
+        minifat: list = []
         sector = obj._first_minichain_sector
         while sector != 0xFFFFFFFE:
             f.seek((sector + 1) * fat_sector_bytes)

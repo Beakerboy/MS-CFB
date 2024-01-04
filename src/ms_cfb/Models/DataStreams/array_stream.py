@@ -30,8 +30,8 @@ class ArrayStream(StreamBase):
     # Public Methods
     def to_file(self: T, path: str) -> None:
         f = open(path, "wb")
-        for i in range(len(self)):
-            f.write(self._render_element(i))
+        for element in self._data:
+            f.write(self._render_element(element))
         length = f.tell()
         if length % self._storage_sector_size == 0:
             mod = self._storage_sector_size

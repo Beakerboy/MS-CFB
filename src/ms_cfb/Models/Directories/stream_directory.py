@@ -18,7 +18,7 @@ class StreamDirectory(FileStream, Directory):
         self.name = name
         # How many bytes does this item reserve in the file.
         # This includes padding to fill a sector or ministream.
-        self.bytesUsed = 0
+        self.bytes_used = 0
         self._file_path = path
 
     def __str__(self: T) -> str:
@@ -39,7 +39,7 @@ class StreamDirectory(FileStream, Directory):
             raise Exception("clsid must be zero.")
 
     def set_bytes_reserved(self: T, quantity: int) -> None:
-        self.bytesUsed = quantity
+        self.bytes_used = quantity
 
     def set_start_sector(self: T, sector: int) -> None:
         """

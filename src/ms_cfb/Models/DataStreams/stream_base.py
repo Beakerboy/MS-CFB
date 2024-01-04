@@ -1,4 +1,4 @@
-from typing import TypeVar
+from typing import Any, TypeVar
 
 
 T = TypeVar('T', bound='StreamBase')
@@ -14,7 +14,7 @@ class StreamBase:
 
         # The stuff that will be used to squeeze data into the chain.
         # It can just be the data itself.
-        self._data = b''
+        self._data: Any = b''
 
         # An array of sectors this stream will reside
         self._sectors: list = []

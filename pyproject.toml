@@ -28,7 +28,8 @@ tests = [
   'pep8-naming',
   'pytest',
   'pytest-cov',
-  'pytest-mock'
+  'pytest-mock',
+  'types-PyYAML'
 ]
 [project.urls]
 "Homepage" = "https://github.com/Beakerboy/MS-CFB"

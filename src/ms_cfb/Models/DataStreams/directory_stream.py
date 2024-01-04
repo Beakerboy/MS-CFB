@@ -1,5 +1,4 @@
 from ms_cfb.Models.DataStreams.array_stream import ArrayStream
-from ms_cfb.Models.Directories.directory import Directory
 from typing import TypeVar
 
 

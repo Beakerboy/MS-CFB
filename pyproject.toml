@@ -22,12 +22,13 @@ dependencies = [
 ]
 [project.optional-dependencies]
 tests = [
+  'coveralls',
+  'flake8-annotations',
+  'mypy',
+  'pep8-naming',
   'pytest',
   'pytest-cov',
-  'pytest-mock',
-  'coveralls',
-  'pep8-naming',
-  'flake8-annotations'
+  'pytest-mock'
 ]
 [project.urls]
 "Homepage" = "https://github.com/Beakerboy/MS-CFB"

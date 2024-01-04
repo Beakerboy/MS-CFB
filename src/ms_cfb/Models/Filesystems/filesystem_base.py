@@ -54,11 +54,6 @@ class FilesystemBase:
 
         return chain
 
-    def _reserve_next_free_sector(self: T) -> int:
-        sector = self._next_free_sector
-        self._next_free_sector += 1
-        return sector
-
     def extend_chain(self: T, stream: 'StreamBase', number: int) -> None:
         """
         Reserve the provided number of sectors for the specified stream.
@@ -92,11 +87,6 @@ class FilesystemBase:
             self.extend_chain(stream, sectors_needed)
         self._streams.append(stream)
 
-    def _start_new_chain(self: T) -> int:
-        # Increase the necessary chain resources by one address
-        new_sector = self._reserve_next_free_sector()
-        return new_sector
-
     def write_chain(self: T, path: str) -> None:
         """
         write the chain list to a file.
@@ -125,3 +115,15 @@ class FilesystemBase:
             s.close()
             os.remove(filename)
             i += 1
+
+    # Private Methods
+
+    def _reserve_next_free_sector(self: T) -> int:
+        sector = self._next_free_sector
+        self._next_free_sector += 1
+        return sector
+
+    def _start_new_chain(self: T) -> int:
+        # Increase the necessary chain resources by one address
+        new_sector = self._reserve_next_free_sector()
+        return new_sector

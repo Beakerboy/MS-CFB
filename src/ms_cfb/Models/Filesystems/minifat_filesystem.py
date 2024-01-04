@@ -40,7 +40,6 @@ class MinifatFilesystem(FilesystemBase, StreamBase):
     def _start_new_chain(self: T) -> int:
         # Increase the necessary chain resources by one address
         new_sector = self._reserve_next_free_sector()
-        self.append(1)
         return new_sector
 
     def stream_size(self: T) -> int:

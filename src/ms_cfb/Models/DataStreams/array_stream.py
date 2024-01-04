@@ -54,12 +54,3 @@ class ArrayStream(StreamBase):
         Add new data to the array
         """
         self._data.append(data)
-
-    def _render_element(self: T, index: int) -> bytes:
-        """
-        Create the binary form of the object.
-        This method must be implemented by each child
-        if the object contained in the array does not
-        have a to_bytes() method.
-        """
-        return self._data[index].to_bytes()

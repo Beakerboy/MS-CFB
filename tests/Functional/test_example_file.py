@@ -53,7 +53,7 @@ def test_example_file() -> None:
     ole_file.create_file("Test1.bin")
 
     # Test The File.
-    # Ensurw it is the correct size.
+    # Ensure it is the correct size.
     assert os.stat("Test1.bin").st_size == 512 * 6
 
     f = open("Test1.bin", "rb")
@@ -67,7 +67,7 @@ def test_example_file() -> None:
                "0100 0000 FEFF FFFF 0000 0000 0000 0000")
     expected.append(bytes.fromhex(" ".join(sector1)) + b'\xff' * 16 * 27)
     expected.append(bytes.fromhex("FDFF FFFF FEFF FFFF FEFF FFFF 0400 0000 FE")
-               + b'\xff' * (16 * 31 - 1))
+                    + b'\xff' * (16 * 31 - 1))
     root = ("5200 6F00 6F00 7400 2000 4500 6E00 7400",
             "7200 7900 0000 0000 0000 0000 0000 0000",
             "0000 0000 0000 0000 0000 0000 0000 0000",
@@ -96,21 +96,21 @@ def test_example_file() -> None:
             "0000 0000 0000 0000 2002 0000 0000 0000")
     unused = b'\x00' * (16 * 4 + 4) + b'\xff' * 12 + b'\x00' * 16 * 3
     expected.append(bytes.fromhex(" ".join(root))
-               + bytes.fromhex(" ".join(store))
-               + bytes.fromhex(" ".join(file))
-               + unused)
+                    + bytes.fromhex(" ".join(store))
+                    + bytes.fromhex(" ".join(file))
+                    + unused)
     mini = ("0100 0000 0200 0000 0300 0000 0400 0000",
             "0500 0000 0600 0000 0700 0000 0800 0000",
             "FEFF FFFF")
     expected.append(bytes.fromhex(" ".join(mini))
-               + b'\xFF' * (16 * 29 + 12))
+                    + b'\xFF' * (16 * 29 + 12))
     string = "4461 7461 2066 6F72 2073 7472 6561 6D20 31"
     expected.append(bytes.fromhex(string) * 30
-               + b'\x44\x61')
+                    + b'\x44\x61')
     string = ("7461 2066 6F72 2073 7472 6561 6D20 31"
               + "4461 7461 2066 6F72 2073 7472 6561 6D20 31")
     expected.append(bytes.fromhex(string)
-               + b'\x00' * 480)
+                    + b'\x00' * 480)
 
     for sector_bytes in expected:
         assert f.read(512) == sector_bytes

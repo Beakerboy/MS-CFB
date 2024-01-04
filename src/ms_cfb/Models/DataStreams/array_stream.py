@@ -8,7 +8,10 @@ T = TypeVar('T', bound='ArrayStream')
 
 
 class ArrayStream(StreamBase):
-
+    """
+    An array stream is a stream in which renderable data is
+    saved in an array.
+    """
     # Constructor
     def __init__(self: T, child_sector_size: int) -> None:
         super(ArrayStream, self).__init__()

@@ -17,7 +17,7 @@ class StreamBase:
         self._data = b''
 
         # An array of sectors this stream will reside
-        self._sectors: list[int] = []
+        self._sectors: list = []
 
         # bytes to pad data to fill a sector
         self._padding = b'\x00'

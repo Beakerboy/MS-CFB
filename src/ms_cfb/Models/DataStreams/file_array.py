@@ -1,5 +1,6 @@
 import os
 from ms_cfb.Models.DataStreams.array_stream import ArrayStream
+from ms_cfb.Models.DataStreams.file_stream import FileStream
 from typing import TypeVar
 
 
@@ -11,8 +12,7 @@ class FileArray(ArrayStream):
     A FileArray is an array of FileStream objects.
     """
 
-    def _render_element(self: T, index: int) -> bytes:
-        dir = self._data[index]
+    def _render_element(self: T, dir: 'FileStream') -> bytes:
         dir.to_file("temp.bin")
         f = open("temp.bin", "rb")
         data = f.read()

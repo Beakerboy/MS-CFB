@@ -71,7 +71,7 @@ def main_create(args: argparse.Namespace) -> None:
     if "." in new_config:
         dir_config = new_config["."]
         update_attributes(root, dir_config)
-    ole_file.set_root_directory(root)
+    ole_file.root_directory = root
     ole_file.create_file(args.file)
 
 

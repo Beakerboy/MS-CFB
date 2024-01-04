@@ -26,6 +26,7 @@ def test_example_file() -> None:
     The example file as described in MS-CFB
     """
 
+    # Create The File.
     root = RootDirectory()
     guid = uuid.UUID("56616700C15411CE855300AA00A1F95B")
     root.set_clsid(guid)
@@ -47,24 +48,26 @@ def test_example_file() -> None:
     storage.add_directory(stream1)
 
     ole_file = OleFile()
-    ole_file.set_root_directory(root)
+    ole_file.root_directory = root
     ole_file.add_directory_entry(storage)
     ole_file.create_file("Test1.bin")
+
+    # Test The File.
+    # Ensure it is the correct size.
     assert os.stat("Test1.bin").st_size == 512 * 6
 
     f = open("Test1.bin", "rb")
+
+    # Create an array whith each sector as an element.
+    expected = []
     sector1 = ("D0CF 11E0 A1B1 1AE1 0000 0000 0000 0000",
                "0000 0000 0000 0000 3E00 0300 FEFF 0900",
                "0600 0000 0000 0000 0000 0000 0100 0000",
                "0100 0000 0000 0000 0010 0000 0200 0000",
                "0100 0000 FEFF FFFF 0000 0000 0000 0000")
-    expected = bytes.fromhex(" ".join(sector1)) + b'\xff' * 16 * 27
-    assert f.read(512) == expected
-
-    sector2 = (bytes.fromhex("FDFF FFFF FEFF FFFF FEFF FFFF 0400 0000 FE")
-               + b'\xff' * (16 * 31 - 1))
-    assert f.read(512) == sector2
-
+    expected.append(bytes.fromhex(" ".join(sector1)) + b'\xff' * 16 * 27)
+    expected.append(bytes.fromhex("FDFF FFFF FEFF FFFF FEFF FFFF 0400 0000 FE")
+                    + b'\xff' * (16 * 31 - 1))
     root = ("5200 6F00 6F00 7400 2000 4500 6E00 7400",
             "7200 7900 0000 0000 0000 0000 0000 0000",
             "0000 0000 0000 0000 0000 0000 0000 0000",
@@ -92,26 +95,22 @@ def test_example_file() -> None:
             "0000 0000 0000 0000 0000 0000 0000 0000",
             "0000 0000 0000 0000 2002 0000 0000 0000")
     unused = b'\x00' * (16 * 4 + 4) + b'\xff' * 12 + b'\x00' * 16 * 3
-    sector3 = (bytes.fromhex(" ".join(root))
-               + bytes.fromhex(" ".join(store))
-               + bytes.fromhex(" ".join(file))
-               + unused)
-    assert f.read(512) == sector3
-
+    expected.append(bytes.fromhex(" ".join(root))
+                    + bytes.fromhex(" ".join(store))
+                    + bytes.fromhex(" ".join(file))
+                    + unused)
     mini = ("0100 0000 0200 0000 0300 0000 0400 0000",
             "0500 0000 0600 0000 0700 0000 0800 0000",
             "FEFF FFFF")
-    sector4 = (bytes.fromhex(" ".join(mini))
-               + b'\xFF' * (16 * 29 + 12))
-    assert f.read(512) == sector4
-
+    expected.append(bytes.fromhex(" ".join(mini))
+                    + b'\xFF' * (16 * 29 + 12))
     string = "4461 7461 2066 6F72 2073 7472 6561 6D20 31"
-    sector5 = (bytes.fromhex(string) * 30
-               + b'\x44\x61')
-    assert f.read(512) == sector5
-
+    expected.append(bytes.fromhex(string) * 30
+                    + b'\x44\x61')
     string = ("7461 2066 6F72 2073 7472 6561 6D20 31"
               + "4461 7461 2066 6F72 2073 7472 6561 6D20 31")
-    sector6 = (bytes.fromhex(string)
-               + b'\x00' * 480)
-    assert f.read(512) == sector6
+    expected.append(bytes.fromhex(string)
+                    + b'\x00' * 480)
+
+    for sector_bytes in expected:
+        assert f.read(512) == sector_bytes

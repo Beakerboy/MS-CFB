@@ -25,9 +25,6 @@ class StreamBase:
         # the size in bytes of a sector in the storage chain
         self._storage_sector_size = 64
 
-    def set_padding(self: T, padding: bytes) -> None:
-        self._padding = padding
-
     def set_start_sector(self: T, sector: int) -> None:
         """
         Set the location of the first sector of the file
@@ -36,6 +33,9 @@ class StreamBase:
         self._sectors = [sector]
 
     def get_start_sector(self: T) -> int:
+        """
+        Get the sector in which the first block of this stream resides.
+        """
         return self._sectors[0]
 
     def set_storage_sector_size(self: T, size: int) -> None:
@@ -66,6 +66,7 @@ class StreamBase:
 
     def _extend_data(self: T, data: bytes) -> None:
         """
-        Add new data to the bytearray
+        Add new data to the stream.
+        In this basic implementation, the byte array is lengthed.
         """
         self._data += data

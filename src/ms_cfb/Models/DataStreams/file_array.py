@@ -8,6 +8,9 @@ T = TypeVar('T', bound='FileArray')
 
 
 class FileArray(ArrayStream):
+    """
+    A FileArray is an array of FileStream objects.
+    """
 
     def _render_element(self: T, dir: 'FileStream') -> bytes:
         dir.to_file("temp.bin")

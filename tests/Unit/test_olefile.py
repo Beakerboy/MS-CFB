@@ -21,7 +21,7 @@ def test_version_property() -> None:
 
 def test_extract() -> None:
     ole_file = OleFile.create_from_file('tests/vbaProject.bin')
-    sectors = ole_file.get_minifat_chain().get_streams().get_sectors()
+    sectors = ole_file.minifat_chain.get_streams().get_sectors()
     assert sectors == [3, 4, 5, 6, 8, 9, 10, 11, 12, 13, 14, 15, 17]
     dir = ''.join(random.choices(string.ascii_uppercase +
                                  string.digits, k=7))

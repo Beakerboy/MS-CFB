@@ -39,11 +39,11 @@ class OleFile:
         self._minifat_chain = MinifatFilesystem()
 
         # A list of directories
-        self._directory = RootDirectory()
+        self.root_directory = RootDirectory()
 
     # Dunder Methods
     def __str__(self: T) -> str:
-        version = self.get_version_string()
+        version = self.version_string
         output = ('Version ' + version + ' OLE file\n')
         output += ('GUID: ' + str(self.guid) + '\n')
         output += 'File Structure:\n'
@@ -78,11 +78,21 @@ class OleFile:
     def guid(self: T) -> uuid.UUID:
         return self._guid
 
-    def get_version_string(self: T) -> str:
+    @property
+    def version_string(self: T) -> str:
         return str(self._major_version) + '.' + str(self._minor_version)
 
-    def set_root_directory(self: T, dir: RootDirectory) -> None:
+    @property
+    def root_directory(self: T) -> RootDirectory:
+        return self._directory
+
+    @root_directory.setter
+    def root_directory(self: T, dir: RootDirectory) -> None:
         self._directory = dir
+
+    @property
+    def minifat_chain(self: T) -> MinifatFilesystem:
+        return self._minifat_chain
 
     def add_directory_entry(self: T, object: 'Directory') -> None:
         """
@@ -90,9 +100,6 @@ class OleFile:
         """
         # verify type of object
         self._directory.add_directory(object)
-
-    def get_minifat_chain(self: T) -> MinifatFilesystem:
-        return self._minifat_chain
 
     # Methods
     def header(self: T) -> bytes:
@@ -432,7 +439,7 @@ class OleFile:
             if directory.sub_index != 0xFFFFFFFF:
                 child = flat_directories[directory.sub_index]
                 directory.directories.root = child
-        obj.set_root_directory(flat_directories[0])
+        obj.root_directory = flat_directories[0]
 
         # extract minifat chain
         return obj

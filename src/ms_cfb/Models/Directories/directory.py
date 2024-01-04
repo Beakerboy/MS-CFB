@@ -16,10 +16,10 @@ class Directory(Node):
         Node.__init__(self)
 
         # The directory to the left on the tree.
-        #self.left = Directory()
+        self.left: Directory
 
         # The directory to the right on the tree.
-        #self.right = Directory()
+        self.right: Directory
 
         # The object's name.
         self.name = ""

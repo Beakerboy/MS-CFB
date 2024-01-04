@@ -15,7 +15,7 @@ class ArrayStream(StreamBase):
     # Constructor
     def __init__(self: T, child_sector_size: int) -> None:
         super(ArrayStream, self).__init__()
-        self._data: list[Any] = []
+        self._data: list = []
         self._child_sector_size = child_sector_size
 
     # Dunder Methods

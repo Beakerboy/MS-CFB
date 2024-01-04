@@ -38,7 +38,7 @@ class FilesystemBase:
         """
         Express the sector chain as a list of ints
         """
-        chain = []
+        chain: list = []
         for stream in self._streams:
             sectors = stream.get_sectors()
             max = sectors[-1]

@@ -1,11 +1,11 @@
 from ms_cfb.Models.DataStreams.stream_base import StreamBase
-from typing import Any, Sequence, TypeVar, overload
+from typing import Any, MutableSequence, TypeVar, overload
 
 
 T = TypeVar('T', bound='ArrayStream')
 
 
-class ArrayStream(StreamBase, Sequence[T]):
+class ArrayStream(StreamBase, MutableSequence[T]):
     """
     An array stream is a stream in which renderable data is
     saved in an array.
@@ -24,7 +24,7 @@ class ArrayStream(StreamBase, Sequence[T]):
     def __getitem__(self: T, idx: int) -> T: ...
 
     @overload
-    def __getitem__(self: T, s: slice) -> Sequence[T]: ...
+    def __getitem__(self: T, s: slice) -> MutableSequence[T]: ...
 
     def __getitem__(self: T, item):
         if isinstance(item, slice):

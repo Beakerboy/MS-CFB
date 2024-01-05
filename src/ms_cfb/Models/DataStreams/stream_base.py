@@ -51,7 +51,7 @@ class StreamBase:
     def get_sectors(self: T) -> list:
         return self._sectors
 
-    def append(self: T, data: bytes) -> None:
+    def append(self: T, data: Any) -> None:
         """
         Extend the data in this stream.
         Request additional chain storage if needed

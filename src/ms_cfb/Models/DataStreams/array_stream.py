@@ -35,6 +35,17 @@ class ArrayStream(StreamBase, MutableSequence[T]):
     def __len__(self: T) -> int:
         return len(self._data)
 
+    def __delitem__(self: T):
+        pass
+        
+    def __setitem__(self: T):
+        pass
+        
+    def insert(self: T) -> None:
+        pass
+        
+        
+
     # Public Methods
     def to_file(self: T, path: str) -> None:
         f = open(path, "wb")

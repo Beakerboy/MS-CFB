@@ -35,10 +35,10 @@ class ArrayStream(StreamBase, MutableSequence[T]):
     def __len__(self: T) -> int:
         return len(self._data)
 
-    def __delitem__(self: T) -> None:
+    def __delitem__(self: T, key: Any) -> None:
         pass
 
-    def __setitem__(self: T) -> None:
+    def __setitem__(self: T, key: Any, value: Any) -> None:
         pass
 
     def insert(self: T) -> None:

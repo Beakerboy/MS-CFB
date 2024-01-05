@@ -21,12 +21,12 @@ class ArrayStream(StreamBase, Sequence[T]):
     # Dunder Methods
 
     @overload
-    def __getitem__(self, idx: int) -> T: ...
+    def __getitem__(self: T, idx: int) -> T: ...
 
     @overload
-    def __getitem__(self, s: slice) -> Sequence[T]: ...
+    def __getitem__(self: T, s: slice) -> Sequence[T]: ...
 
-    def __getitem__(self, item):
+    def __getitem__(self: T, item):
         if isinstance(item, slice):
             raise Exception("Subclass disallows slicing")
 

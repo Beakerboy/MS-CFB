@@ -1,11 +1,11 @@
 from ms_cfb.Models.DataStreams.stream_base import StreamBase
-from typing import Any, Iterator, TypeVar
+from typing import Any, Sequence, TypeVar
 
 
 T = TypeVar('T', bound='ArrayStream')
 
 
-class ArrayStream(StreamBase):
+class ArrayStream(StreamBase, Sequence[T]):
     """
     An array stream is a stream in which renderable data is
     saved in an array.
@@ -19,8 +19,18 @@ class ArrayStream(StreamBase):
         self._child_sector_size = child_sector_size
 
     # Dunder Methods
-    def __iter__(self: T) -> Iterator:
-        return iter(self._data)
+
+    @overload
+    def __getitem__(self, idx: int) -> T: ...
+
+    @overload
+    def __getitem__(self, s: slice) -> Sequence[T]: ...
+
+    def __getitem__(self, item):
+        if isinstance(item, slice):
+            raise Exception("Subclass disallows slicing")
+
+        return self._data[item]
 
     def __len__(self: T) -> int:
         return len(self._data)

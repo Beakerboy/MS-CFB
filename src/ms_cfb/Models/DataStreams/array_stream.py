@@ -41,7 +41,7 @@ class ArrayStream(StreamBase, MutableSequence[T]):
     def __setitem__(self: T, key: Any, value: Any) -> None:
         pass
 
-    def insert(self: T, key: Any, value:Any) -> None:
+    def insert(self: T, key: Any, value: Any) -> None:
         pass
 
     # Public Methods

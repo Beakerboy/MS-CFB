@@ -1,5 +1,5 @@
 from ms_cfb.Models.DataStreams.stream_base import StreamBase
-from typing import Any, Sequence, TypeVar
+from typing import Any, Sequence, TypeVar, overload
 
 
 T = TypeVar('T', bound='ArrayStream')

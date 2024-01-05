@@ -24,7 +24,7 @@ class RootDirectory(StorageDirectory):
 
     def get_color(self: T) -> str:
         return "red" if len(self.directories) > 2 else "black"
-    
+
     def set_created(self: T, created: Filetime) -> None:
         if not created.to_msfiletime() == 0:
             raise Exception("Root Directory must have created date of zero.")

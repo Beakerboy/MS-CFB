@@ -36,13 +36,13 @@ class ArrayStream(StreamBase, MutableSequence[T]):
         return len(self._data)
 
     def __delitem__(self: T, key: Any) -> None:
-        pass
+        del self._data[i]
 
     def __setitem__(self: T, key: Any, value: Any) -> None:
-        pass
+        self._data[key] = value
 
     def insert(self: T, key: Any, value: Any) -> None:
-        pass
+        self._data.insert(key, value)
 
     # Public Methods
     def to_file(self: T, path: str) -> None:

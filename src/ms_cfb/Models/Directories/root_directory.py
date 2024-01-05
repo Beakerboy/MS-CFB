@@ -23,7 +23,7 @@ class RootDirectory(StorageDirectory):
                 "\n\tSize: " + str(self.file_size()))
 
     def get_color(self: T) -> str:
-        return "red" if len(self._directories) > 2 else "black"
+        return "red" if len(self.directories) > 2 else "black"
     
     def set_created(self: T, created: Filetime) -> None:
         if not created.to_msfiletime() == 0:

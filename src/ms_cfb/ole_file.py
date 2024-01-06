@@ -8,7 +8,7 @@ from ms_cfb.Models.Directories.storage_directory import StorageDirectory
 from ms_cfb.Models.Directories.directory_factory import DirectoryFactory
 from ms_cfb.Models.Filesystems.fat_filesystem import FatFilesystem
 from ms_cfb.Models.Filesystems.minifat_filesystem import MinifatFilesystem
-from typing import List, Type, TypeVar
+from typing import Type, TypeVar
 
 
 T = TypeVar('T', bound='OleFile')

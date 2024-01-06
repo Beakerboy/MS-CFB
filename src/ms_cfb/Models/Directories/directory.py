@@ -46,6 +46,10 @@ class Directory(Node):
         # This object's index in the flattened representation of the tree.
         self._flattened_index = 0
 
+        self.prev_index: int
+        self.next_index: int
+        self.sub_index: int
+
     def __str__(self: T) -> str:
         return (self.get_name() +
                 "\n\tCreated: " + str(self._created) +

@@ -14,7 +14,7 @@ T = TypeVar('T', bound='DirectoryFactory')
 class DirectoryFactory:
 
     @classmethod
-    def from_binary(cls: Type[T], data: bytes) -> 'Directory':
+    def from_binary(cls: Type[T], data: bytes) -> Directory:
         format = "<64shbb3I16sIQQIII"
         (name, name_size, type, color,
          previous_directory_id, next_directory_id,
@@ -30,6 +30,7 @@ class DirectoryFactory:
         created = Filetime.from_msfiletime(created)
 
         guid = uuid.UUID(bytes_le=class_id)
+        obj: Directory
         if type == 1:
             obj = StorageDirectory(name)
             if file_size != 0:

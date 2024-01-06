@@ -105,7 +105,8 @@ def update_attributes(dir: 'Directory', conf: dict) -> None:
     if "clsid" in conf:
         dir.set_clsid(uuid.UUID(conf["clsid"]))
     if "flags" in conf:
-        dir.set_flags(conf["flags"])
+        ...
+        # dir.set_flags(conf["flags"])
 
 
 def create_storage(direntry: os.DirEntry,

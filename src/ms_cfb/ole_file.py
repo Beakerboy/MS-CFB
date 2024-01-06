@@ -440,6 +440,7 @@ class OleFile:
                 directory.right = right
                 right.parent = directory
             if directory.sub_index != 0xFFFFFFFF:
+                assert isinstance(directory, StorageDirectory)
                 child = flat_directories[directory.sub_index]
                 directory.directories.root = child
         obj.root_directory = flat_directories[0]

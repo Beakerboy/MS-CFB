@@ -104,7 +104,8 @@ def update_attributes(dir: 'Directory', conf: dict) -> None:
         dir.set_created(datetime)
     if "clsid" in conf:
         dir.set_clsid(uuid.UUID(conf["clsid"]))
-    if "flags" in conf: ...
+    if "flags" in conf:
+        ...
         # dir.set_flags(conf["flags"])
 
 

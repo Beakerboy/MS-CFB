@@ -36,7 +36,7 @@ class ArrayStream(StreamBase, MutableSequence[T]):
         return len(self._data)
 
     def __delitem__(self: T, key: Any) -> None:
-        del self._data[i]
+        del self._data[key]
 
     def __setitem__(self: T, key: Any, value: Any) -> None:
         self._data[key] = value

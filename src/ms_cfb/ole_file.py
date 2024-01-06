@@ -401,7 +401,7 @@ class OleFile:
             sector = fat[sector]
 
         # Assemble directory.
-        flat_directories: List[RootDirectory, Directory, ...] = []
+        flat_directories = []
         j = 0
         while directory_list_sector != 0xFFFFFFFE:
             f.seek((directory_list_sector + 1) * fat_sector_bytes)
@@ -443,7 +443,9 @@ class OleFile:
                 assert isinstance(directory, StorageDirectory)
                 child = flat_directories[directory.sub_index]
                 directory.directories.root = child
-        obj.root_directory = flat_directories[0]
+        dir_0 = flat_directories[0]
+        assert isinstance(dir_0, RootDirectory)
+        obj.root_directory = dir_0
 
         # extract minifat chain
         return obj

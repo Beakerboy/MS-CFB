@@ -8,7 +8,7 @@ from ms_cfb.Models.Directories.storage_directory import StorageDirectory
 from ms_cfb.Models.Directories.directory_factory import DirectoryFactory
 from ms_cfb.Models.Filesystems.fat_filesystem import FatFilesystem
 from ms_cfb.Models.Filesystems.minifat_filesystem import MinifatFilesystem
-from typing import Type, TypeVar
+from typing import List, Type, TypeVar
 
 
 T = TypeVar('T', bound='OleFile')
@@ -401,7 +401,7 @@ class OleFile:
             sector = fat[sector]
 
         # Assemble directory.
-        flat_directories = []
+        flat_directories: List[RootDirectory, Directory, ...] = []
         j = 0
         while directory_list_sector != 0xFFFFFFFE:
             f.seek((directory_list_sector + 1) * fat_sector_bytes)

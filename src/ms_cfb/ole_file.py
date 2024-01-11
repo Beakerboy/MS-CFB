@@ -24,7 +24,7 @@ class OleFile:
         self.version = 3
         self._mini_sector_shift = 6
         self._first_directory_list_sector = 1
-        self._guid = uuid.UUID(int=0x00)
+        self._guid =  uuid.UUID(int=0x00)
         # if there is no data small enough
         # to be on the minifat chain the root directory
         # and this value have to be set to something special.

@@ -22,7 +22,7 @@ class Directory(Node):
         self.right = Node()
 
         # The object's name.
-        self.name: str = ""
+        self.name = ""
 
         # A GUID for this object.
         self._class_id = uuid.UUID(int=0x00)

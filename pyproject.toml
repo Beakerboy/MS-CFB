@@ -1,0 +1,42 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "ms_cfb"
+version = "0.0.1"
+authors = [
+  { name="Kevin Nowaczyk", email="beakerboy99@yahoo.com" },
+]
+description = "Microsoft Compound File Binary File Format."
+readme = "README.md"
+requires-python = ">=3.7"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+]
+dependencies = [
+  'PyYAML',
+  'python-red-black-trees @ git+https://github.com/Beakerboy/python-red-black-trees@dev'
+]
+[project.optional-dependencies]
+tests = [
+  'coveralls',
+  'flake8-annotations',
+  'mypy',
+  'pep8-naming',
+  'pytest',
+  'pytest-cov',
+  'pytest-mock',
+  'types-PyYAML'
+]
+[project.urls]
+"Homepage" = "https://github.com/Beakerboy/MS-CFB"
+"Bug Tracker" = "https://github.com/Beakerboy/MS-CFB/issues"
+
+[tool.pytest.ini_options]
+pythonpath = "src"
+testpaths = [
+    "tests",
+]

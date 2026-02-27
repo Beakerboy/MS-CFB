@@ -1,0 +1,64 @@
+import os
+import pytest
+import shutil
+from ms_cfb.__main__ import main
+
+
+@pytest.fixture(autouse=True)
+def run_around_tests() -> None:
+    # Code that will run before your test
+    os.mkdir("./files")
+    names = ["Test123.bin"]
+    # A test function will be run at this point
+    yield
+    # Code that will run after your test
+    for name in names:
+        if os.path.isfile(name):
+            os.remove(name)
+    shutil.rmtree("./files")
+
+
+def test_min_file(mocker) -> None:
+    """
+    The smallest file has three sectors, one each:
+    header, fat, directory
+    """
+    mocker.patch(
+        "sys.argv",
+        [
+            "ole_file.py",
+            "-c",
+            "-f",
+            "Test123.bin",
+            "./files",
+        ],
+    )
+    main()
+    assert os.stat("Test123.bin").st_size == 512 * 3
+
+    f = open("Test123.bin", "rb")
+    sector1 = ("D0CF 11E0 A1B1 1AE1 0000 0000 0000 0000",
+               "0000 0000 0000 0000 3E00 0300 FEFF 0900",
+               "0600 0000 0000 0000 0000 0000 0100 0000",
+               "0100 0000 0000 0000 0010 0000 FEFF FFFF",
+               "0100 0000 FEFF FFFF 0000 0000 0000 0000")
+    expected = bytes.fromhex(" ".join(sector1)) + b'\xff' * 16 * 27
+    assert f.read(512) == expected
+
+    sector2 = (bytes.fromhex("FDFF FFFF FEFF FFFF FFFF FFFF FFFF FFFF")
+               + b'\xff' * 16 * 31)
+    assert f.read(512) == sector2
+
+    root = ("5200 6F00 6F00 7400 2000 4500 6E00 7400",
+            "7200 7900 0000 0000 0000 0000 0000 0000",
+            "0000 0000 0000 0000 0000 0000 0000 0000",
+            "0000 0000 0000 0000 0000 0000 0000 0000",
+            "1600 0501 FFFF FFFF FFFF FFFF FFFF FFFF",
+            "0000 0000 0000 0000 0000 0000 0000 0000",
+            "0000 0000 0000 0000 0000 0000 0000 0000",
+            "0000 0000 FEFF FFFF 0000 0000 0000 0000")
+
+    unused = b'\x00' * (16 * 4 + 4) + b'\xff' * 12 + b'\x00' * 16 * 3
+
+    sector3 = bytes.fromhex(" ".join(root)) + unused * 3
+    assert f.read(512) == sector3

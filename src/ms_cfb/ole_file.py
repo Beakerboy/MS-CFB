@@ -142,9 +142,10 @@ class OleFile:
 
     def get_dif_start_sector(self: T) -> int:
         """
-        The Fat sector lost in the header can only list the position of 109
-        sectors.If more sectors are needed, the DIF sector lists these sector
+        The Fat sector list in the header can only list the position of 109
+        sectors. If more sectors are needed, the DIF sector lists these sector
         numbers.
+        TODO: Not fully implemented.
         """
         if len(self.get_fat_sectors()) <= 109:
             return 0xfffffffe

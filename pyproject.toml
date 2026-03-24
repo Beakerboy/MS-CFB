@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "ms_cfb"
-version = "0.0.2"
+version = "0.0.3"
 authors = [
   { name="Kevin Nowaczyk", email="beakerboy99@yahoo.com" },
 ]
@@ -18,7 +18,6 @@ classifiers = [
 ]
 dependencies = [
   'PyYAML',
-  'python-red-black-trees @ git+https://github.com/Beakerboy/python-red-black-trees@dev'
 ]
 [project.optional-dependencies]
 tests = [

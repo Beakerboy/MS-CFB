@@ -47,9 +47,9 @@ class DirectoryFactory:
         obj.set_created(created)
         obj.set_start_sector(start_sector)
         if color == 0:
-            obj.set_color("red")
+            obj.color = "red"
         else:
-            obj.set_color("black")
+            obj.color = "black"
         obj.prev_index = previous_directory_id
         obj.next_index = next_directory_id
         obj.sub_index = subdirectory_id

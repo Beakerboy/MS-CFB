@@ -443,7 +443,7 @@ class OleFile:
             if directory.sub_index != 0xFFFFFFFF:
                 assert isinstance(directory, StorageDirectory)
                 child = flat_directories[directory.sub_index]
-                directory.directories.root = child
+                directory.directories.insert(child)
         dir_0 = flat_directories[0]
         assert isinstance(dir_0, RootDirectory)
         obj.root_directory = dir_0

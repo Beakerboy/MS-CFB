@@ -25,7 +25,9 @@ class RootDirectory(StorageDirectory):
     @property
     def color(self: T) -> str:
         color = ""
-        if len(self.directories) > 2 and self.left.is_black() and self.right.is_black():
+        if (len(self.directories) > 2 and
+                self.left.is_black() and
+                self.right.is_black()):
             color = "red"
         else:
             color = "black"

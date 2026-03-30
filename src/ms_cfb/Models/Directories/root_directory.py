@@ -32,8 +32,8 @@ class RootDirectory(StorageDirectory):
         return color
 
     @color.setter
-    def color(self: T, color: Literal['red', 'black']) -> None:
-        super(RootDirectory, self).color(color)
+    def color(self: T, new_color: Literal['red', 'black']) -> None:
+        super(RootDirectory, self).color(new_color)
 
     def set_created(self: T, created: Filetime) -> None:
         if not created.to_msfiletime() == 0:

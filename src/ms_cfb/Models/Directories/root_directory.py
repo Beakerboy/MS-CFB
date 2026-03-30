@@ -24,12 +24,12 @@ class RootDirectory(StorageDirectory):
 
     @property
     def color(self: T) -> Literal['red', 'black']:
-        col: Literal["red", "black"] = "black"
+        color: Literal["red", "black"] = "black"
         if (len(self.directories) > 2 and
                 self.left.is_black() and
                 self.right.is_black()):
-            col = "red"
-        return col
+            color = "red"
+        return color
 
     @property color.setter
     def color(self: T, color: Literal['red', 'black']) -> None:

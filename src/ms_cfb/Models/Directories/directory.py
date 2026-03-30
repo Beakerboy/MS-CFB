@@ -1,7 +1,7 @@
 import struct
 import uuid
 from ms_dtyp.filetime import Filetime
-from rbtree.node import Node
+from rbtree.node_base import NodeBase
 from typing import TypeVar
 
 

@@ -22,6 +22,7 @@ class RootDirectory(StorageDirectory):
                 "\n\tStart Sector: " + str(self.get_start_sector()) +
                 "\n\tSize: " + str(self.file_size()))
 
+    @property
     def color(self: T) -> str:
         color = ""
         if len(self.directories) > 2 and self.left.is_black() and self.right.is_black():

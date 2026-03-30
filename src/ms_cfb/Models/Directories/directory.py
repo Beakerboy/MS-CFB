@@ -13,7 +13,7 @@ class Directory(NodeBase):
 
     def __init__(self: T) -> None:
         # This object is a node in a red-black tree.
-        NodeBase.__init__(self)
+        super().__init__()
 
         # The object's name.
         self.name = ""

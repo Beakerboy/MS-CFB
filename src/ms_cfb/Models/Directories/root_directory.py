@@ -1,6 +1,6 @@
 from ms_cfb.Models.Directories.storage_directory import StorageDirectory
 from ms_dtyp.filetime import Filetime
-from typing import TypeVar
+from typing import Literal, TypeVar
 
 
 T = TypeVar('T', bound='RootDirectory')
@@ -23,7 +23,7 @@ class RootDirectory(StorageDirectory):
                 "\n\tSize: " + str(self.file_size()))
 
     @property
-    def color(self: T) -> str:
+    def color(self: T) -> Literal['red', 'black']:
         color = ""
         if (len(self.directories) > 2 and
                 self.left.is_black() and

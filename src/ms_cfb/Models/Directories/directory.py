@@ -8,18 +8,12 @@ from typing import TypeVar
 T = TypeVar('T', bound='Directory')
 
 
-class Directory(Node):
+class Directory(NodeBase):
     """An OLE directory object"""
 
     def __init__(self: T) -> None:
         # This object is a node in a red-black tree.
-        Node.__init__(self)
-
-        # The directory to the left on the tree.
-        self.left = Node()
-
-        # The directory to the right on the tree.
-        self.right = Node()
+        NodeBase.__init__(self)
 
         # The object's name.
         self.name = ""

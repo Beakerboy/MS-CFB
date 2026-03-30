@@ -1,5 +1,5 @@
 from ms_cfb.Models.Directories.directory import Directory
-from rbtree import RedBlackTree
+from rbtree.rbtree import RedBlackTree
 from typing import TypeVar
 
 

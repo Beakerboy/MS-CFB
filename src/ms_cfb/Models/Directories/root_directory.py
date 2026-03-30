@@ -1,6 +1,5 @@
 from ms_cfb.Models.Directories.storage_directory import StorageDirectory
 from ms_dtyp.filetime import Filetime
-from rbtree.node import Node
 from typing import Literal, TypeVar
 
 
@@ -34,7 +33,7 @@ class RootDirectory(StorageDirectory):
 
     @color.setter
     def color(self: T, color: Literal['red', 'black']) -> None:
-        super(Node, self).color(color)
+        super(RootDirectory, self).color(color)
         
     def set_created(self: T, created: Filetime) -> None:
         if not created.to_msfiletime() == 0:

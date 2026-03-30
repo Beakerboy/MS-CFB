@@ -31,7 +31,7 @@ class RootDirectory(StorageDirectory):
             color = "red"
         return color
 
-    @property color.setter
+    @color.setter
     def color(self: T, color: Literal['red', 'black']) -> None:
         super(Node, self).color(color)
         

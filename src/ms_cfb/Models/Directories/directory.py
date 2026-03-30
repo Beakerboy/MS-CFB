@@ -1,14 +1,14 @@
 import struct
 import uuid
 from ms_dtyp.filetime import Filetime
-from rbtree.node_base import NodeBase
+from rbtree.node import Node
 from typing import TypeVar
 
 
 T = TypeVar('T', bound='Directory')
 
 
-class Directory(NodeBase):
+class Directory(Node):
     """An OLE directory object"""
 
     def __init__(self: T) -> None:

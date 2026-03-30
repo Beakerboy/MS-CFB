@@ -1,6 +1,6 @@
 from ms_cfb.Models.Directories.storage_directory import StorageDirectory
 from ms_dtyp.filetime import Filetime
-from typing import TypeVar
+from typing import Literal, TypeVar
 
 
 T = TypeVar('T', bound='RootDirectory')
@@ -22,8 +22,20 @@ class RootDirectory(StorageDirectory):
                 "\n\tStart Sector: " + str(self.get_start_sector()) +
                 "\n\tSize: " + str(self.file_size()))
 
-    def get_color(self: T) -> str:
-        return "red" if len(self.directories) > 2 else "black"
+    @property
+    def color(self: T) -> Literal['red', 'black']:
+        color: Literal["red", "black"] = "black"
+        if (len(self.directories) > 2 and
+                self.left.is_black() and
+                self.right.is_black()):
+            color = "red"
+        return color
+
+    @color.setter
+    def color(self: T, value: Literal['red', 'black']) -> None:
+        if value not in ("red", "black"):
+            raise ValueError("Color must be 'red' or 'black'")
+        self._red = (value == "red")
 
     def set_created(self: T, created: Filetime) -> None:
         if not created.to_msfiletime() == 0:

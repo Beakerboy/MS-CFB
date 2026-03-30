@@ -18,6 +18,7 @@ classifiers = [
 ]
 dependencies = [
   'PyYAML',
+  'python-red-black-trees'
 ]
 [project.optional-dependencies]
 tests = [

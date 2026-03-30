@@ -31,6 +31,10 @@ class RootDirectory(StorageDirectory):
             col = "red"
         return col
 
+    @property color.setter
+    def color(self: T, color: Literal['red', 'black']) -> None:
+        super(Node, self).color(color)
+        
     def set_created(self: T, created: Filetime) -> None:
         if not created.to_msfiletime() == 0:
             raise Exception("Root Directory must have created date of zero.")

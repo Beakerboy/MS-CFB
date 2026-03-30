@@ -24,12 +24,12 @@ class RootDirectory(StorageDirectory):
 
     @property
     def color(self: T) -> Literal['red', 'black']:
-        color = "black"
+        col = "black"
         if (len(self.directories) > 2 and
                 self.left.is_black() and
                 self.right.is_black()):
-            color = "red"
-        return color
+            col = "red"
+        return col
 
     def set_created(self: T, created: Filetime) -> None:
         if not created.to_msfiletime() == 0:

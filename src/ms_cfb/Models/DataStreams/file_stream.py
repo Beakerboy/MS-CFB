@@ -24,8 +24,8 @@ class FileStream(StreamBase):
         From StreamBase
         Add new data to the file
         """
-        f = open(self._data, "ab")
-        f.write(data)
+        with open(self._data, "ab") as f:
+            f.write(data)
 
     def to_file(self: T, path: str) -> None:
         shutil.copy(self._data, path)
@@ -35,5 +35,5 @@ class FileStream(StreamBase):
         else:
             mod = length % self._storage_sector_size
         fill = (self._storage_sector_size - mod) // len(self._padding)
-        c = open(path, "ab")
-        c.write(self._padding * fill)
+        with open(path, "ab") as c:
+            c.write(self._padding * fill)

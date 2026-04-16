@@ -1,7 +1,7 @@
 import os
-import string
+import tempfile
+import time
 from ms_cfb.Models.DataStreams.stream_base import StreamBase
-from random import choice
 from typing import MutableSequence, TypeVar
 
 
@@ -92,29 +92,43 @@ class FilesystemBase:
         write the chain list to a file.
         """
         chain = self.get_chain()
-        f = open(path, "wb")
-        # Each address is 4 bytes
-        for address in chain:
-            f.write(address.to_bytes(4, "little"))
+        with open(path, "wb") as f:
+            # Each address is 4 bytes
+            for address in chain:
+                f.write(address.to_bytes(4, "little"))
 
     def write_streams(self: T, path: str) -> None:
         num_sectors = len(self)
-        f = open(path, "wb")
-        f.write(b'\x02' * num_sectors * self._sector_size)
-        i = 0
-        for stream in self._streams:
-            sector_list = stream.get_sectors()
-            rand = ''.join([choice(string.ascii_letters) for i in range(5)])
-            filename = "stream" + str(i) + rand + ".bin"
-            stream.to_file(filename)
-            s = open(filename, "rb")
-            for sector in sector_list:
-                sector_data = s.read(self._sector_size)
-                f.seek(sector * self._sector_size)
-                f.write(sector_data)
-            s.close()
-            os.remove(filename)
-            i += 1
+        with open(path, "wb") as f:
+            f.write(b'\x02' * num_sectors * self._sector_size)
+
+            for i, stream in enumerate(self._streams):
+                sector_list = stream.get_sectors()
+                with tempfile.NamedTemporaryFile(
+                    prefix=f"stream{i}_",
+                    suffix=".bin",
+                    delete=False
+                ) as tmp:
+                    filename = tmp.name
+
+                try:
+                    stream.to_file(filename)
+
+                    with open(filename, "rb") as s:
+                        for sector in sector_list:
+                            sector_data = s.read(self._sector_size)
+                            f.seek(sector * self._sector_size)
+                            f.write(sector_data)
+                finally:
+                    # On Windows, AV/indexing can briefly keep a temp file locked.
+                    for attempt in range(5):
+                        try:
+                            os.remove(filename)
+                            break
+                        except PermissionError:
+                            if attempt == 4:
+                                raise
+                            time.sleep(0.05)
 
     # Private Methods
 

@@ -13,3 +13,17 @@ def test_to_msfiletime() -> None:
     ts = obj.timestamp()
     obj2 = Filetime.fromtimestamp(ts)
     assert obj2.to_msfiletime() == 0x01BAB44B13921E80
+
+
+def test_from_msfiletime_zero() -> None:
+    date = Filetime.from_msfiletime(0)
+    assert (date.year, date.month, date.day) == (1601, 1, 1)
+    assert (date.hour, date.minute, date.second, date.microsecond) == (0, 0, 0, 0)
+
+
+def test_from_msfiletime_pre_epoch() -> None:
+    unix_epoch_filetime = Filetime.fromisoformat("1970-01-01 00:00:00").to_msfiletime()
+    one_second_before_epoch = unix_epoch_filetime - 10_000_000
+    date = Filetime.from_msfiletime(one_second_before_epoch)
+    assert (date.year, date.month, date.day) == (1969, 12, 31)
+    assert (date.hour, date.minute, date.second) == (23, 59, 59)

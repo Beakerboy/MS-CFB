@@ -10,13 +10,17 @@ class Filetime(datetime):
     @classmethod
     def from_msfiletime(cls: Type[T], filetime: int) -> 'Filetime':
         null_date = datetime(1601, 1, 1, 0, 0, 0)
-        date_time = null_date + timedelta(microseconds=filetime//10)
+        date_time = null_date + timedelta(microseconds=filetime // 10)
         # Avoid timestamp() which fails on Windows for pre-1970 dates
-        return cls(date_time.year, date_time.month, date_time.day,
-               date_time.hour, date_time.minute, date_time.second,
-               date_time.microsecond)
-        #timestamp = date_time.timestamp()
-        #return Filetime.fromtimestamp(timestamp)
+        return cls(
+            date_time.year,
+            date_time.month,
+            date_time.day,
+            date_time.hour,
+            date_time.minute,
+            date_time.second,
+            date_time.microsecond,
+        )
 
     def to_msfiletime(self: T) -> int:
         """

@@ -46,17 +46,16 @@ class ArrayStream(StreamBase, MutableSequence[T]):
 
     # Public Methods
     def to_file(self: T, path: str) -> None:
-        f = open(path, "wb")
-        for element in self._data:
-            f.write(self._render_element(element))
-        length = f.tell()
-        if length % self._storage_sector_size == 0:
-            mod = self._storage_sector_size
-        else:
-            mod = length % self._storage_sector_size
-        fill = (self._storage_sector_size - mod) // len(self._padding)
-        f.write(self._padding * fill)
-        f.close()
+        with open(path, "wb") as f:
+            for element in self._data:
+                f.write(self._render_element(element))
+            length = f.tell()
+            if length % self._storage_sector_size == 0:
+                mod = self._storage_sector_size
+            else:
+                mod = length % self._storage_sector_size
+            fill = (self._storage_sector_size - mod) // len(self._padding)
+            f.write(self._padding * fill)
 
     def stream_size(self: T) -> int:
         sum = 0
